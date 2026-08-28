@@ -8,7 +8,7 @@ class Openssl < Formula
 
 
   bottle do
-    root_url "http://10.0.50.17:8090/bottles"
+    root_url "https://github.com/shihuan1999/riscv-bin/releases/download/bottles-v1.0"
     sha256 cellar: :any_skip_relocation, riscv64_ohos: "47d28620a667126f35dc097fb732859540f70eca92af73d65e413bc501ffb66a"
   end
 

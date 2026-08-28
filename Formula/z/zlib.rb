@@ -8,7 +8,7 @@ class Zlib < Formula
 
 
   bottle do
-    root_url "http://10.0.50.17:8090/bottles"
+    root_url "https://github.com/shihuan1999/riscv-bin/releases/download/bottles-v1.0"
     sha256 cellar: :any_skip_relocation, riscv64_ohos: "3aa090f7a37b1fd956ce905c61f7d36c2ffc8e5aa63c09dc23d60ae39f3b634e"
   end
 

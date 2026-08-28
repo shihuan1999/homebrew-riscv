@@ -10,7 +10,7 @@ class Curl < Formula
   depends_on "zlib"
 
   bottle do
-    root_url "http://10.0.50.17:8090/bottles"
+    root_url "https://github.com/shihuan1999/riscv-bin/releases/download/bottles-v1.0"
     sha256 cellar: :any_skip_relocation, riscv64_ohos: "af3f87aab74ce8049bf3fcdad12b86d15594883622ed8ee362d1e3c165cc9814"
   end
 

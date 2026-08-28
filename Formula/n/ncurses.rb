@@ -8,7 +8,7 @@ class Ncurses < Formula
 
 
   bottle do
-    root_url "http://10.0.50.17:8090/bottles"
+    root_url "https://github.com/shihuan1999/riscv-bin/releases/download/bottles-v1.0"
     sha256 cellar: :any_skip_relocation, riscv64_ohos: "049224247c4a00001c6e66567a15da4a19c3f4340bbaec1aa95165adbf0d2722"
   end
 
