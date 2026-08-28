@@ -8,7 +8,7 @@ class Patch < Formula
 
 
   bottle do
-    root_url "http://10.0.50.17:8090/bottles"
+    root_url "https://github.com/shihuan1999/riscv-bin/releases/download/bottles-v1.0"
     sha256 cellar: :any_skip_relocation, riscv64_ohos: "5d23fa9460ef68d9cfad1c8f6e0682c8be73e4348ba2688c372e2c6de3f78086"
   end
 

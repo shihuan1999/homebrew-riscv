@@ -8,7 +8,7 @@ class Gzip < Formula
 
 
   bottle do
-    root_url "http://10.0.50.17:8090/bottles"
+    root_url "https://github.com/shihuan1999/riscv-bin/releases/download/bottles-v1.0"
     sha256 cellar: :any_skip_relocation, riscv64_ohos: "4192f52b0e613df09e5db12a9b4bd8cb4ccd71f228e04fec3a2761a5035d6e96"
   end
 

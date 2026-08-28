@@ -10,7 +10,7 @@ class Openssh < Formula
   depends_on "zlib"
 
   bottle do
-    root_url "http://10.0.50.17:8090/bottles"
+    root_url "https://github.com/shihuan1999/riscv-bin/releases/download/bottles-v1.0"
     sha256 cellar: :any_skip_relocation, riscv64_ohos: "89b567b63326e57d9e919d3e1a331ee6bd26b0b883e3c186e8a3ec7a62cd390f"
   end
 

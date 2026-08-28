@@ -8,7 +8,7 @@ class Nano < Formula
 
 
   bottle do
-    root_url "http://10.0.50.17:8090/bottles"
+    root_url "https://github.com/shihuan1999/riscv-bin/releases/download/bottles-v1.0"
     sha256 cellar: :any_skip_relocation, riscv64_ohos: "3d49105e2ad4706a71e2c21cd4c5b0792ce92146b3322f72d6d4c492de6473ee"
   end
 

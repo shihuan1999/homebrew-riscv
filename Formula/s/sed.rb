@@ -8,7 +8,7 @@ class Sed < Formula
 
 
   bottle do
-    root_url "http://10.0.50.17:8090/bottles"
+    root_url "https://github.com/shihuan1999/riscv-bin/releases/download/bottles-v1.0"
     sha256 cellar: :any_skip_relocation, riscv64_ohos: "4326961691fb75e837f7f8c8ad4926f733c3aefeb45c79cc44aba4cdeec5854d"
   end
 

@@ -9,7 +9,7 @@ class Bash < Formula
   depends_on "ncurses"
 
   bottle do
-    root_url "http://10.0.50.17:8090/bottles"
+    root_url "https://github.com/shihuan1999/riscv-bin/releases/download/bottles-v1.0"
     sha256 cellar: :any_skip_relocation, riscv64_ohos: "7a7b9469700d161008d8aa3ecae4a745a9f958d2e384c92d5f80801a9de8e98e"
   end
 

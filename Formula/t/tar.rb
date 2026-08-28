@@ -8,7 +8,7 @@ class Tar < Formula
 
 
   bottle do
-    root_url "http://10.0.50.17:8090/bottles"
+    root_url "https://github.com/shihuan1999/riscv-bin/releases/download/bottles-v1.0"
     sha256 cellar: :any_skip_relocation, riscv64_ohos: "e408763c475928f5255f5aaaa84e5785a7f4b8401ffb5158906fa992237639bf"
   end
 

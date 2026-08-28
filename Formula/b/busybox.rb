@@ -8,7 +8,7 @@ class Busybox < Formula
 
 
   bottle do
-    root_url "http://10.0.50.17:8090/bottles"
+    root_url "https://github.com/shihuan1999/riscv-bin/releases/download/bottles-v1.0"
     sha256 cellar: :any_skip_relocation, riscv64_ohos: "f2dc7be248825f91d849330a975fcaca4b1c82f69673411cb1b94606448a7940"
   end
 

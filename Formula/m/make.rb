@@ -8,7 +8,7 @@ class Make < Formula
 
 
   bottle do
-    root_url "http://10.0.50.17:8090/bottles"
+    root_url "https://github.com/shihuan1999/riscv-bin/releases/download/bottles-v1.0"
     sha256 cellar: :any_skip_relocation, riscv64_ohos: "69246b6f05c48c725210f2b178f5540084e05415eeec516f237ad28ad37228a1"
   end
 

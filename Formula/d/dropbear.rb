@@ -7,7 +7,7 @@ class Dropbear < Formula
   version "2026.94"
 
   bottle do
-    root_url "http://10.0.50.17:8090/bottles"
+    root_url "https://github.com/shihuan1999/riscv-bin/releases/download/bottles-v1.0"
     sha256 cellar: :any_skip_relocation, riscv64_ohos: "dc00fd2cdb0da50dcabf91fa08eccd599f195fdcffa90a4fdb5967eb646e5492"
   end
 

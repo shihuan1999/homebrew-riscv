@@ -8,7 +8,7 @@ class Gawk < Formula
 
 
   bottle do
-    root_url "http://10.0.50.17:8090/bottles"
+    root_url "https://github.com/shihuan1999/riscv-bin/releases/download/bottles-v1.0"
     sha256 cellar: :any_skip_relocation, riscv64_ohos: "bd18e2d70a982253e3ac68c0c422da9b26d4c569e887814d4890da4e090602ca"
   end
 

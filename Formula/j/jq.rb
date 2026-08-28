@@ -8,7 +8,7 @@ class Jq < Formula
 
 
   bottle do
-    root_url "http://10.0.50.17:8090/bottles"
+    root_url "https://github.com/shihuan1999/riscv-bin/releases/download/bottles-v1.0"
     sha256 cellar: :any_skip_relocation, riscv64_ohos: "67c766b350cd1c584a231fb27c1dd9e57d8d460d8391861ed1fb606a5555cc3a"
   end
 

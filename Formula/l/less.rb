@@ -8,7 +8,7 @@ class Less < Formula
 
 
   bottle do
-    root_url "http://10.0.50.17:8090/bottles"
+    root_url "https://github.com/shihuan1999/riscv-bin/releases/download/bottles-v1.0"
     sha256 cellar: :any_skip_relocation, riscv64_ohos: "b067b400b8abdbee43954e1b277e1fc2801ab88e317d43532c3bc66f97c5d3ac"
   end
 
