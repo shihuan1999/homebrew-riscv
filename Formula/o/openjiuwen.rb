@@ -12,7 +12,7 @@ class Openjiuwen < Formula
 
   bottle do
     root_url "https://github.com/shihuan1999/riscv-bin/releases/download/openjiuwen-v1.0"
-    sha256 cellar: :any_skip_relocation, riscv64_ohos: "4d78f3ec316b8283a548e9d9c914537aa172538fc9a55614374f19daed45bbcf"
+    sha256 cellar: :any_skip_relocation, riscv64_ohos: "55e5c18e854bfea7e5a49f989b52d51ee7189c54fa51c1842c417f5b97664e8f"
   end
 
   depends_on "hbrew/riscv/python"
