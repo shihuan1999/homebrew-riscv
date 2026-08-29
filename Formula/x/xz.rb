@@ -7,7 +7,7 @@ class Xz < Formula
 
   bottle do
     root_url "https://github.com/shihuan1999/riscv-bin/releases/download/bottles-v1.0"
-    sha256 cellar: :any_skip_relocation, riscv64_ohos: "9602915e9a99963097cbf3aeac9caccc2fd326fe749c0ed8998f44112a464450"
+    sha256 cellar: :any_skip_relocation, riscv64_ohos: "267b7a5b6135eb0749fc20afcbb91d0ac7eb8b39f7840de44feb4e2daf6562b2"
   end
 
   def install
