@@ -15,7 +15,7 @@ class VscodeServer < Formula
 
   bottle do
     root_url "https://github.com/shihuan1999/riscv-bin/releases/download/vscode-v1.109.5-ohos"
-    sha256 cellar: :any_skip_relocation, riscv64_ohos: "e15908f2de9117351c3a3bc9dc33f11ab3b59016bb7bc49c0dd544866bfb7ba6"
+    sha256 cellar: :any_skip_relocation, riscv64_ohos: "f748fbe45b59b96a6f4f9f4caf3dacd345a729efe10d2610dc8bcf14cc2db2ad"
   end
 
   def install
