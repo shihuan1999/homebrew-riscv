@@ -6,7 +6,7 @@
 class CodeHapdev < Formula
   desc "ohos-dev VS Code extension (hap-dev) + installer (OHOS riscv64)"
   homepage "https://github.com/shihuan1999/vscode-ohos-port"
-  url "https://github.com/shihuan1999/vscode-ohos-port/raw/main/ohos-dev-0.1.0.vsix"
+  url "https://github.com/shihuan1999/riscv-bin/releases/download/vscode-v1.109.5-ohos/ohos-dev-0.1.0.vsix"
   sha256 "0acd796210d3b7d1d5589dd42e0de5e51478d7d8140b67d72e246ffa1cc2a196"
   version "0.1.0"
   license "MIT"
