@@ -48,3 +48,17 @@ Migration notes, pitfalls and the full story live in each formula header.
 `python` (3.11.4, prebuilt), `portable-ruby`, `portable-git`, `xz`, `pigz`,
 plus the classic unix tools (`bash`, `coreutils`, `curl`, `vim`, `zsh`,
 `dropbear`, …). See `Formula/`.
+
+## 2026-09-02 组件化发布（v2）
+
+- **规范**：所有移植仓统一为「fork 保留原始代码 + `riscv64-ohos` 分支放补丁/说明」，
+  总索引见 [OHOS-PORTS.md](OHOS-PORTS.md)。
+- **新增独立组件包**（bottle 在 riscv-bin 对应 Release）：
+  - `node` 22.16.0（SV39 掩码修复 + wasm trap-handler 补丁；dsh/vscode/dsh-plugin 的运行时）
+  - `dsh` 0.1.0rc7（DeepSeek Harness，`dsh plugin`→pnpm 插件链）
+  - `vscode-server` 1.109.5 + `code-hapdev` + `code-deveco`（hap-dev 与 deveco code 扩展安装器）
+  - openJiuwen 独立组件：`openjiuwen-agent-memory` / `openjiuwen-deepsearch` /
+    `openjiuwen-careersim` / `openjiuwen-agent-runtime` / `openjiuwen-agent-protocol` /
+    `openjiuwen-agent-tools` / `openjiuwen-skillhub` / `openjiuwen-agent-dx`
+    （聚合包 openjiuwen / openjiuwen-swarm / openjiuwen-symbiosis / openjiuwen-apps / openjiuwen-suite 保持不变）
+- 应用侧 API 调用指南：[openjiuwen-ohos-port/docs/API.md](https://github.com/shihuan1999/openjiuwen-ohos-port/blob/main/docs/API.md)
