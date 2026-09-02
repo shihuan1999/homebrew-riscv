@@ -13,7 +13,7 @@ class OpenjiuwenCareersim < Formula
 
   bottle do
     root_url "https://github.com/shihuan1999/riscv-bin/releases/download/openjiuwen-v2.0"
-    sha256 cellar: :any_skip_relocation, riscv64_ohos: "f502c2a090a2722d26ef4227a4306a12f663b15370c14fe2478afdcacb3c6fdb"
+    sha256 cellar: :any_skip_relocation, riscv64_ohos: "f91dfd88ec26edfc6346841e20f9025ec8aa0bf4bdfada38c282b00321d0169f"
   end
 
   depends_on "hbrew/riscv/openjiuwen"

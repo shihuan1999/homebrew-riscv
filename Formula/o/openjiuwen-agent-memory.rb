@@ -13,7 +13,7 @@ class OpenjiuwenAgentMemory < Formula
 
   bottle do
     root_url "https://github.com/shihuan1999/riscv-bin/releases/download/openjiuwen-v2.0"
-    sha256 cellar: :any_skip_relocation, riscv64_ohos: "42079778da072298c86df9840c5e21ff4e077a6d635f799ebb02817b765aaadb"
+    sha256 cellar: :any_skip_relocation, riscv64_ohos: "54f1113a40ae094e9b1d37332693c325f7dbf30d9e524891176b4917cdce0368"
   end
 
   depends_on "hbrew/riscv/openjiuwen"
