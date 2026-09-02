@@ -11,6 +11,11 @@ class CodeHapdev < Formula
   version "0.1.0"
   license "MIT"
 
+  bottle do
+    root_url "https://github.com/shihuan1999/riscv-bin/releases/download/vscode-v1.109.5-ohos"
+    sha256 cellar: :any_skip_relocation, riscv64_ohos: "1be079a2590908b293ffb50619dbc1ed4e5b64f98622f6ebc2ec94b5c018bf4b"
+  end
+
   depends_on "hbrew/riscv/vscode-server"
 
   def install

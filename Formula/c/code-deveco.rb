@@ -10,6 +10,11 @@ class CodeDeveco < Formula
   version "1.17.9"
   license "MIT"
 
+  bottle do
+    root_url "https://github.com/shihuan1999/riscv-bin/releases/download/vscode-v1.109.5-ohos"
+    sha256 cellar: :any_skip_relocation, riscv64_ohos: "738302089750ca2c89b6dd8249dacbdff89cdcf7c30d1115cd8cf4589f475ec8"
+  end
+
   depends_on "hbrew/riscv/vscode-server"
 
   def install
