@@ -12,7 +12,7 @@ class CodeDeveco < Formula
 
   bottle do
     root_url "https://github.com/shihuan1999/riscv-bin/releases/download/vscode-v1.109.5-ohos"
-    sha256 cellar: :any_skip_relocation, riscv64_ohos: "05b1395c0a9e4fdca2665a5ce78ec64b6c628de17d62d9ba6e0a2b324eac886f"
+    sha256 cellar: :any_skip_relocation, riscv64_ohos: "05df93994e295471c1d6ceda73a180f810dd8abee30097682d8ed4bdb6d7f738"
   end
 
   depends_on "hbrew/riscv/vscode-server"
