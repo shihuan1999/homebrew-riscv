@@ -14,7 +14,7 @@ class Node < Formula
 
   bottle do
     root_url "https://github.com/shihuan1999/riscv-bin/releases/download/node-v22.16.0-ohos"
-    sha256 cellar: :any_skip_relocation, riscv64_ohos: "d1adf4a0b5a208cd52f6beddb35a52f6284da39cdba6feb3d5f84ed949b552da"
+    sha256 cellar: :any_skip_relocation, riscv64_ohos: "dec6f0fe07aa855124ab47098df39318334852d63c2af8e3476af21dd6a73429"
   end
 
   def install
