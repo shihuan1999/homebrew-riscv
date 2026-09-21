@@ -15,6 +15,33 @@ hardware. Bottles are hosted in
 brew install hbrew/riscv/<name>
 ```
 
+## On-device AI inference — MindSpore Lite 2.4 (RVV-accelerated)
+
+```sh
+brew install hbrew/riscv/mindspore-lite   # runtime + benchmark + mslite-verify + ai-runner
+brew install hbrew/riscv/mindspore-nnrt   # OH 6.1 NNRT client libs (needs NNRT service; K3 images ship none)
+```
+
+| Formula | What you get |
+|---|---|
+| `mindspore-lite` | MindSpore Lite 2.4 runtime for riscv64 (`-march=rv64gcv`), with a custom autovectorized 12x8 tile gemm patched into nnacl (~5x faster fp32 MatMul vs upstream reference): **10.7 GFLOP/s** matmul / **10.1 GFLOP/s** transformer block / **13.6 GB/s** gemv on the X100 cluster (8T), numerically verified vs onnxruntime (cosine = 1.0). A100 cluster (cpus 8-15) runs the same RVV kernels at lower throughput — use `ai-runner --affinity=8-15 -- <cmd>` for low-power background inference. gemv bandwidth (13.6 GB/s) is on par with or better than llama.cpp decode-phase (~10.6 GB/s, Qwen2.5-0.5B Q4_K_M 26.5 tok/s) on the same board. |
+| `mindspore-nnrt` | `libneural_network_runtime.so` / `libneural_network_core.so` + proxy backends from the OH 6.1 tree. Stock K3 images have no NNRT system service (no NPU), so on K3 these are link-time components; the mslite NNRT delegate detects the missing backend and falls back to CPU cleanly. |
+
+Post-install quick checks (also run by `brew test`):
+
+```sh
+mslite-verify $HBB_PREFIX/.../share/mindspore-lite/models/matmul_tg1.ms \
+              .../matmul_tg1.input.bin .../matmul_tg1.output.bin    # cosine vs onnxruntime reference
+benchmark --modelFile=.../block_qwen_w8.ms --loopCount=20 --numThreads=8
+ai-runner --affinity=8-15 -- benchmark --modelFile=... --numThreads=8   # A100 cluster
+```
+
+Full benchmark model set (matmul pp128 / gemv / quantized transformer block,
+ops sized like Qwen2.5-0.5B): release asset `bench-models-k3.tar.gz` on
+[riscv-bin](https://github.com/shihuan1999/riscv-bin/releases/tag/bottles-v1.0).
+Measured numbers and the comparison methodology live in the bottle's
+`share/mindspore-lite/README.md`.
+
 ## openJiuwen agent suite — one command
 
 Everything from the openJiuwen → OHOS riscv64 port, in one install:
