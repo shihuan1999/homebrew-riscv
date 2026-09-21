@@ -17,6 +17,7 @@ class MindsporeNnrt < Formula
   bottle do
     root_url "https://github.com/shihuan1999/riscv-bin/releases/download/bottles-v1.0"
     sha256 cellar: :any_skip_relocation, riscv64_ohos: "58491fc698da9d47e766b9f4c223defa26ca310e16d5bca1478d735c999dd4ce"
+    sha256 cellar: :any_skip_relocation, riscv64_linux: "58491fc698da9d47e766b9f4c223defa26ca310e16d5bca1478d735c999dd4ce"
   end
 
   def install
