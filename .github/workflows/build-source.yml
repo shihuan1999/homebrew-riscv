@@ -45,7 +45,7 @@ jobs:
       - name: cross-compile bottles (spacemit musl riscv64)
         id: build
         run: |
-          contrib/build-from-source.sh "${{ steps.tgt.outputs.names }}" "$PWD/out"
+          bash contrib/build-from-source.sh "${{ steps.tgt.outputs.names }}" "$PWD/out"
           echo "shas=$(cat out/*.sha256 2>/dev/null | paste -sd' ' -)" >> "$GITHUB_OUTPUT"
 
       - name: validate built bottles

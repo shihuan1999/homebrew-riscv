@@ -35,7 +35,7 @@ jobs:
       - name: run device smoke test
         id: smoke
         run: |
-          contrib/device-smoke.sh \
+          bash contrib/device-smoke.sh \
             "${{ github.event.inputs.formula }}" \
             "${{ github.event.inputs.hdc_target }}" \
             | tee smoke.log
