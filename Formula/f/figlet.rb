@@ -2,9 +2,9 @@
 # 贡献方式 A（源码贡献）：bottle 块由 publish 工作流在合并时自动补写。
 class Figlet < Formula
 
-  bottle do
+    bottle do
     root_url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles"
-    sha256 cellar: :any_skip_relocation, riscv64_ohos: "b2251c921c0dff958983364758e98142b12a14ec571f91b87bea7c5e3ae20492"
+    sha256 cellar: :any_skip_relocation, riscv64_ohos: "7d1cca9a17efb28fbd219bb12a9bad2a16e6d6c971b9218f7dff27a7862cecd8"
   end
   desc "Print large text banners in ASCII art from ordinary text"
   homepage "http://www.figlet.org/"
