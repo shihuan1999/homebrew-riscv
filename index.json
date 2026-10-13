@@ -1,6 +1,6 @@
 {
- "count": 54,
- "updated": "2026-10-13T11:21:39Z",
+ "count": 55,
+ "updated": "2026-10-13T11:22:42Z",
  "packages": [
   {
    "name": "bash",
@@ -483,6 +483,17 @@
    "homepage": "https://www.gnu.org/software/sed/",
    "deps": [],
    "formula": "Formula/s/sed.rb",
+   "bottled": true
+  },
+  {
+   "name": "shgz",
+   "version": "0.1.0",
+   "desc": "Demo shell tool depending on hbrew/riscv/pigz",
+   "homepage": "https://github.com/shihuan1999/homebrew-riscv",
+   "deps": [
+    "hbrew/riscv/pigz"
+   ],
+   "formula": "Formula/s/shgz.rb",
    "bottled": true
   },
   {
