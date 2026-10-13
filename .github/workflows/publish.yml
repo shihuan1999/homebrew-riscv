@@ -82,7 +82,7 @@ jobs:
           git config user.name "hbrew-bot"
           git config user.email "actions@github.com"
           python3 contrib/publish_normalize.py --changed changed.txt --staged staged.json || true
-          contrib/make-snapshot.sh
+          bash contrib/make-snapshot.sh
           if [ -n "$(git status --porcelain)" ]; then
             git add -A tap-latest.tar.gz index.json Formula/
             git commit -m "publish: normalize bottles + refresh snapshot/index [skip ci]"
