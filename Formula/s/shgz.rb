@@ -2,7 +2,7 @@
 class Shgz < Formula
   desc "Demo shell tool depending on hbrew/riscv/pigz"
   homepage "https://github.com/shihuan1999/homebrew-riscv"
-  url "http://10.0.50.17:8090/brewpack/shgz-0.1.0.riscv64_ohos.bottle.tar.gz"
+  url "https://github.com/shihuan1999/homebrew-riscv/releases/download/brewpack/shgz-0.1.0.riscv64_ohos.bottle.tar.gz"
   sha256 "affd821b06ef55567fe9e58aa3c0df77b59d73c89a9e8226829cdd56626ed85f"
   version "0.1.0"
 
