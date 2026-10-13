@@ -1,6 +1,6 @@
 {
- "count": 53,
- "updated": "2026-10-13T10:30:12Z",
+ "count": 54,
+ "updated": "2026-10-13T10:52:57Z",
  "packages": [
   {
    "name": "bash",
@@ -92,6 +92,15 @@
     "hbrew/riscv/node"
    ],
    "formula": "Formula/d/dsh.rb",
+   "bottled": true
+  },
+  {
+   "name": "figlet",
+   "version": "2.2.5",
+   "desc": "Print large text banners in ASCII art from ordinary text",
+   "homepage": "http://www.figlet.org/",
+   "deps": [],
+   "formula": "Formula/f/figlet.rb",
    "bottled": true
   },
   {
