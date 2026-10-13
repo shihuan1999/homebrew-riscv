@@ -9,6 +9,11 @@ on:
   pull_request:
     types: [closed]
   workflow_dispatch:
+    inputs:
+      formulas:
+        description: "要发布的包名（逗号分隔，留空=全部）"
+        required: false
+        default: ""
 
 permissions:
   contents: write
@@ -26,11 +31,29 @@ jobs:
       - name: resolve changed formulas
         id: chg
         run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ -n "${{ github.event.inputs.formulas }}" ]; then
+            # 手动指定包名
+            IFS=',' read -ra NAMES <<< "${{ github.event.inputs.formulas }}"
+            : > changed.txt
+            for n in "${NAMES[@]}"; do
+              n=$(echo "$n" | xargs); [ -n "$n" ] || continue
+              f="Formula/${n:0:1}/$n.rb"; [ -f "$f" ] || f="Formula/$n.rb"
+              [ -f "$f" ] && echo "$f" >> changed.txt || echo "WARN: formula not found for $n" >&2
+            done
+          elif [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             ls Formula/*/*.rb > changed.txt
           else
             BASE="${{ github.event.pull_request.base.sha }}"
             git diff --name-only "$BASE"..${{ github.event.pull_request.head.sha }} -- 'Formula/*/*.rb' | sort -u > changed.txt
+            # 仅有 builds/ 配方变更的 PR（如修复配方）同样要重发对应 bottle
+            if [ ! -s changed.txt ]; then
+              for n in $(git diff --name-only "$BASE"..${{ github.event.pull_request.head.sha }} -- 'builds/*/build.sh' \
+                           | sed -E 's|builds/([^/]+)/build.sh|\1|'); do
+                f="Formula/${n:0:1}/$n.rb"
+                [ -f "$f" ] && echo "$f" >> changed.txt || echo "WARN: formula not found for $n" >&2
+              done
+              sort -u changed.txt -o changed.txt
+            fi
           fi
           cat changed.txt
           echo "count=$(wc -l < changed.txt)" >> "$GITHUB_OUTPUT"
@@ -44,7 +67,17 @@ jobs:
           mkdir -p bottles
           PR=${{ github.event.pull_request.number }}
           HB="${{ github.event.pull_request.head.ref }}"
-          [ -z "$PR" ] && { echo "skip=no-pr"; echo "found=" >> "$GITHUB_OUTPUT"; exit 0; }
+          if [ -z "$PR" ]; then
+            # workflow_dispatch：没有 PR 上下文，从最近成功的 build-source 运行里
+            # 找对应 artifact（旧→新遍历，最新覆盖，保证拿到新瓶）
+            for rid in $(gh run list --repo "$GITHUB_REPOSITORY" --workflow build-source.yml \
+                           --status success --limit 10 --json databaseId --jq '.[].databaseId' | tac); do
+              (cd bottles && gh run download "$rid" --repo "$GITHUB_REPOSITORY" --dir "run-$rid" 2>/dev/null) || true
+            done
+            find bottles -mindepth 2 -name '*.tar.gz' -exec cp {} bottles/ \; 2>/dev/null || true
+            echo "found=$(ls bottles/*.tar.gz 2>/dev/null | wc -l)" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
           run_id=$(gh run list --repo "$GITHUB_REPOSITORY" --workflow build-source.yml \
                      --status success --limit 30 --json databaseId,headBranch,event \
                      --jq ".[] | select(.event != \"push\" and (.headBranch==\"$HB\" or .headBranch==\"refs/pull/$PR/head\" or (.headBranch|endswith(\"pull/$PR/merge\")))) | .databaseId" | head -1)
