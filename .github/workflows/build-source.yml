@@ -37,8 +37,12 @@ jobs:
             echo "names=${{ github.event.inputs.formula }}" >> "$GITHUB_OUTPUT"
           else
             BASE="${{ github.event.pull_request.base.sha }}"
+            # Formula 变更优先；仅有 builds/ 配方变更（如修复配方）也触发重建
             names=$(git diff --name-only "$BASE"..HEAD -- 'Formula/*/*.rb' | \
-              xargs -r -n1 basename | sed 's/\.rb$//' | paste -sd, -)
+              xargs -r -n1 basename | sed 's/\.rb$//')
+            [ -z "$names" ] && names=$(git diff --name-only "$BASE"..HEAD -- 'builds/*/build.sh' | \
+              sed -E 's|builds/([^/]+)/build.sh|\1|')
+            names=$(echo "$names" | sort -u | paste -sd, -)
             echo "names=$names" >> "$GITHUB_OUTPUT"
           fi
 

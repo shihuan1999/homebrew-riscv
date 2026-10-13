@@ -9,9 +9,12 @@ FONTDIR="$PREFIX/share/figlet"
 # 老代码 K&R 声明需要 gnu89（GCC14+ 默认 C 标准过新）
 EXTRA="-std=gnu89 -D__BEGIN_DECLS= -D__END_DECLS="
 
+# 注意：figlet 的 Makefile 自带 -DDEFAULTFONTDIR=\"$(DEFAULTFONTDIR)\" 且排在
+# CFLAGS 之后会覆盖同名宏，必须直接传 make 变量而不是塞进 CFLAGS
 make figlet \
   CC="$CC" LD="$CC" \
-  CFLAGS="$CFLAGS $EXTRA -DDEFAULTFONTDIR=\\\"$FONTDIR\\\" -DDEFAULTFONTFILE=\\\"standard.flf\\\"" \
+  DEFAULTFONTDIR="$FONTDIR" DEFAULTFONTFILE="standard.flf" \
+  CFLAGS="$CFLAGS $EXTRA" \
   -j"$JOBS"
 
 mkdir -p "$STAGE/bin" "$STAGE/share/figlet" "$STAGE/share/man/man6"
