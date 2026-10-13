@@ -5,9 +5,13 @@ set -euo pipefail
 
 FONTDIR="$PREFIX/share/figlet"
 
+# musl 没有 glibc sys/cdefs.h 的 __BEGIN_DECLS/__END_DECLS（figlet utf8.h 依赖），
+# 老代码 K&R 声明需要 gnu89（GCC14+ 默认 C 标准过新）
+EXTRA="-std=gnu89 -D__BEGIN_DECLS= -D__END_DECLS="
+
 make figlet \
-  CC="$CC" \
-  CFLAGS="$CFLAGS -DDEFAULTFONTDIR=\\\"$FONTDIR\\\" -DDEFAULTFONTFILE=\\\"standard.flf\\\"" \
+  CC="$CC" LD="$CC" \
+  CFLAGS="$CFLAGS $EXTRA -DDEFAULTFONTDIR=\\\"$FONTDIR\\\" -DDEFAULTFONTFILE=\\\"standard.flf\\\"" \
   -j"$JOBS"
 
 mkdir -p "$STAGE/bin" "$STAGE/share/figlet" "$STAGE/share/man/man6"
