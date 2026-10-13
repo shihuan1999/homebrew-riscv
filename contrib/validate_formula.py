@@ -136,15 +136,16 @@ def validate(path, tap_root=None, report=None, allow_private_urls=False):
     else:
         rep.warn("no bottle block — source-only formula (needs build-from-source CI)")
 
-    # 依赖闭包
+    # 依赖闭包（支持 hbrew/riscv/<name> 限定名）
     if tap_root:
         for dep in f["depends_on"]:
-            if dep in VIRTUAL_DEPS:
+            dep_base = dep.split("/")[-1]
+            if dep_base in VIRTUAL_DEPS:
                 continue
-            letter = dep[0].lower()
-            if not os.path.exists(os.path.join(tap_root, "Formula", letter, f"{dep}.rb")) \
-               and not os.path.exists(os.path.join(tap_root, "Formula", f"{dep}.rb")):
-                rep.error(f"depends_on \"{dep}\" not found in tap (missing Formula/{letter}/{dep}.rb)")
+            letter = dep_base[0].lower()
+            if not os.path.exists(os.path.join(tap_root, "Formula", letter, f"{dep_base}.rb")) \
+               and not os.path.exists(os.path.join(tap_root, "Formula", f"{dep_base}.rb")):
+                rep.error(f"depends_on \"{dep}\" not found in tap (missing Formula/{letter}/{dep_base}.rb)")
 
     # 私网 URL 检查（所有出现过的 http URL）
     urls = [u for u in (f["url"], f["root_url"]) if u]
