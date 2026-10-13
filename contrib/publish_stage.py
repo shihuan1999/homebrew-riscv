@@ -89,10 +89,13 @@ def main():
             print(f"ERROR no artifact and no root_url for {name} — cannot publish bottle", file=sys.stderr)
             sys.exit(1)
 
-        # 3) 校验
+        # 3) 校验：自家 build-source artifact 视为可信产物（重建场景 sha 会变，
+        #    发布时以 artifact 实际 sha 更新 formula）；第三方 root_url 资产
+        #    必须与 formula 声明的 sha256 完全一致，防篡改
+        expect = info["bottle_sha256"] if entry["source"] == "root_url" else None
         r = subprocess.run([sys.executable, os.path.join(HERE, "validate_bottle.py"), local,
                             "--name", name, "--version", ver,
-                            *(["--expect-sha256", info["bottle_sha256"]] if info["bottle_sha256"] else []),
+                            *(["--expect-sha256", expect] if expect else []),
                             "--json"], capture_output=True, text=True)
         try:
             sub = json.loads(r.stdout)
