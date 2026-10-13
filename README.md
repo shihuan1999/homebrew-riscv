@@ -1,16 +1,37 @@
 # homebrew-riscv (riscv64-ohos tap)
 
 Bottles & formulas for **OpenHarmony 6.1 / musl riscv64** (SpacemiT K3 pico).
-All binaries are cross-built on the compile server and verified on real
-hardware. Bottles are hosted in
+Binaries are cross-built (self-hosted runner on the compile server) and
+verified on real hardware. New bottles are hosted on this repo's rolling
+release ([`bottles`](https://github.com/shihuan1999/homebrew-riscv/releases/tag/bottles));
+legacy bottles remain in
 [shihuan1999/riscv-bin](https://github.com/shihuan1999/riscv-bin/releases).
+
+## Contribute a package (two ways, full CI/CD)
+
+See **[CONTRIBUTING.md](CONTRIBUTING.md)**. Short version:
+
+```
+源码贡献:  fork → brewkit new <name> <ver> → 写 Formula + builds/<name>/build.sh → PR
+           → CI 校验 → 维护者打 build-from-source 标签 → snode7 runner 交叉编译出瓶
+           → merge → publish 自动上瓶到中央 release + 规范化 formula + 重建快照/索引
+二进制贡献: 设备上 brewpack pack <dir> → brewpack submit → bottle 上传你的 fork release
+           → PR（CI 下载校验 riscv64/musl/结构/sha256）→ merge → publish 自动镜像
+```
+
+每个 PR 即时触发 CI；设备端验证见 `device-verify`（真机冒烟）。离线设备用
+hdc 缓存预置安装（CONTRIBUTING.md「离线设备安装」）。
 
 ## Quick start (on device)
 
-```sh
-# 1) load the harmonybrew environment (see repo root README for bootstrap)
-. /data/hbrew-pkgs/hbrew-shell
+联网设备一键引导（brew 树 + portable-ruby + tap 全部来自本仓 `bootstrap-v1` release）：
 
+```sh
+. <(curl -fsSL https://raw.githubusercontent.com/shihuan1999/homebrew-riscv/main/contrib/install.sh)
+brew install hbrew/riscv/<name>
+```
+
+```sh
 # 2) install anything from this tap
 brew install hbrew/riscv/<name>
 ```
