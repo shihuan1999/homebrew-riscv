@@ -13,7 +13,7 @@ EXTRA="-std=gnu89 -D__BEGIN_DECLS= -D__END_DECLS="
 # CFLAGS 之后会覆盖同名宏，必须直接传 make 变量而不是塞进 CFLAGS
 make figlet \
   CC="$CC" LD="$CC" \
-  DEFAULTFONTDIR="$FONTDIR" DEFAULTFONTFILE="standard.flf" \
+  DEFAULTFONTDIR="$FONTDIR" DEFAULTFONTFILE="standard" \
   CFLAGS="$CFLAGS $EXTRA" \
   -j"$JOBS"
 

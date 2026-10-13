@@ -15,7 +15,11 @@ class Figlet < Formula
   license "BSD-3-Clause"
 
   def install
-    system "make", "figlet", "CC=#{ENV.cc}", "CFLAGS=#{ENV.cflags} -DDEFAULTFONTDIR=\\\"#{prefix}/share/figlet\\\" -DDEFAULTFONTFILE=\\\"standard.flf\\\""
+    # 注意：Makefile 的 DEFAULTFONTFILE 默认不带后缀（figlet 自己会拼 .flf）；
+    # DEFAULTFONTDIR 必须作为 make 变量传（Makefile 自带的 -D 会覆盖 CFLAGS 同名宏）
+    system "make", "figlet", "CC=#{ENV.cc}", "DEFAULTFONTDIR=#{prefix}/share/figlet",
+           "DEFAULTFONTFILE=standard",
+           "CFLAGS=#{ENV.cflags} -std=gnu89 -D__BEGIN_DECLS= -D__END_DECLS="
     bin.install "figlet"
     (share/"figlet").install Dir["fonts/*.flf"]
     (share/"figlet").install Dir["fonts/*.flc"]
