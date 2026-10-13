@@ -1,0 +1,81 @@
+name: build-source
+
+# 源码贡献通道：PR 打上 build-from-source 标签（仅维护者可打）后，
+# 由 snode7 上的 self-hosted runner 用 spacemit musl riscv64 工具链
+# 交叉编译出瓶。配方来自 builds/<name>/build.sh（随 PR 一起提交并已 review）。
+on:
+  pull_request:
+    types: [opened, synchronize, labeled]
+  workflow_dispatch:
+    inputs:
+      formula:
+        description: "formula 名（如 figlet）"
+        required: true
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  build:
+    # PR 必须带 build-from-source 标签；手动触发直接执行
+    if: >
+      github.event_name == 'workflow_dispatch' ||
+      contains(join(github.event.pull_request.labels.*.name, ','), 'build-from-source')
+    runs-on: [self-hosted, snode7]
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 0
+
+      - name: resolve target formulas
+        id: tgt
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "names=${{ github.event.inputs.formula }}" >> "$GITHUB_OUTPUT"
+          else
+            BASE="${{ github.event.pull_request.base.sha }}"
+            names=$(git diff --name-only "$BASE"..HEAD -- 'Formula/*/*.rb' | \
+              xargs -r -n1 basename | sed 's/\.rb$//' | paste -sd, -)
+            echo "names=$names" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: cross-compile bottles (spacemit musl riscv64)
+        id: build
+        run: |
+          contrib/build-from-source.sh "${{ steps.tgt.outputs.names }}" "$PWD/out"
+          echo "shas=$(cat out/*.sha256 2>/dev/null | paste -sd' ' -)" >> "$GITHUB_OUTPUT"
+
+      - name: validate built bottles
+        run: |
+          set -e
+          for t in out/*.tar.gz; do
+            [ -e "$t" ] || continue
+            n=$(basename "$t" | sed -E 's/-[^-]+\.riscv64_ohos\.bottle\.tar\.gz$//')
+            v=$(basename "$t" | sed -E "s/^$n-//; s/\.riscv64_ohos\.bottle\.tar\.gz$//")
+            python3 contrib/validate_bottle.py "$t" --name "$n" --version "$v"
+          done
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bottles-${{ github.event.pull_request.number || 'manual' }}
+          path: out/*.tar.gz
+          retention-days: 14
+          if-no-files-found: error
+
+      - name: comment PR with build result
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const shas = fs.readFileSync('out/bottles.sha256.json', 'utf8');
+            const body = `### 🍺 build-source 完成\n\n交叉编译产物（merge 后由 publish 工作流自动收编到中央 bottle release）：\n\`\`\`json\n${shas}\n\`\`\`\n产物已作为 artifact 上传（保留 14 天）。`;
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body
+            });

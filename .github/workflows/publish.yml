@@ -1,0 +1,109 @@
+name: publish
+
+# PR 合并进 main 后自动发布：
+#   1. 从 PR 的 build-source artifact（源码贡献）或 formula root_url（二进制贡献）取得 bottle
+#   2. 校验后上传到本仓库滚动 release（tag: bottles）——中央托管，零跨仓凭据
+#   3. 把 formula 的 root_url 规范化为中央地址（源码贡献则补写 bottle 块）
+#   4. 重建 tap-latest.tar.gz 与 index.json（设备端/离线用户用）
+on:
+  pull_request:
+    types: [closed]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  publish:
+    if: github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: resolve changed formulas
+        id: chg
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            ls Formula/*/*.rb > changed.txt
+          else
+            BASE="${{ github.event.pull_request.base.sha }}"
+            git diff --name-only "$BASE"..${{ github.event.pull_request.head.sha }} -- 'Formula/*/*.rb' | sort -u > changed.txt
+          fi
+          cat changed.txt
+          echo "count=$(wc -l < changed.txt)" >> "$GITHUB_OUTPUT"
+
+      - name: fetch bottles from PR artifact (if any)
+        id: artifact
+        if: steps.chg.outputs.count != '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p bottles
+          PR=${{ github.event.pull_request.number }}
+          HB="${{ github.event.pull_request.head.ref }}"
+          [ -z "$PR" ] && { echo "skip=no-pr"; echo "found=" >> "$GITHUB_OUTPUT"; exit 0; }
+          run_id=$(gh run list --repo "$GITHUB_REPOSITORY" --workflow build-source.yml \
+                     --status success --limit 30 --json databaseId,headBranch,event \
+                     --jq ".[] | select(.event != \"push\" and (.headBranch==\"$HB\" or .headBranch==\"refs/pull/$PR/head\" or (.headBranch|endswith(\"pull/$PR/merge\")))) | .databaseId" | head -1)
+          if [ -n "$run_id" ]; then
+            cd bottles && gh run download "$run_id" --repo "$GITHUB_REPOSITORY" --dir . || true
+            cd ..; find bottles -name '*.tar.gz' -exec mv {} bottles/ \; 2>/dev/null || true
+          fi
+          echo "found=$(ls bottles/*.tar.gz 2>/dev/null | wc -l)" >> "$GITHUB_OUTPUT"
+
+      - name: stage + validate + upload bottles to central release
+        id: upload
+        if: steps.chg.outputs.count != '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CENTRAL_TAG: bottles
+        run: |
+          set -e
+          python3 contrib/publish_stage.py --changed changed.txt --bottle-dir bottles --out staged.json
+          gh release view "$CENTRAL_TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1 || \
+            gh release create "$CENTRAL_TAG" --repo "$GITHUB_REPOSITORY" \
+              --title "riscv64_ohos bottles (rolling)" \
+              --notes "Central bottle hosting. Assets are added automatically by the publish workflow when formula PRs merge."
+          cat staged.json
+          files=$(python3 -c "import json;print(' '.join(f['staged'] for f in json.load(open('staged.json')) if f.get('staged')))")
+          if [ -n "$files" ]; then
+            gh release upload "$CENTRAL_TAG" $files --clobber --repo "$GITHUB_REPOSITORY"
+          fi
+          echo "uploaded=$(echo $files | wc -w)" >> "$GITHUB_OUTPUT"
+
+      - name: normalize formulas + regenerate tap snapshot & index
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -e
+          git config user.name "hbrew-bot"
+          git config user.email "actions@github.com"
+          python3 contrib/publish_normalize.py --changed changed.txt --staged staged.json || true
+          contrib/make-snapshot.sh
+          if [ -n "$(git status --porcelain)" ]; then
+            git add -A tap-latest.tar.gz index.json Formula/
+            git commit -m "publish: normalize bottles + refresh snapshot/index [skip ci]"
+            git push
+          fi
+
+      - name: summary comment on merged PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            let msg = '### 🚀 publish 完成\n';
+            try {
+              const staged = JSON.parse(fs.readFileSync('staged.json', 'utf8'));
+              for (const s of staged) {
+                msg += `- **${s.name} ${s.version}** → \`${s.asset || '(已托管，未变更)'}\`\n`;
+              }
+            } catch (e) { msg += `\n(staged.json: ${e.message})`; }
+            msg += '\n设备端：`brew update && brew install hbrew/riscv/<name>`';
+            await github.rest.issues.createComment({
+              owner: context.repo.owner, repo: context.repo.repo,
+              issue_number: context.issue.number, body: msg
+            });

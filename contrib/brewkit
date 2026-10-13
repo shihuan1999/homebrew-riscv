@@ -1,0 +1,135 @@
+#!/usr/bin/env bash
+# brewkit —— harmonybrew 贡献者 CLI（PC 侧，需 git + curl + python3）
+# 用法：
+#   brewkit new <name> <version> [source-url]   生成 formula 模板 + builds/ 配方骨架
+#   brewkit check [name]                        本地跑 CI 同款校验
+#   brewkit submit <pr-title>                   建分支→提交变更→开 PR（需 GITHUB_TOKEN）
+#   brewkit bottle <name> <version> <keg-dir>   把已构建的 keg 目录打成规范 bottle
+# 环境变量：
+#   GITHUB_TOKEN  有 repo 权限的 token（submit 用）
+#   HBREW_TAP     目标 tap 仓（默认 shihuan1999/homebrew-riscv）
+set -euo pipefail
+
+TAP=${HBREW_TAP:-shihuan1999/homebrew-riscv}
+HERE="$(cd "$(dirname "$0")" && pwd)"
+ROOT="$(cd "$HERE/.." && pwd)"
+
+usage() { sed -n '2,9p' "$0" | sed 's/^# \{0,1\}//'; exit 2; }
+[ $# -ge 1 ] || usage
+cmd=$1; shift
+
+api() { # api METHOD path [data]
+  local m=$1 p=$2 d=${3:-}
+  if [ -n "$d" ]; then
+    curl -fsS -X "$m" -H "Authorization: Bearer $GITHUB_TOKEN" \
+      -H "Accept: application/vnd.github+json" \
+      -d "$d" "https://api.github.com/repos/$TAP/$p"
+  else
+    curl -fsS -X "$m" -H "Authorization: Bearer $GITHUB_TOKEN" \
+      -H "Accept: application/vnd.github+json" \
+      "https://api.github.com/repos/$TAP/$p"
+  fi
+}
+
+cmd_new() {
+  local name=$1 ver=$2 src=${3:-"https://example.com/$name-$ver.tar.gz"}
+  local letter=${name:0:1}
+  local cls; cls=$(python3 -c "print(''.join(p.capitalize() for p in '$name'.split('-')))")
+  mkdir -p "$ROOT/Formula/$letter" "$ROOT/builds/$name"
+  cat > "$ROOT/Formula/$letter/$name.rb" <<EOF
+# riscv64_ohos bottle — built via builds/$name/build.sh (see CONTRIBUTING.md)
+class $cls < Formula
+  desc "TODO: one-line description"
+  homepage "TODO: project homepage"
+  url "$src"
+  sha256 "TODO: source sha256 (shasum -a 256)"
+  version "$ver"
+  license "TODO: e.g. MIT"
+
+  # depends_on "ncurses"
+
+  def install
+    # 二进制贡献（bring-your-own-bottle）：bottle 块由 CI/publish 规范化，
+    # install 只需声明源码安装路径（源码贡献）或直接落盘（预编译贡献）。
+    system "./configure", "--prefix=\#{prefix}" if File.exist?("configure")
+    system "make", "install", "PREFIX=\#{prefix}"
+  end
+
+  test do
+    system "\#{bin}/$name", "--version"
+  end
+end
+EOF
+  cat > "$ROOT/builds/$name/build.sh" <<'EOF'
+#!/usr/bin/env bash
+# 交叉编译配方：cwd=源码目录，产物全部安装到 $STAGE（见 builds/README.md）
+set -euo pipefail
+echo "TODO: build steps for $STAGE"
+# ./configure --host="$HOST" --prefix="$STAGE" && make -j"$JOBS" && make install
+EOF
+  chmod +x "$ROOT/builds/$name/build.sh"
+  echo "created Formula/$letter/$name.rb + builds/$name/build.sh"
+  echo "下一步：补全 desc/homepage/sha256，写好配方后运行 brewkit check $name"
+}
+
+cmd_check() {
+  local name=${1:-}
+  local files=()
+  if [ -n "$name" ]; then
+    files=("$ROOT/Formula/${name:0:1}/$name.rb")
+  else
+    mapfile -t files < <(git -C "$ROOT" status --porcelain -- Formula builds | awk '{print $NF}')
+  fi
+  [ ${#files[@]} -gt 0 ] || { echo "no changed formula"; exit 0; }
+  rc=0
+  for f in "${files[@]}"; do
+    python3 "$HERE/validate_formula.py" "$f" --tap-root "$ROOT" || rc=1
+  done
+  exit $rc
+}
+
+cmd_bottle() {
+  local name=$1 ver=$2 dir=$3
+  [ -d "$dir/$name/$ver" ] || { echo "keg layout $dir/$name/$ver not found" >&2; exit 2; }
+  local asset="$name-$ver.riscv64_ohos.bottle.tar.gz"
+  tar czf "$asset" -C "$dir" "$name"
+  python3 "$HERE/validate_bottle.py" "$asset" --name "$name" --version "$ver"
+  echo "bottle ready: $asset  sha256=$(sha256sum "$asset" | cut -d' ' -f1)"
+  echo "上传到你 fork 的 riscv-bin release 后，把 root_url 指向它，再 brewkit submit"
+}
+
+cmd_submit() {
+  local title=${1:?usage: brewkit submit "<pr title>"}
+  : "${GITHUB_TOKEN:?GITHUB_TOKEN not set}"
+  local base_branch=${BASE_BRANCH:-main}
+  local branch="contrib/$(git -C "$ROOT" rev-parse --short HEAD)-$(date +%s)"
+  local changes
+  changes=$(git -C "$ROOT" status --porcelain -- Formula builds | awk '{print $NF}')
+  [ -n "$changes" ] || { echo "no changes under Formula/ or builds/" >&2; exit 2; }
+
+  local base_sha
+  base_sha=$(api GET "git/ref/heads/$base_branch" | python3 -c "import json,sys;print(json.load(sys.stdin)['object']['sha'])")
+  api POST git/refs "{\"ref\":\"refs/heads/$branch\",\"sha\":\"$base_sha\"}" >/dev/null
+
+  for path in $changes; do
+    local content
+    content=$(python3 -c "import base64,sys;print(base64.b64encode(open(sys.argv[1],'rb').read()).decode())" "$ROOT/$path")
+    api PUT "contents/$path" \
+      "{\"message\":\"add $path\",\"branch\":\"$branch\",\"content\":\"$content\"}" >/dev/null
+    echo "pushed $path -> $branch"
+  done
+
+  local body; body=$(printf '见 CONTRIBUTING.md。校验详情由 CI 自动执行。\n\n- [ ] bottle 已可公开下载（或已附 build-from-source 标签请求代建）\n- [ ] 设备端已自测 `brew install` + `brew test`')
+  local pr_url
+  pr_url=$(api POST pulls "{\"title\":$(python3 -c "import json;print(json.dumps('$title'))"),\"head\":\"$branch\",\"base\":\"$base_branch\",\"body\":$(python3 -c "import json;print(json.dumps('''$body'''))")}" \
+           | python3 -c "import json,sys;print(json.load(sys.stdin).get('html_url','ERROR'))")
+  echo "PR: $pr_url"
+}
+
+case $cmd in
+  new)    cmd_new "$@" ;;
+  check)  cmd_check "$@" ;;
+  bottle) cmd_bottle "$@" ;;
+  submit) cmd_submit "$@" ;;
+  *)      usage ;;
+esac

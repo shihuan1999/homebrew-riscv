@@ -1,0 +1,100 @@
+name: ci
+
+# 每个 PR / push 到 main 的 Formula 变更即时触发：
+#   1. formula 静态校验（结构/约定/依赖闭包/禁内网 URL）
+#   2. bottle 下载 + sha256 + 结构/ELF riscv64 架构校验
+#   3. push main 时额外做全量 tap 健康检查（所有 bottle URL 可达性）
+on:
+  pull_request:
+    paths:
+      - "Formula/**"
+      - "contrib/**"
+      - "builds/**"
+      - ".github/workflows/ci.yml"
+  push:
+    branches: [main]
+    paths:
+      - "Formula/**"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: collect changed formulas
+        id: chg
+        run: |
+          set -e
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            BASE="${{ github.event.pull_request.base.sha }}"
+          else
+            BASE="${{ github.event.before }}"
+          fi
+          # 基线缺失（新仓/force push）时退化为全量
+          if ! git cat-file -e "$BASE" 2>/dev/null; then BASE=$(git rev-list --max-parents=0 HEAD | tail -1); fi
+          git diff --name-only "$BASE"..HEAD -- 'Formula/*.rb' 'Formula/*/*.rb' | sort -u > changed.txt || true
+          if [ "${{ github.event_name }}" != "pull_request" ] && [ ! -s changed.txt ]; then
+            ls Formula/*/*.rb > changed.txt 2>/dev/null || true
+          fi
+          cat changed.txt
+          echo "count=$(wc -l < changed.txt)" >> "$GITHUB_OUTPUT"
+
+      - name: validate formulas (+ bottles)
+        if: steps.chg.outputs.count != '0'
+        run: |
+          set -o pipefail
+          status=0
+          while read -r f; do
+            echo "## validating $f" | tee -a "$GITHUB_STEP_SUMMARY"
+            if ! python3 contrib/validate_formula.py "$f" --tap-root . --fetch-bottle \
+                 --workdir /tmp/hbrew-ci 2>&1 | tee -a "$GITHUB_STEP_SUMMARY"; then
+              status=1
+            fi
+          done < changed.txt
+          exit $status
+
+      - name: tap health (all bottle URLs reachable)
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          python3 - <<'EOF' > bottle-urls.txt
+          import glob, re
+          for f in glob.glob("Formula/*/*.rb"):
+              t = open(f, encoding="utf-8", errors="replace").read()
+              m = re.search(r'root_url\s+"([^"]+)"', t)
+              n = re.search(r'^\s*class\s+(\w+)', t, re.M)
+              v = re.search(r'^\s*version\s+"([^"]+)"', t, re.M)
+              if m and n and v:  # 显式 version 才能推导 bottle 文件名
+                  print(f"{m.group(1).rstrip('/')}/{n.group(1).lower()}-{v.group(1)}.riscv64_ohos.bottle.tar.gz")
+          EOF
+          echo "checking $(wc -l < bottle-urls.txt) bottle urls"
+          fail=0
+          while read -r u; do
+            code=$(curl -sL -o /dev/null -w '%{http_code}' --max-time 60 "$u" || echo 000)
+            if [ "$code" != "200" ]; then echo "BROKEN ($code): $u"; fail=1; fi
+          done < bottle-urls.txt
+          exit $fail
+
+      - name: validate all formulas structurally (push main)
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          status=0
+          for f in Formula/*/*.rb; do
+            if ! python3 contrib/validate_formula.py "$f" --tap-root . --allow-private-urls >/dev/null 2>&1; then
+              echo "STRUCT-FAIL: $f"
+              python3 contrib/validate_formula.py "$f" --tap-root . --allow-private-urls 2>&1 | grep ERROR || true
+              status=1
+            fi
+          done
+          # 存量 formula 的内网 URL（10.0.50.17:8090）是历史遗留，只有变更该
+          # formula 的 PR 才会被强制整改（--allow-private-urls 在这里放行）
+          exit $status
