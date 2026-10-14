@@ -56,7 +56,10 @@ class Report:
 
 
 def camel(name):
-    return "".join(p.capitalize() for p in re.split(r"[-_]", name) if p)
+    # Homebrew 规则：python@3.11 → PythonAT311（@ 后的段大写 AT 拼接、去掉点）
+    parts = re.split(r"[-_]", name)
+    out = "".join(p.capitalize() for p in parts if p)
+    return re.sub(r"@(\d+(?:\.\d+)*)", lambda m: "AT" + m.group(1).replace(".", ""), out)
 
 
 def parse_formula(text):

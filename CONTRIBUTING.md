@@ -1,8 +1,9 @@
 # 贡献指南 —— 向 harmonybrew riscv64 tap 贡献包
 
 面向 OpenHarmony（riscv64 musl，K3 pico / OH 6.1 实测基线）的 Homebrew 包生态。
-任何人都可以贡献，支持两种方式：**源码贡献**（提交 formula + 交叉编译配方，
-CI 帮你出瓶）和**二进制包贡献**（你自己构建 bottle，CI 校验后收录）。
+任何人都可以贡献，支持三种方式：**源码贡献**（提交 formula + 交叉编译配方，
+CI 帮你出瓶）、**二进制包贡献**（你自己构建 bottle，CI 校验后收录）和
+**Python 轮子贡献**（musl riscv64 wheel，进本仓轮子索引）。
 所有 PR 一经提交即刻触发 CI 校验，合并后自动发布到中央 bottle 托管。
 
 ```
@@ -18,7 +19,7 @@ formula + 配方/瓶 ──PR──▶ ci(校验) ─▶ build-source(编译*) �
 
 | 仓库 | 角色 |
 |---|---|
-| [shihuan1999/homebrew-riscv](https://github.com/shihuan1999/homebrew-riscv)（本仓库） | tap：`Formula/` 包定义、`builds/` 编译配方、`contrib/` 工具链；release tag `bottles` = 中央 bottle 托管 |
+| [shihuan1999/homebrew-riscv](https://github.com/shihuan1999/homebrew-riscv)（本仓库） | tap：`Formula/` 包定义、`builds/` 编译配方、`contrib/` 工具链；release tag `bottles` = 中央 bottle 托管；release tag `wheels` = musl riscv64 Python 轮子托管（PEP 503 索引见 GitHub Pages `wheels/simple/`） |
 | [shihuan1999/riscv-bin](https://github.com/shihuan1999/riscv-bin) | 历史大件 bottle 归档（2026-09 之前的存量） |
 | [Harmonybrew/ohos-*](https://github.com/orgs/Harmonybrew/repositories) | 上游组织（arm64）；riscv64 移植按 [OHOS-PORTS.md](OHOS-PORTS.md) 的 fork 规范回馈 |
 
@@ -71,10 +72,43 @@ formula **不需要**自带 bottle 块——publish 会自动补写。
 3. 提 PR。CI 会真实下载你的 bottle 并校验（见下），合并后 publish 自动把 bottle
    镜像到中央托管、改写 root_url —— 你的 fork release 之后可以删除。
 
+## 方式 C：Python 轮子贡献（musl riscv64 wheel）
+
+适合：为设备上的 CPython 3.12（`brew install hbrew/riscv/python`）补充
+C 扩展轮子。设备 pip 的默认源见 README「Python multi-source pip policy」——
+本仓轮子索引是唯一可控的 musl riscv64 轮子渠道，欢迎充实。
+
+1. 在交叉编译机（musl riscv64 工具链 + 宿主 python3.12）上构建 wheel：
+   ```bash
+   # snode7 参考流程（完整脚本思路见 builds/python/build.sh 头部注释）
+   export CC=riscv64-unknown-linux-musl-gcc
+   export CFLAGS="-O2 -I<rootfs>/include/python3.12"
+   export LDSHARED="$CC -shared"
+   ~/py312host/bin/python3.12 setup.py bdist_wheel
+   ```
+2. 重标记：宿主产出的 wheel 名/扩展后缀是宿主平台的，用
+   `contrib/retag_wheel.py` 一步修正（扩展改名 x86_64→riscv64、WHEEL Tag、
+   RECORD 哈希重建、可选 strip）：
+   ```bash
+   python3 contrib/retag_wheel.py dist/pkg-1.0-cp312-cp312-linux_x86_64.whl \
+       musllinux_1_2_riscv64 --strip <riscv64-strip>
+   ```
+3. 在真机验证 `pip install <wheel> && python -c "import pkg"`（retag 只修元数据，
+   二进制本身的正确性你必须自己验）。
+4. 提 PR：
+   - wheel 文件先上传到你 fork 的任意 release，PR 里附直链 + sha256 + 真机验证截图/日志；
+   - 同时在 `wheels/manifest.json` 追加条目（name/version/tag/url/sha256/origin），
+     并运行 `python3 contrib/make_wheel_index.py` 重新生成索引页；
+   - 维护者验证后把 wheel 收编到本仓 `wheels` release 并改写 url。
+5. **红线**：只收 musl 构建的轮子。禁止把 glibc 二进制 retag 成 musllinux（装得上、
+   import 即炸，且污染标签信誉）；禁止提交宿主 x86_64 轮子充当 riscv64。
+
 ## bottle 规范（CI 强制）
 
 - 文件名：`<name>-<version>.riscv64_ohos.bottle.tar.gz`（单横线，brew fork 的推导规则）
-- 内部布局：keg 形式，顶层必须且只有 `<name>/<version>/`
+- 内部布局：keg 形式，顶层必须且只有 `<name>/<version>/`；
+  版本化 formula（如 `python@3.11`）顶层目录用同名 `python@3.11/3.11.4/`，
+  类名按 Homebrew 规则 `@`→`AT` 且去掉点（`PythonAT311`）
 - 架构：bin/sbin/libexec/lib 下所有 ELF 必须是 **riscv64**，动态链接的解释器必须是
   `ld-musl-riscv64.so.1`（或静态）；**不得**出现 glibc 特征（libc.so.6 等）
 - 安全：无绝对路径 / `..` / 越出 keg 的符号链接 / 设备文件 / setuid 位

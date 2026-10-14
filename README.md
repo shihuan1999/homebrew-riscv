@@ -93,9 +93,53 @@ Migration notes, pitfalls and the full story live in each formula header.
 
 ## Base toolchain
 
-`python` (3.11.4, prebuilt), `portable-ruby`, `portable-git`, `xz`, `pigz`,
-plus the classic unix tools (`bash`, `coreutils`, `curl`, `vim`, `zsh`,
-`dropbear`, …). See `Formula/`.
+`python` (**3.12.14**, self-contained musl keg; `python@3.11` kept for pinned
+scripts), `portable-ruby`, `portable-git`, `xz`, `pigz`, plus the classic
+unix tools (`bash`, `coreutils`, `curl`, `vim`, `zsh`, `dropbear`, …).
+See `Formula/`.
+
+## Robot control stack (spacemit K3)
+
+Userspace libraries for driving robots on K3 pico (4 gpiochips, 5 i2c buses,
+16 UARTs, 2 pwmchips, /dev/input events):
+
+```sh
+brew install hbrew/riscv/libgpiod hbrew/riscv/i2c-tools hbrew/riscv/libserialport
+brew install hbrew/riscv/libevdev hbrew/riscv/mosquitto
+```
+
+| Formula | What you get |
+|---|---|
+| `libgpiod` 2.3.1 | GPIO chardev uAPI v2 lib + `gpiodetect/gpioget/gpioset/gpiomon/gpionotify` — digital IO, relay/sensor lines |
+| `i2c-tools` 4.4 | `i2cdetect/i2cget/i2cset/i2ctransfer` — IMU/ToF sensors, PWM servo boards |
+| `libserialport` 0.1.2 | serial port library — bus servos (LX/Feetech-style), lidar, GPS over `/dev/ttyS*` |
+| `libevdev` 1.13.4 | `/dev/input` event decoding — gamepad/joystick teleop |
+| `mosquitto` 2.0.20 | MQTT broker + `mosquitto_pub/sub` — robot telemetry & control channel (TLS-free keg; pairs with `cjson`) |
+
+Python side: `pip install pyserial periphery` (pure-python, from the PyPI
+mirrors configured below) covers GPIO/I2C/SPI/UART/PWM and serial-servo
+protocols on top of the same device nodes.
+
+## Python multi-source pip policy (riscv64 musl)
+
+The `python` keg ships `etc/pip.conf` with three sources (loaded via
+`bin/python-env.sh`, which also sets `PIP_CONFIG_FILE`):
+
+| Source | Role |
+|---|---|
+| `pypi.tuna.tsinghua.edu.cn/simple/` | primary PyPI mirror — pure-python wheels + the rare `musllinux_*_riscv64` wheels (markupsafe, regex, uv …) |
+| `mirrors.aliyun.com/pypi/simple/` | fallback mirror |
+| `shihuan1999.github.io/homebrew-riscv/wheels/simple/` | **this tap's own wheel index** — self-built `cp312-musllinux_1_2_riscv64` wheels (see [`wheels/`](wheels/)) |
+
+Known traps (verified 2026-10):
+
+- **glibc indexes must NOT be added** (e.g. gounthar/riscv64-python-wheels):
+  their `linux_riscv64`-tagged wheels match by tag but link glibc — install
+  succeeds, `import` fails.
+- Alpine edge riscv64 is the only other musl riscv64 binary ecosystem, but
+  it is apk-based — use it as a porting reference, not a pip source.
+- After install, check `pip debug --verbose | grep musllinux` shows
+  `musllinux_1_2_riscv64` compatible tags.
 
 ## 2026-09-02 组件化发布（v2）
 

@@ -1,0 +1,14 @@
+{
+  "updated": "2026-10-14T13:40:00Z",
+  "note": "riscv64 musl (OpenHarmony) cp312 wheels built on snode7 cross toolchain. Add entries and run contrib/make_wheel_index.py. Wheel binaries live in the GitHub release tagged 'wheels'.",
+  "wheels": [
+    {
+      "name": "simplejson",
+      "version": "3.20.1",
+      "tag": "cp312-cp312-musllinux_1_2_riscv64",
+      "url": "https://github.com/shihuan1999/homebrew-riscv/releases/download/wheels/simplejson-3.20.1-cp312-cp312-musllinux_1_2_riscv64.whl",
+      "sha256": "4c3eb8f450afffcc8f32b968fbb4266fdd845db266d40d334cb11cbb6648d63b",
+      "origin": "simplejson 3.20.1 sdist, cross-built with spacemit musl riscv64 gcc 15.2.1, retagged via contrib/retag_wheel.py, verified on K3 pico (speedups active)"
+    }
+  ]
+}
