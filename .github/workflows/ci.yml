@@ -45,9 +45,8 @@ jobs:
           # 基线缺失（新仓/force push）时退化为全量
           if ! git cat-file -e "$BASE" 2>/dev/null; then BASE=$(git rev-list --max-parents=0 HEAD | tail -1); fi
           git diff --name-only "$BASE"..HEAD -- 'Formula/*.rb' 'Formula/*/*.rb' | sort -u > changed.txt || true
-          if [ "${{ github.event_name }}" != "pull_request" ] && [ ! -s changed.txt ]; then
-            ls Formula/*/*.rb > changed.txt 2>/dev/null || true
-          fi
+          # push 无 Formula 变更时不再退化为全量校验（存量内网 formula 会拖红；
+          # 全量兜底由后面带 --allow-private-urls 的 validate-all 步骤负责）
           cat changed.txt
           echo "count=$(wc -l < changed.txt)" >> "$GITHUB_OUTPUT"
 
