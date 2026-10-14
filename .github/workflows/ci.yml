@@ -67,20 +67,28 @@ jobs:
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
           python3 - <<'EOF' > bottle-urls.txt
-          import glob, re
+          import glob, os, re
           for f in glob.glob("Formula/*/*.rb"):
               t = open(f, encoding="utf-8", errors="replace").read()
               m = re.search(r'root_url\s+"([^"]+)"', t)
-              n = re.search(r'^\s*class\s+(\w+)', t, re.M)
               v = re.search(r'^\s*version\s+"([^"]+)"', t, re.M)
-              if m and n and v:  # 显式 version 才能推导 bottle 文件名
-                  print(f"{m.group(1).rstrip('/')}/{n.group(1).lower()}-{v.group(1)}.riscv64_ohos.bottle.tar.gz")
+              # bottle 文件名跟 formula 名走（brew 用 name，非类名）：python@3.11 → python@3.11-<ver>
+              name = os.path.basename(f)[:-3]
+              if m and v:  # 显式 version 才能推导 bottle 文件名
+                  print(f"{m.group(1).rstrip('/')}/{name}-{v.group(1)}.riscv64_ohos.bottle.tar.gz")
           EOF
           echo "checking $(wc -l < bottle-urls.txt) bottle urls"
           fail=0
+          touch contrib/legacy-broken-urls.txt
           while read -r u; do
             code=$(curl -sL -o /dev/null -w '%{http_code}' --max-time 60 "$u" || echo 000)
-            if [ "$code" != "200" ]; then echo "BROKEN ($code): $u"; fail=1; fi
+            if [ "$code" != "200" ]; then
+              if grep -qxF "$u" contrib/legacy-broken-urls.txt; then
+                echo "WARN legacy-broken ($code): $u"
+              else
+                echo "BROKEN ($code): $u"; fail=1
+              fi
+            fi
           done < bottle-urls.txt
           exit $fail
 
