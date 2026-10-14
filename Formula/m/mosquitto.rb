@@ -3,7 +3,7 @@ class Mosquitto < Formula
 
       bottle do
     root_url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles"
-    sha256 cellar: :any_skip_relocation, riscv64_ohos: "222535e52f04c5809616cf1771393deda4c8f2be723be3363d2a05574b275242"
+    sha256 cellar: :any_skip_relocation, riscv64_ohos: "2669b0e7b30cf3e7da588ed6b54212afafd2b232a238a7ad9e876f4268d8fd13"
   end
   desc "MQTT broker and clients — robot telemetry and control channel"
   homepage "https://mosquitto.org/"
@@ -17,10 +17,13 @@ class Mosquitto < Formula
   def install
     # TLS disabled to keep the keg self-contained (local robot networks);
     # rebuild with WITH_TLS=yes against an openssl keg if needed.
+    # OHOS musl omits pthread_cancel/pthread_testcancel — a no-op compat object
+    # is linked into libmosquitto so load-time relocations resolve (see
+    # builds/mosquitto/build.sh).
     system "make", "WITH_DOCS=no", "WITH_TLS=no", "WITH_WEBSOCKETS=no",
            "WITH_STATIC_LIBS=no", "CC=#{ENV.cc}", "CXX=#{ENV.cxx}",
            "CFLAGS=#{ENV.cflags} -I#{Formula["hbrew/riscv/cjson"].opt_include}",
-           "LDFLAGS=-L#{Formula["hbrew/riscv/cjson"].opt_lib} -Wl,-rpath,$ORIGIN/../lib"
+           "LDFLAGS=ohos_pthread_compat.o -L#{Formula["hbrew/riscv/cjson"].opt_lib} -Wl,-rpath,$ORIGIN/../lib"
     system "make", "DESTDIR=#{File.dirname(prefix.to_s)}", "prefix=#{prefix}",
            "WITH_DOCS=no", "WITH_TLS=no", "WITH_WEBSOCKETS=no", "install"
   end
