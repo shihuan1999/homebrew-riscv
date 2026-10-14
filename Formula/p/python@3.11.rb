@@ -25,6 +25,10 @@ class PythonAT311 < Formula
         . #{prefix}/bin/python-env.sh #{prefix}
 
       First run installs pip via:  python3.11 -m ensurepip
+
+      Offline devices: pre-staging the brew download cache does not work for
+      @-versioned names — extract the bottle into Cellar/ and create the opt
+      symlink manually (see CONTRIBUTING.md 离线设备安装).
     EOS
   end
 

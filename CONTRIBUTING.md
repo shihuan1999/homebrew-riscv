@@ -137,12 +137,17 @@ C 扩展轮子。设备 pip 的默认源见 README「Python multi-source pip pol
 ```bash
 # 1. 取 bottle（中央 release）
 curl -fLO https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles/<name>-<ver>.riscv64_ohos.bottle.tar.gz
-# 2. 计算 brew 缓存名并推送（URL 哈希--文件名）
+# 2. 计算 brew 缓存名并推送（URL 哈希--文件名；注意 brew 会对文件名做 URL 编码，
+#    含 @ 的版本化 formula 的 URL 是 python%403.11-...，在线安装不受影响）
 python3 -c "import hashlib,sys;print(hashlib.sha256(b'<bottle 完整 URL>').hexdigest()+'--<文件名>')"
-hdc file send <文件> /data/hbrew-home/.cache/Homebrew/<上面算出的名字>
+hdc file send <文件> /data/hbrew-home/.cache/Homebrew/downloads/<上面算出的名字>
 # 3. 设备上安装
 hdc shell ". /data/harmonybrew/hbrew-env.sh && brew install hbrew/riscv/<name>"
 ```
+
+已知限制：离线预置缓存对 `@` 版本化 formula（如 `python@3.11`）不生效（fork 的
+缓存名派生含编码细节）——离线设备上可直接把瓶解到 Cellar 并建 opt 软链：
+`cd $HBB/Cellar && tar -xzf <bottle> && ln -sfn ../Cellar/<name>/<ver> $HBB/opt/<name>`。
 
 ## 反馈
 
