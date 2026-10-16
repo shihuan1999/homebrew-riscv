@@ -7,12 +7,12 @@ class Ros2Humble < Formula
   version "16.0.20-riscv1"
 
   bottle do
-    root_url "http://10.0.50.17:8090/bottles"
+    root_url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles"
     sha256 cellar: :any_skip_relocation, riscv64_ohos: "f47791cb7232aa37b44ec1cc4dcc2af72ce653a4ef8e5ae8ae1a7fcb272e1841"
   end
 
   resource "ohos_riscv64_dist" do
-    url "http://10.0.50.17:8090/dist/ros2-humble-16.0.20-riscv1-ohos-riscv64.tar.gz"
+    url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles/ros2-humble-16.0.20-riscv1-ohos-riscv64.tar.gz"
     sha256 "93320bd7413e4fe2062a96c5c7ebb467a888da236f207f12aa4f5427bec590f5"
   end
 

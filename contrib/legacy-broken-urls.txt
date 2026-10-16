@@ -7,5 +7,4 @@ https://github.com/shihuan1999/riscv-bin/releases/download/vscode-v1.109.5-ohos/
 https://github.com/shihuan1999/riscv-bin/releases/download/vscode-v1.109.5-ohos/codehapdev-0.1.0.riscv64_ohos.bottle.tar.gz
 https://github.com/shihuan1999/riscv-bin/releases/download/vscode-v1.109.5-ohos/codedeveco-1.17.9.riscv64_ohos.bottle.tar.gz
 # ---- 内网编译机直链（存量 53 内网 formula 计划的一部分，禁止新增）----
-http://10.0.50.17:8090/bottles/ros2-humble-16.0.20-riscv1.riscv64_ohos.bottle.tar.gz
-http://10.0.50.17:8090/bottles/ros2-humble-full-16.0.21-riscv1.riscv64_ohos.bottle.tar.gz
+# （ros2-humble / ros2-humble-full 已于 2026-10-16 迁移到中央 bottles release，白名单移除）
