@@ -5,7 +5,7 @@
 class Openjiuwen < Formula
   desc "openJiuwen agent framework (core 0.1.17) with riscv64-ohos dep closure"
   homepage "https://github.com/openJiuwen-ai/agent-core"
-  url "https://files.pythonhosted.org/packages/source/o/openjiuwen/openjiuwen-0.1.17-py3-none-any.whl"
+  url "https://files.pythonhosted.org/packages/48/57/b325962367ea7aef2bf9707dbe8d3a20d57d24bdc48915f184423cc5b42d/openjiuwen-0.1.17-py3-none-any.whl"
   sha256 "c956efb1c227beff3b3b164f74f68b52a2d22a7699b22de4a92b623255141511"
   version "0.1.17"
   license "Apache-2.0"
