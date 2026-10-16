@@ -1,629 +1,660 @@
 {
- "count": 62,
- "updated": "2026-10-16T11:15:42Z",
- "packages": [
-  {
-   "name": "bash",
-   "version": "5.3",
-   "desc": "Bourne-Again SHell",
-   "homepage": "https://www.gnu.org/software/bash/",
-   "deps": [
-    "ncurses"
-   ],
-   "formula": "Formula/b/bash.rb",
-   "bottled": true
-  },
-  {
-   "name": "busybox",
-   "version": "1.37.0",
-   "desc": "Swiss-army knife of embedded Linux",
-   "homepage": "https://busybox.net/",
-   "deps": [],
-   "formula": "Formula/b/busybox.rb",
-   "bottled": true
-  },
-  {
-   "name": "cjson",
-   "version": "1.7.18",
-   "desc": "Ultralightweight JSON parser in ANSI C (mosquitto dependency)",
-   "homepage": "https://github.com/DaveGamble/cJSON",
-   "deps": [],
-   "formula": "Formula/c/cjson.rb",
-   "bottled": true
-  },
-  {
-   "name": "codedeveco",
-   "version": "1.17.9",
-   "desc": "deveco-code (opencode) VS Code extension + installer (OHOS riscv64)",
-   "homepage": "https://github.com/shihuan1999/deveco-ohos-port",
-   "deps": [
-    "hbrew/riscv/vscode-server"
-   ],
-   "formula": "Formula/c/code-deveco.rb",
-   "bottled": true
-  },
-  {
-   "name": "codehapdev",
-   "version": "0.1.0",
-   "desc": "ohos-dev VS Code extension (hap-dev) + installer (OHOS riscv64)",
-   "homepage": "https://github.com/shihuan1999/vscode-ohos-port",
-   "deps": [
-    "hbrew/riscv/vscode-server"
-   ],
-   "formula": "Formula/c/code-hapdev.rb",
-   "bottled": true
-  },
-  {
-   "name": "coreutils",
-   "version": "9.11",
-   "desc": "GNU file, shell and text utilities",
-   "homepage": "https://www.gnu.org/software/coreutils/",
-   "deps": [],
-   "formula": "Formula/c/coreutils.rb",
-   "bottled": true
-  },
-  {
-   "name": "curl",
-   "version": "8.19.0",
-   "desc": "Command line tool and library for URL transfers",
-   "homepage": "https://curl.se/",
-   "deps": [
-    "openssl",
-    "zlib"
-   ],
-   "formula": "Formula/c/curl.rb",
-   "bottled": true
-  },
-  {
-   "name": "diffutils",
-   "version": "3.12",
-   "desc": "GNU diff, cmp, diff3 and sdiff",
-   "homepage": "https://www.gnu.org/software/diffutils/",
-   "deps": [],
-   "formula": "Formula/d/diffutils.rb",
-   "bottled": true
-  },
-  {
-   "name": "dropbear",
-   "version": "2026.94",
-   "desc": "Small SSH 2 server and client",
-   "homepage": "https://matt.ucc.asn.au/dropbear/dropbear.html",
-   "deps": [],
-   "formula": "Formula/d/dropbear.rb",
-   "bottled": true
-  },
-  {
-   "name": "dsh",
-   "version": "0.1.0rc7",
-   "desc": "DeepSeek Harness (dsh): agentic coding harness (OHOS riscv64 port)",
-   "homepage": "https://github.com/shihuan1999/dsh-ohos-port",
-   "deps": [
-    "hbrew/riscv/node"
-   ],
-   "formula": "Formula/d/dsh.rb",
-   "bottled": true
-  },
-  {
-   "name": "figlet",
-   "version": "2.2.5",
-   "desc": "Print large text banners in ASCII art from ordinary text",
-   "homepage": "http://www.figlet.org/",
-   "deps": [],
-   "formula": "Formula/f/figlet.rb",
-   "bottled": true
-  },
-  {
-   "name": "gawk",
-   "version": "5.3.2",
-   "desc": "GNU awk pattern scanning language",
-   "homepage": "https://www.gnu.org/software/gawk/",
-   "deps": [],
-   "formula": "Formula/g/gawk.rb",
-   "bottled": true
-  },
-  {
-   "name": "grep",
-   "version": "3.12",
-   "desc": "GNU grep, print lines matching a pattern",
-   "homepage": "https://www.gnu.org/software/grep/",
-   "deps": [],
-   "formula": "Formula/g/grep.rb",
-   "bottled": true
-  },
-  {
-   "name": "gzip",
-   "version": "1.14",
-   "desc": "GNU compression utility (deflate)",
-   "homepage": "https://www.gnu.org/software/gzip/",
-   "deps": [],
-   "formula": "Formula/g/gzip.rb",
-   "bottled": true
-  },
-  {
-   "name": "hello",
-   "version": "2.12.3",
-   "desc": "GNU Hello, the classic hello world program",
-   "homepage": "https://www.gnu.org/software/hello/",
-   "deps": [],
-   "formula": "Formula/h/hello.rb",
-   "bottled": true
-  },
-  {
-   "name": "i2ctools",
-   "version": "4.4",
-   "desc": "I2C bus probing/transfer tools — sensors, servo controller boards",
-   "homepage": "https://git.kernel.org/pub/scm/utils/i2c-tools/i2c-tools.git/",
-   "deps": [],
-   "formula": "Formula/i/i2c-tools.rb",
-   "bottled": true
-  },
-  {
-   "name": "jq",
-   "version": "1.8.1",
-   "desc": "Lightweight and flexible command-line JSON processor",
-   "homepage": "https://jqlang.github.io/jq/",
-   "deps": [],
-   "formula": "Formula/j/jq.rb",
-   "bottled": true
-  },
-  {
-   "name": "less",
-   "version": "704",
-   "desc": "Pager program similar to more",
-   "homepage": "https://www.gnu.org/software/less/",
-   "deps": [],
-   "formula": "Formula/l/less.rb",
-   "bottled": true
-  },
-  {
-   "name": "libevdev",
-   "version": "1.13.4",
-   "desc": "Wrapper for /dev/input event codes — gamepads and remote teleop",
-   "homepage": "https://www.freedesktop.org/wiki/Software/libevdev/",
-   "deps": [],
-   "formula": "Formula/l/libevdev.rb",
-   "bottled": true
-  },
-  {
-   "name": "libgpiod",
-   "version": "2.3.1",
-   "desc": "GPIO character device (/dev/gpiochip*) library and tools — robot IO control",
-   "homepage": "https://git.kernel.org/pub/scm/libs/libgpiod/libgpiod.git/",
-   "deps": [],
-   "formula": "Formula/l/libgpiod.rb",
-   "bottled": true
-  },
-  {
-   "name": "libserialport",
-   "version": "0.1.2",
-   "desc": "Cross-platform serial port access library — bus servos, lidar, GPS",
-   "homepage": "https://sigrok.org/wiki/Libserialport",
-   "deps": [],
-   "formula": "Formula/l/libserialport.rb",
-   "bottled": true
-  },
-  {
-   "name": "m4",
-   "version": "1.4.20",
-   "desc": "GNU macro processor",
-   "homepage": "https://www.gnu.org/software/m4/",
-   "deps": [],
-   "formula": "Formula/m/m4.rb",
-   "bottled": true
-  },
-  {
-   "name": "make",
-   "version": "4.4.1",
-   "desc": "GNU make utility to build projects",
-   "homepage": "https://www.gnu.org/software/make/",
-   "deps": [],
-   "formula": "Formula/m/make.rb",
-   "bottled": true
-  },
-  {
-   "name": "mindsporelite",
-   "version": "2.4.0-k3.1",
-   "desc": "MindSpore Lite 2.4 inference runtime + benchmark/verify tools (RVV-accelerated)",
-   "homepage": "https://www.mindspore.cn/lite",
-   "deps": [],
-   "formula": "Formula/m/mindspore-lite.rb",
-   "bottled": true
-  },
-  {
-   "name": "mosquitto",
-   "version": "2.0.20",
-   "desc": "MQTT broker and clients — robot telemetry and control channel",
-   "homepage": "https://mosquitto.org/",
-   "deps": [
-    "hbrew/riscv/cjson"
-   ],
-   "formula": "Formula/m/mosquitto.rb",
-   "bottled": true
-  },
-  {
-   "name": "mindsporennrt",
-   "version": "6.1.0-k3.1",
-   "desc": "OpenHarmony 6.1 Neural Network Runtime client libs + proxy backends (riscv64)",
-   "homepage": "https://gitee.com/openharmony/neural_network_runtime",
-   "deps": [],
-   "formula": "Formula/n/mindspore-nnrt.rb",
-   "bottled": true
-  },
-  {
-   "name": "nano",
-   "version": "8.5",
-   "desc": "Free (GNU) replacement for Pico",
-   "homepage": "https://www.nano-editor.org/",
-   "deps": [],
-   "formula": "Formula/n/nano.rb",
-   "bottled": true
-  },
-  {
-   "name": "ncurses",
-   "version": "6.5",
-   "desc": "Text-based UI library (curses/terminfo)",
-   "homepage": "https://www.gnu.org/software/ncurses/",
-   "deps": [],
-   "formula": "Formula/n/ncurses.rb",
-   "bottled": true
-  },
-  {
-   "name": "node",
-   "version": "22.16.0",
-   "desc": "JavaScript runtime built on V8 (OpenHarmony riscv64 port)",
-   "homepage": "https://nodejs.org/",
-   "deps": [],
-   "formula": "Formula/n/node.rb",
-   "bottled": true
-  },
-  {
-   "name": "ohoskb",
-   "version": "1.1.0",
-   "desc": "Zero-dep local knowledge base: file ingest, hybrid search, RAG QA, standard eval",
-   "homepage": "https://github.com/shihuan1999/ohos-kb",
-   "deps": [
-    "hbrew/riscv/python"
-   ],
-   "formula": "Formula/o/ohos-kb.rb",
-   "bottled": true
-  },
-  {
-   "name": "openjiuwenagentdx",
-   "version": "1.0.0",
-   "desc": "openJiuwen agent-dx: Agent Distributed eXecutor, source vendor pkg (OHOS riscv64)",
-   "homepage": "https://github.com/openJiuwen-ai",
-   "deps": [
-    "hbrew/riscv/openjiuwen"
-   ],
-   "formula": "Formula/o/openjiuwen-agent-dx.rb",
-   "bottled": true
-  },
-  {
-   "name": "openjiuwenagentmemory",
-   "version": "1.0.0",
-   "desc": "openJiuwen agent-memory: long-term memory server (hash embedding + SQLite vector store) for OHOS riscv64",
-   "homepage": "https://github.com/openJiuwen-ai",
-   "deps": [
-    "hbrew/riscv/openjiuwen"
-   ],
-   "formula": "Formula/o/openjiuwen-agent-memory.rb",
-   "bottled": true
-  },
-  {
-   "name": "openjiuwenagentprotocol",
-   "version": "1.0.0",
-   "desc": "openJiuwen Agent Protocol: A2A/MCP/AgentRegistry implementations, source vendor pkg (OHOS riscv64)",
-   "homepage": "https://github.com/openJiuwen-ai",
-   "deps": [
-    "hbrew/riscv/openjiuwen"
-   ],
-   "formula": "Formula/o/openjiuwen-agent-protocol.rb",
-   "bottled": true
-  },
-  {
-   "name": "openjiuwenagentruntime",
-   "version": "1.0.0",
-   "desc": "openJiuwen Agent Runtime: agent run/deploy framework, source vendor pkg (OHOS riscv64)",
-   "homepage": "https://github.com/openJiuwen-ai",
-   "deps": [
-    "hbrew/riscv/openjiuwen"
-   ],
-   "formula": "Formula/o/openjiuwen-agent-runtime.rb",
-   "bottled": true
-  },
-  {
-   "name": "openjiuwenagenttools",
-   "version": "1.0.0",
-   "desc": "openJiuwen agent-tools collection, source vendor pkg (OHOS riscv64)",
-   "homepage": "https://github.com/openJiuwen-ai",
-   "deps": [
-    "hbrew/riscv/openjiuwen"
-   ],
-   "formula": "Formula/o/openjiuwen-agent-tools.rb",
-   "bottled": true
-  },
-  {
-   "name": "openjiuwenapps",
-   "version": "1.0.0",
-   "desc": "openJiuwen on-device agents: deepsearch/career/diag/perf/kb sidecar + KB",
-   "homepage": "https://github.com/openJiuwen-ai/deepsearch",
-   "deps": [
-    "hbrew/riscv/python",
-    "hbrew/riscv/openjiuwen"
-   ],
-   "formula": "Formula/o/openjiuwen-apps.rb",
-   "bottled": true
-  },
-  {
-   "name": "openjiuwencareersim",
-   "version": "1.0.0",
-   "desc": "openJiuwen CareerSim (CCF BDCI 2026) headless career simulation runner (OHOS riscv64)",
-   "homepage": "https://github.com/openJiuwen-ai",
-   "deps": [
-    "hbrew/riscv/openjiuwen"
-   ],
-   "formula": "Formula/o/openjiuwen-careersim.rb",
-   "bottled": true
-  },
-  {
-   "name": "openjiuwendeepsearch",
-   "version": "1.0.0",
-   "desc": "openJiuwen DeepSearch knowledge-enhanced deep research agent (OHOS riscv64)",
-   "homepage": "https://github.com/openJiuwen-ai",
-   "deps": [
-    "hbrew/riscv/openjiuwen"
-   ],
-   "formula": "Formula/o/openjiuwen-deepsearch.rb",
-   "bottled": true
-  },
-  {
-   "name": "openjiuwenskillhub",
-   "version": "1.0.0",
-   "desc": "openJiuwen skillhub: skills marketplace + CLI, source vendor pkg (OHOS riscv64)",
-   "homepage": "https://github.com/openJiuwen-ai",
-   "deps": [
-    "hbrew/riscv/openjiuwen"
-   ],
-   "formula": "Formula/o/openjiuwen-skillhub.rb",
-   "bottled": true
-  },
-  {
-   "name": "openjiuwensuite",
-   "version": "1.0.0",
-   "desc": "Meta package: openJiuwen framework + agents + symbiosis + swarm (OHOS riscv64)",
-   "homepage": "https://github.com/shihuan1999/riscv-bin",
-   "deps": [
-    "hbrew/riscv/openjiuwen",
-    "hbrew/riscv/openjiuwen-apps",
-    "hbrew/riscv/openjiuwen-symbiosis",
-    "hbrew/riscv/openjiuwen-swarm"
-   ],
-   "formula": "Formula/o/openjiuwen-suite.rb",
-   "bottled": true
-  },
-  {
-   "name": "openjiuwenswarm",
-   "version": "1.0.0",
-   "desc": "jiuwenswarm multi-agent app: AgentServer + E2A gateway (OHOS riscv64)",
-   "homepage": "https://github.com/openJiuwen-ai/jiuwenswarm",
-   "deps": [
-    "hbrew/riscv/python",
-    "hbrew/riscv/openjiuwen"
-   ],
-   "formula": "Formula/o/openjiuwen-swarm.rb",
-   "bottled": true
-  },
-  {
-   "name": "openjiuwensymbiosis",
-   "version": "0.1.0",
-   "desc": "jiuwensymbiosis robotics agent framework + scipy shim (OHOS riscv64)",
-   "homepage": "https://github.com/openJiuwen-ai/jiuwensymbiosis",
-   "deps": [
-    "hbrew/riscv/python",
-    "hbrew/riscv/openjiuwen"
-   ],
-   "formula": "Formula/o/openjiuwen-symbiosis.rb",
-   "bottled": true
-  },
-  {
-   "name": "openjiuwen",
-   "version": "0.1.17",
-   "desc": "openJiuwen agent framework (core 0.1.17) with riscv64-ohos dep closure",
-   "homepage": "https://github.com/openJiuwen-ai/agent-core",
-   "deps": [
-    "hbrew/riscv/python"
-   ],
-   "formula": "Formula/o/openjiuwen.rb",
-   "bottled": true
-  },
-  {
-   "name": "openssh",
-   "version": "10.4p1",
-   "desc": "OpenBSD's SSH remote login client/server",
-   "homepage": "https://www.openssh.com/",
-   "deps": [
-    "openssl",
-    "zlib"
-   ],
-   "formula": "Formula/o/openssh.rb",
-   "bottled": true
-  },
-  {
-   "name": "openssl",
-   "version": "3.6.1",
-   "desc": "Cryptography and SSL/TLS toolkit",
-   "homepage": "https://openssl.org/",
-   "deps": [],
-   "formula": "Formula/o/openssl.rb",
-   "bottled": true
-  },
-  {
-   "name": "patch",
-   "version": "2.8",
-   "desc": "Apply a diff file to an original",
-   "homepage": "https://www.gnu.org/software/patch/",
-   "deps": [],
-   "formula": "Formula/p/patch.rb",
-   "bottled": true
-  },
-  {
-   "name": "pigz",
-   "version": "2.8",
-   "desc": "Parallel gzip compression utility",
-   "homepage": "https://zlib.net/pigz/",
-   "deps": [
-    "hbrew/riscv/zlib"
-   ],
-   "formula": "Formula/p/pigz.rb",
-   "bottled": true
-  },
-  {
-   "name": "portablegit",
-   "version": "2.54.0",
-   "desc": "Distributed version control system",
-   "homepage": "https://git-scm.com",
-   "deps": [
-    "hbrew/riscv/curl",
-    "hbrew/riscv/openssl",
-    "hbrew/riscv/zlib"
-   ],
-   "formula": "Formula/p/portable-git.rb",
-   "bottled": true
-  },
-  {
-   "name": "portableruby",
-   "version": "4.0.3",
-   "desc": "Ruby interpreter (Homebrew portable version)",
-   "homepage": "https://www.ruby-lang.org/",
-   "deps": [
-    "hbrew/riscv/openssl",
-    "hbrew/riscv/zlib"
-   ],
-   "formula": "Formula/p/portable-ruby.rb",
-   "bottled": true
-  },
-  {
-   "name": "python",
-   "version": "3.12.14",
-   "desc": "Interpreted, interactive, object-oriented programming language",
-   "homepage": "https://www.python.org/",
-   "deps": [],
-   "formula": "Formula/p/python.rb",
-   "bottled": true
-  },
-  {
-   "name": "pythonat311",
-   "version": "3.11.4",
-   "desc": "Interpreted, interactive, object-oriented programming language (3.11 line)",
-   "homepage": "https://www.python.org/",
-   "deps": [],
-   "formula": "Formula/p/python@3.11.rb",
-   "bottled": true
-  },
-  {
-   "name": "ros2humblefull",
-   "version": "16.0.21-riscv1",
-   "desc": "ROS 2 Humble full robot stack (rclpy/ros2cli/tf2/ros2_control/rosbridge) for OpenHarmony riscv64",
-   "homepage": "https://docs.ros.org/en/humble/",
-   "deps": [],
-   "formula": "Formula/r/ros2-humble-full.rb",
-   "bottled": true
-  },
-  {
-   "name": "ros2humble",
-   "version": "16.0.20-riscv1",
-   "desc": "ROS 2 Humble (rcl/rclcpp + CycloneDDS, demo_nodes_cpp) for OpenHarmony riscv64",
-   "homepage": "https://docs.ros.org/en/humble/",
-   "deps": [],
-   "formula": "Formula/r/ros2-humble.rb",
-   "bottled": true
-  },
-  {
-   "name": "sed",
-   "version": "4.10",
-   "desc": "GNU stream editor",
-   "homepage": "https://www.gnu.org/software/sed/",
-   "deps": [],
-   "formula": "Formula/s/sed.rb",
-   "bottled": true
-  },
-  {
-   "name": "shgz",
-   "version": "0.1.0",
-   "desc": "Demo shell tool depending on hbrew/riscv/pigz",
-   "homepage": "https://github.com/shihuan1999/homebrew-riscv",
-   "deps": [
-    "hbrew/riscv/pigz"
-   ],
-   "formula": "Formula/s/shgz.rb",
-   "bottled": true
-  },
-  {
-   "name": "tar",
-   "version": "1.35",
-   "desc": "GNU tar archiver",
-   "homepage": "https://www.gnu.org/software/tar/",
-   "deps": [],
-   "formula": "Formula/t/tar.rb",
-   "bottled": true
-  },
-  {
-   "name": "tree",
-   "version": "2.1.1",
-   "desc": "Display directories as trees",
-   "homepage": "http://oldmanprogrammer.net/scode/tree.php",
-   "deps": [],
-   "formula": "Formula/t/tree.rb",
-   "bottled": true
-  },
-  {
-   "name": "vim",
-   "version": "9.2.0150",
-   "desc": "Vi 'workalike' with many additional features",
-   "homepage": "https://www.vim.org/",
-   "deps": [
-    "ncurses"
-   ],
-   "formula": "Formula/v/vim.rb",
-   "bottled": true
-  },
-  {
-   "name": "vscodeserver",
-   "version": "1.109.5",
-   "desc": "openvscode-server: browser VS Code server (OHOS riscv64 port)",
-   "homepage": "https://github.com/gitpod-io/openvscode-server",
-   "deps": [],
-   "formula": "Formula/v/vscode-server.rb",
-   "bottled": true
-  },
-  {
-   "name": "xz",
-   "version": "5.4.5",
-   "desc": "General-purpose data compression with high compression ratio",
-   "homepage": "https://tukaani.org/xz/",
-   "deps": [],
-   "formula": "Formula/x/xz.rb",
-   "bottled": true
-  },
-  {
-   "name": "zlib",
-   "version": "1.3.1",
-   "desc": "General-purpose lossless data-compression library",
-   "homepage": "https://zlib.net/",
-   "deps": [],
-   "formula": "Formula/z/zlib.rb",
-   "bottled": true
-  },
-  {
-   "name": "zsh",
-   "version": "5.9",
-   "desc": "Z shell, interactive shell and scripting language",
-   "homepage": "https://www.zsh.org/",
-   "deps": [
-    "ncurses"
-   ],
-   "formula": "Formula/z/zsh.rb",
-   "bottled": true
-  }
- ]
+  "count": 65,
+  "updated": "2026-10-16",
+  "packages": [
+    {
+      "name": "agentstore-build",
+      "version": "1.0.0",
+      "desc": "hvigor 6.24.2 build chain + launcher for HAP projects (pure-JS, riscv64-clean)",
+      "homepage": "https://github.com/spacemit-com",
+      "deps": [
+        "hbrew/riscv/node"
+      ],
+      "formula": "Formula/a/agentstore-build.rb",
+      "bottled": true
+    },
+    {
+      "name": "agentstore-hap",
+      "version": "1.0.0",
+      "desc": "Bianbu AgentStore replica (pure-ArkTS HAP) + on-device install/start/selftest wrappers",
+      "homepage": "https://github.com/spacemit-com",
+      "deps": [],
+      "formula": "Formula/a/agentstore-hap.rb",
+      "bottled": true
+    },
+    {
+      "name": "agentstore-relay",
+      "version": "1.0.0",
+      "desc": "OpenAI-compatible LLM relay for AgentStore HAP (key stays on host, hdc rport tunnel)",
+      "homepage": "https://github.com/spacemit-com",
+      "deps": [
+        "hbrew/riscv/python"
+      ],
+      "formula": "Formula/a/agentstore-relay.rb",
+      "bottled": true
+    },
+    {
+      "name": "bash",
+      "version": "5.3",
+      "desc": "Bourne-Again SHell",
+      "homepage": "https://www.gnu.org/software/bash/",
+      "deps": [
+        "ncurses"
+      ],
+      "formula": "Formula/b/bash.rb",
+      "bottled": true
+    },
+    {
+      "name": "busybox",
+      "version": "1.37.0",
+      "desc": "Swiss-army knife of embedded Linux",
+      "homepage": "https://busybox.net/",
+      "deps": [],
+      "formula": "Formula/b/busybox.rb",
+      "bottled": true
+    },
+    {
+      "name": "cjson",
+      "version": "1.7.18",
+      "desc": "Ultralightweight JSON parser in ANSI C (mosquitto dependency)",
+      "homepage": "https://github.com/DaveGamble/cJSON",
+      "deps": [],
+      "formula": "Formula/c/cjson.rb",
+      "bottled": true
+    },
+    {
+      "name": "codedeveco",
+      "version": "1.17.9",
+      "desc": "deveco-code (opencode) VS Code extension + installer (OHOS riscv64)",
+      "homepage": "https://github.com/shihuan1999/deveco-ohos-port",
+      "deps": [
+        "hbrew/riscv/vscode-server"
+      ],
+      "formula": "Formula/c/code-deveco.rb",
+      "bottled": true
+    },
+    {
+      "name": "codehapdev",
+      "version": "0.1.0",
+      "desc": "ohos-dev VS Code extension (hap-dev) + installer (OHOS riscv64)",
+      "homepage": "https://github.com/shihuan1999/vscode-ohos-port",
+      "deps": [
+        "hbrew/riscv/vscode-server"
+      ],
+      "formula": "Formula/c/code-hapdev.rb",
+      "bottled": true
+    },
+    {
+      "name": "coreutils",
+      "version": "9.11",
+      "desc": "GNU file, shell and text utilities",
+      "homepage": "https://www.gnu.org/software/coreutils/",
+      "deps": [],
+      "formula": "Formula/c/coreutils.rb",
+      "bottled": true
+    },
+    {
+      "name": "curl",
+      "version": "8.19.0",
+      "desc": "Command line tool and library for URL transfers",
+      "homepage": "https://curl.se/",
+      "deps": [
+        "openssl",
+        "zlib"
+      ],
+      "formula": "Formula/c/curl.rb",
+      "bottled": true
+    },
+    {
+      "name": "diffutils",
+      "version": "3.12",
+      "desc": "GNU diff, cmp, diff3 and sdiff",
+      "homepage": "https://www.gnu.org/software/diffutils/",
+      "deps": [],
+      "formula": "Formula/d/diffutils.rb",
+      "bottled": true
+    },
+    {
+      "name": "dropbear",
+      "version": "2026.94",
+      "desc": "Small SSH 2 server and client",
+      "homepage": "https://matt.ucc.asn.au/dropbear/dropbear.html",
+      "deps": [],
+      "formula": "Formula/d/dropbear.rb",
+      "bottled": true
+    },
+    {
+      "name": "dsh",
+      "version": "0.1.0rc7",
+      "desc": "DeepSeek Harness (dsh): agentic coding harness (OHOS riscv64 port)",
+      "homepage": "https://github.com/shihuan1999/dsh-ohos-port",
+      "deps": [
+        "hbrew/riscv/node"
+      ],
+      "formula": "Formula/d/dsh.rb",
+      "bottled": true
+    },
+    {
+      "name": "figlet",
+      "version": "2.2.5",
+      "desc": "Print large text banners in ASCII art from ordinary text",
+      "homepage": "http://www.figlet.org/",
+      "deps": [],
+      "formula": "Formula/f/figlet.rb",
+      "bottled": true
+    },
+    {
+      "name": "gawk",
+      "version": "5.3.2",
+      "desc": "GNU awk pattern scanning language",
+      "homepage": "https://www.gnu.org/software/gawk/",
+      "deps": [],
+      "formula": "Formula/g/gawk.rb",
+      "bottled": true
+    },
+    {
+      "name": "grep",
+      "version": "3.12",
+      "desc": "GNU grep, print lines matching a pattern",
+      "homepage": "https://www.gnu.org/software/grep/",
+      "deps": [],
+      "formula": "Formula/g/grep.rb",
+      "bottled": true
+    },
+    {
+      "name": "gzip",
+      "version": "1.14",
+      "desc": "GNU compression utility (deflate)",
+      "homepage": "https://www.gnu.org/software/gzip/",
+      "deps": [],
+      "formula": "Formula/g/gzip.rb",
+      "bottled": true
+    },
+    {
+      "name": "hello",
+      "version": "2.12.3",
+      "desc": "GNU Hello, the classic hello world program",
+      "homepage": "https://www.gnu.org/software/hello/",
+      "deps": [],
+      "formula": "Formula/h/hello.rb",
+      "bottled": true
+    },
+    {
+      "name": "i2ctools",
+      "version": "4.4",
+      "desc": "I2C bus probing/transfer tools — sensors, servo controller boards",
+      "homepage": "https://git.kernel.org/pub/scm/utils/i2c-tools/i2c-tools.git/",
+      "deps": [],
+      "formula": "Formula/i/i2c-tools.rb",
+      "bottled": true
+    },
+    {
+      "name": "jq",
+      "version": "1.8.1",
+      "desc": "Lightweight and flexible command-line JSON processor",
+      "homepage": "https://jqlang.github.io/jq/",
+      "deps": [],
+      "formula": "Formula/j/jq.rb",
+      "bottled": true
+    },
+    {
+      "name": "less",
+      "version": "704",
+      "desc": "Pager program similar to more",
+      "homepage": "https://www.gnu.org/software/less/",
+      "deps": [],
+      "formula": "Formula/l/less.rb",
+      "bottled": true
+    },
+    {
+      "name": "libevdev",
+      "version": "1.13.4",
+      "desc": "Wrapper for /dev/input event codes — gamepads and remote teleop",
+      "homepage": "https://www.freedesktop.org/wiki/Software/libevdev/",
+      "deps": [],
+      "formula": "Formula/l/libevdev.rb",
+      "bottled": true
+    },
+    {
+      "name": "libgpiod",
+      "version": "2.3.1",
+      "desc": "GPIO character device (/dev/gpiochip*) library and tools — robot IO control",
+      "homepage": "https://git.kernel.org/pub/scm/libs/libgpiod/libgpiod.git/",
+      "deps": [],
+      "formula": "Formula/l/libgpiod.rb",
+      "bottled": true
+    },
+    {
+      "name": "libserialport",
+      "version": "0.1.2",
+      "desc": "Cross-platform serial port access library — bus servos, lidar, GPS",
+      "homepage": "https://sigrok.org/wiki/Libserialport",
+      "deps": [],
+      "formula": "Formula/l/libserialport.rb",
+      "bottled": true
+    },
+    {
+      "name": "m4",
+      "version": "1.4.20",
+      "desc": "GNU macro processor",
+      "homepage": "https://www.gnu.org/software/m4/",
+      "deps": [],
+      "formula": "Formula/m/m4.rb",
+      "bottled": true
+    },
+    {
+      "name": "make",
+      "version": "4.4.1",
+      "desc": "GNU make utility to build projects",
+      "homepage": "https://www.gnu.org/software/make/",
+      "deps": [],
+      "formula": "Formula/m/make.rb",
+      "bottled": true
+    },
+    {
+      "name": "mindsporelite",
+      "version": "2.4.0-k3.1",
+      "desc": "MindSpore Lite 2.4 inference runtime + benchmark/verify tools (RVV-accelerated)",
+      "homepage": "https://www.mindspore.cn/lite",
+      "deps": [],
+      "formula": "Formula/m/mindspore-lite.rb",
+      "bottled": true
+    },
+    {
+      "name": "mindsporennrt",
+      "version": "6.1.0-k3.1",
+      "desc": "OpenHarmony 6.1 Neural Network Runtime client libs + proxy backends (riscv64)",
+      "homepage": "https://gitee.com/openharmony/neural_network_runtime",
+      "deps": [],
+      "formula": "Formula/n/mindspore-nnrt.rb",
+      "bottled": true
+    },
+    {
+      "name": "mosquitto",
+      "version": "2.0.20",
+      "desc": "MQTT broker and clients — robot telemetry and control channel",
+      "homepage": "https://mosquitto.org/",
+      "deps": [
+        "hbrew/riscv/cjson"
+      ],
+      "formula": "Formula/m/mosquitto.rb",
+      "bottled": true
+    },
+    {
+      "name": "nano",
+      "version": "8.5",
+      "desc": "Free (GNU) replacement for Pico",
+      "homepage": "https://www.nano-editor.org/",
+      "deps": [],
+      "formula": "Formula/n/nano.rb",
+      "bottled": true
+    },
+    {
+      "name": "ncurses",
+      "version": "6.5",
+      "desc": "Text-based UI library (curses/terminfo)",
+      "homepage": "https://www.gnu.org/software/ncurses/",
+      "deps": [],
+      "formula": "Formula/n/ncurses.rb",
+      "bottled": true
+    },
+    {
+      "name": "node",
+      "version": "22.16.0",
+      "desc": "JavaScript runtime built on V8 (OpenHarmony riscv64 port)",
+      "homepage": "https://nodejs.org/",
+      "deps": [],
+      "formula": "Formula/n/node.rb",
+      "bottled": true
+    },
+    {
+      "name": "ohoskb",
+      "version": "1.1.0",
+      "desc": "Zero-dep local knowledge base: file ingest, hybrid search, RAG QA, standard eval",
+      "homepage": "https://github.com/shihuan1999/ohos-kb",
+      "deps": [
+        "hbrew/riscv/python"
+      ],
+      "formula": "Formula/o/ohos-kb.rb",
+      "bottled": true
+    },
+    {
+      "name": "openjiuwen",
+      "version": "0.1.17",
+      "desc": "openJiuwen agent framework (core 0.1.17) with riscv64-ohos dep closure",
+      "homepage": "https://github.com/openJiuwen-ai/agent-core",
+      "deps": [
+        "hbrew/riscv/python"
+      ],
+      "formula": "Formula/o/openjiuwen.rb",
+      "bottled": true
+    },
+    {
+      "name": "openjiuwenagentdx",
+      "version": "1.0.0",
+      "desc": "openJiuwen agent-dx: Agent Distributed eXecutor, source vendor pkg (OHOS riscv64)",
+      "homepage": "https://github.com/openJiuwen-ai",
+      "deps": [
+        "hbrew/riscv/openjiuwen"
+      ],
+      "formula": "Formula/o/openjiuwen-agent-dx.rb",
+      "bottled": true
+    },
+    {
+      "name": "openjiuwenagentmemory",
+      "version": "1.0.0",
+      "desc": "openJiuwen agent-memory: long-term memory server (hash embedding + SQLite vector store) for OHOS riscv64",
+      "homepage": "https://github.com/openJiuwen-ai",
+      "deps": [
+        "hbrew/riscv/openjiuwen"
+      ],
+      "formula": "Formula/o/openjiuwen-agent-memory.rb",
+      "bottled": true
+    },
+    {
+      "name": "openjiuwenagentprotocol",
+      "version": "1.0.0",
+      "desc": "openJiuwen Agent Protocol: A2A/MCP/AgentRegistry implementations, source vendor pkg (OHOS riscv64)",
+      "homepage": "https://github.com/openJiuwen-ai",
+      "deps": [
+        "hbrew/riscv/openjiuwen"
+      ],
+      "formula": "Formula/o/openjiuwen-agent-protocol.rb",
+      "bottled": true
+    },
+    {
+      "name": "openjiuwenagentruntime",
+      "version": "1.0.0",
+      "desc": "openJiuwen Agent Runtime: agent run/deploy framework, source vendor pkg (OHOS riscv64)",
+      "homepage": "https://github.com/openJiuwen-ai",
+      "deps": [
+        "hbrew/riscv/openjiuwen"
+      ],
+      "formula": "Formula/o/openjiuwen-agent-runtime.rb",
+      "bottled": true
+    },
+    {
+      "name": "openjiuwenagenttools",
+      "version": "1.0.0",
+      "desc": "openJiuwen agent-tools collection, source vendor pkg (OHOS riscv64)",
+      "homepage": "https://github.com/openJiuwen-ai",
+      "deps": [
+        "hbrew/riscv/openjiuwen"
+      ],
+      "formula": "Formula/o/openjiuwen-agent-tools.rb",
+      "bottled": true
+    },
+    {
+      "name": "openjiuwenapps",
+      "version": "1.0.0",
+      "desc": "openJiuwen on-device agents: deepsearch/career/diag/perf/kb sidecar + KB",
+      "homepage": "https://github.com/openJiuwen-ai/deepsearch",
+      "deps": [
+        "hbrew/riscv/python",
+        "hbrew/riscv/openjiuwen"
+      ],
+      "formula": "Formula/o/openjiuwen-apps.rb",
+      "bottled": true
+    },
+    {
+      "name": "openjiuwencareersim",
+      "version": "1.0.0",
+      "desc": "openJiuwen CareerSim (CCF BDCI 2026) headless career simulation runner (OHOS riscv64)",
+      "homepage": "https://github.com/openJiuwen-ai",
+      "deps": [
+        "hbrew/riscv/openjiuwen"
+      ],
+      "formula": "Formula/o/openjiuwen-careersim.rb",
+      "bottled": true
+    },
+    {
+      "name": "openjiuwendeepsearch",
+      "version": "1.0.0",
+      "desc": "openJiuwen DeepSearch knowledge-enhanced deep research agent (OHOS riscv64)",
+      "homepage": "https://github.com/openJiuwen-ai",
+      "deps": [
+        "hbrew/riscv/openjiuwen"
+      ],
+      "formula": "Formula/o/openjiuwen-deepsearch.rb",
+      "bottled": true
+    },
+    {
+      "name": "openjiuwenskillhub",
+      "version": "1.0.0",
+      "desc": "openJiuwen skillhub: skills marketplace + CLI, source vendor pkg (OHOS riscv64)",
+      "homepage": "https://github.com/openJiuwen-ai",
+      "deps": [
+        "hbrew/riscv/openjiuwen"
+      ],
+      "formula": "Formula/o/openjiuwen-skillhub.rb",
+      "bottled": true
+    },
+    {
+      "name": "openjiuwensuite",
+      "version": "1.0.0",
+      "desc": "Meta package: openJiuwen framework + agents + symbiosis + swarm (OHOS riscv64)",
+      "homepage": "https://github.com/shihuan1999/riscv-bin",
+      "deps": [
+        "hbrew/riscv/openjiuwen",
+        "hbrew/riscv/openjiuwen-apps",
+        "hbrew/riscv/openjiuwen-symbiosis",
+        "hbrew/riscv/openjiuwen-swarm"
+      ],
+      "formula": "Formula/o/openjiuwen-suite.rb",
+      "bottled": true
+    },
+    {
+      "name": "openjiuwenswarm",
+      "version": "1.0.0",
+      "desc": "jiuwenswarm multi-agent app: AgentServer + E2A gateway (OHOS riscv64)",
+      "homepage": "https://github.com/openJiuwen-ai/jiuwenswarm",
+      "deps": [
+        "hbrew/riscv/python",
+        "hbrew/riscv/openjiuwen"
+      ],
+      "formula": "Formula/o/openjiuwen-swarm.rb",
+      "bottled": true
+    },
+    {
+      "name": "openjiuwensymbiosis",
+      "version": "0.1.0",
+      "desc": "jiuwensymbiosis robotics agent framework + scipy shim (OHOS riscv64)",
+      "homepage": "https://github.com/openJiuwen-ai/jiuwensymbiosis",
+      "deps": [
+        "hbrew/riscv/python",
+        "hbrew/riscv/openjiuwen"
+      ],
+      "formula": "Formula/o/openjiuwen-symbiosis.rb",
+      "bottled": true
+    },
+    {
+      "name": "openssh",
+      "version": "10.4p1",
+      "desc": "OpenBSD's SSH remote login client/server",
+      "homepage": "https://www.openssh.com/",
+      "deps": [
+        "openssl",
+        "zlib"
+      ],
+      "formula": "Formula/o/openssh.rb",
+      "bottled": true
+    },
+    {
+      "name": "openssl",
+      "version": "3.6.1",
+      "desc": "Cryptography and SSL/TLS toolkit",
+      "homepage": "https://openssl.org/",
+      "deps": [],
+      "formula": "Formula/o/openssl.rb",
+      "bottled": true
+    },
+    {
+      "name": "patch",
+      "version": "2.8",
+      "desc": "Apply a diff file to an original",
+      "homepage": "https://www.gnu.org/software/patch/",
+      "deps": [],
+      "formula": "Formula/p/patch.rb",
+      "bottled": true
+    },
+    {
+      "name": "pigz",
+      "version": "2.8",
+      "desc": "Parallel gzip compression utility",
+      "homepage": "https://zlib.net/pigz/",
+      "deps": [
+        "hbrew/riscv/zlib"
+      ],
+      "formula": "Formula/p/pigz.rb",
+      "bottled": true
+    },
+    {
+      "name": "portablegit",
+      "version": "2.54.0",
+      "desc": "Distributed version control system",
+      "homepage": "https://git-scm.com",
+      "deps": [
+        "hbrew/riscv/curl",
+        "hbrew/riscv/openssl",
+        "hbrew/riscv/zlib"
+      ],
+      "formula": "Formula/p/portable-git.rb",
+      "bottled": true
+    },
+    {
+      "name": "portableruby",
+      "version": "4.0.3",
+      "desc": "Ruby interpreter (Homebrew portable version)",
+      "homepage": "https://www.ruby-lang.org/",
+      "deps": [
+        "hbrew/riscv/openssl",
+        "hbrew/riscv/zlib"
+      ],
+      "formula": "Formula/p/portable-ruby.rb",
+      "bottled": true
+    },
+    {
+      "name": "python",
+      "version": "3.12.14",
+      "desc": "Interpreted, interactive, object-oriented programming language",
+      "homepage": "https://www.python.org/",
+      "deps": [],
+      "formula": "Formula/p/python.rb",
+      "bottled": true
+    },
+    {
+      "name": "pythonat311",
+      "version": "3.11.4",
+      "desc": "Interpreted, interactive, object-oriented programming language (3.11 line)",
+      "homepage": "https://www.python.org/",
+      "deps": [],
+      "formula": "Formula/p/python@3.11.rb",
+      "bottled": true
+    },
+    {
+      "name": "ros2humble",
+      "version": "16.0.20-riscv1",
+      "desc": "ROS 2 Humble (rcl/rclcpp + CycloneDDS, demo_nodes_cpp) for OpenHarmony riscv64",
+      "homepage": "https://docs.ros.org/en/humble/",
+      "deps": [],
+      "formula": "Formula/r/ros2-humble.rb",
+      "bottled": true
+    },
+    {
+      "name": "ros2humblefull",
+      "version": "16.0.21-riscv1",
+      "desc": "ROS 2 Humble full robot stack (rclpy/ros2cli/tf2/ros2_control/rosbridge) for OpenHarmony riscv64",
+      "homepage": "https://docs.ros.org/en/humble/",
+      "deps": [],
+      "formula": "Formula/r/ros2-humble-full.rb",
+      "bottled": true
+    },
+    {
+      "name": "sed",
+      "version": "4.10",
+      "desc": "GNU stream editor",
+      "homepage": "https://www.gnu.org/software/sed/",
+      "deps": [],
+      "formula": "Formula/s/sed.rb",
+      "bottled": true
+    },
+    {
+      "name": "shgz",
+      "version": "0.1.0",
+      "desc": "Demo shell tool depending on hbrew/riscv/pigz",
+      "homepage": "https://github.com/shihuan1999/homebrew-riscv",
+      "deps": [
+        "hbrew/riscv/pigz"
+      ],
+      "formula": "Formula/s/shgz.rb",
+      "bottled": true
+    },
+    {
+      "name": "tar",
+      "version": "1.35",
+      "desc": "GNU tar archiver",
+      "homepage": "https://www.gnu.org/software/tar/",
+      "deps": [],
+      "formula": "Formula/t/tar.rb",
+      "bottled": true
+    },
+    {
+      "name": "tree",
+      "version": "2.1.1",
+      "desc": "Display directories as trees",
+      "homepage": "http://oldmanprogrammer.net/scode/tree.php",
+      "deps": [],
+      "formula": "Formula/t/tree.rb",
+      "bottled": true
+    },
+    {
+      "name": "vim",
+      "version": "9.2.0150",
+      "desc": "Vi 'workalike' with many additional features",
+      "homepage": "https://www.vim.org/",
+      "deps": [
+        "ncurses"
+      ],
+      "formula": "Formula/v/vim.rb",
+      "bottled": true
+    },
+    {
+      "name": "vscodeserver",
+      "version": "1.109.5",
+      "desc": "openvscode-server: browser VS Code server (OHOS riscv64 port)",
+      "homepage": "https://github.com/gitpod-io/openvscode-server",
+      "deps": [],
+      "formula": "Formula/v/vscode-server.rb",
+      "bottled": true
+    },
+    {
+      "name": "xz",
+      "version": "5.4.5",
+      "desc": "General-purpose data compression with high compression ratio",
+      "homepage": "https://tukaani.org/xz/",
+      "deps": [],
+      "formula": "Formula/x/xz.rb",
+      "bottled": true
+    },
+    {
+      "name": "zlib",
+      "version": "1.3.1",
+      "desc": "General-purpose lossless data-compression library",
+      "homepage": "https://zlib.net/",
+      "deps": [],
+      "formula": "Formula/z/zlib.rb",
+      "bottled": true
+    },
+    {
+      "name": "zsh",
+      "version": "5.9",
+      "desc": "Z shell, interactive shell and scripting language",
+      "homepage": "https://www.zsh.org/",
+      "deps": [
+        "ncurses"
+      ],
+      "formula": "Formula/z/zsh.rb",
+      "bottled": true
+    }
+  ]
 }
