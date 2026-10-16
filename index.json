@@ -1,6 +1,6 @@
 {
- "count": 55,
- "updated": "2026-10-13T11:39:05Z",
+ "count": 62,
+ "updated": "2026-10-16T11:15:42Z",
  "packages": [
   {
    "name": "bash",
@@ -20,6 +20,15 @@
    "homepage": "https://busybox.net/",
    "deps": [],
    "formula": "Formula/b/busybox.rb",
+   "bottled": true
+  },
+  {
+   "name": "cjson",
+   "version": "1.7.18",
+   "desc": "Ultralightweight JSON parser in ANSI C (mosquitto dependency)",
+   "homepage": "https://github.com/DaveGamble/cJSON",
+   "deps": [],
+   "formula": "Formula/c/cjson.rb",
    "bottled": true
   },
   {
@@ -140,6 +149,15 @@
    "bottled": true
   },
   {
+   "name": "i2ctools",
+   "version": "4.4",
+   "desc": "I2C bus probing/transfer tools — sensors, servo controller boards",
+   "homepage": "https://git.kernel.org/pub/scm/utils/i2c-tools/i2c-tools.git/",
+   "deps": [],
+   "formula": "Formula/i/i2c-tools.rb",
+   "bottled": true
+  },
+  {
    "name": "jq",
    "version": "1.8.1",
    "desc": "Lightweight and flexible command-line JSON processor",
@@ -155,6 +173,33 @@
    "homepage": "https://www.gnu.org/software/less/",
    "deps": [],
    "formula": "Formula/l/less.rb",
+   "bottled": true
+  },
+  {
+   "name": "libevdev",
+   "version": "1.13.4",
+   "desc": "Wrapper for /dev/input event codes — gamepads and remote teleop",
+   "homepage": "https://www.freedesktop.org/wiki/Software/libevdev/",
+   "deps": [],
+   "formula": "Formula/l/libevdev.rb",
+   "bottled": true
+  },
+  {
+   "name": "libgpiod",
+   "version": "2.3.1",
+   "desc": "GPIO character device (/dev/gpiochip*) library and tools — robot IO control",
+   "homepage": "https://git.kernel.org/pub/scm/libs/libgpiod/libgpiod.git/",
+   "deps": [],
+   "formula": "Formula/l/libgpiod.rb",
+   "bottled": true
+  },
+  {
+   "name": "libserialport",
+   "version": "0.1.2",
+   "desc": "Cross-platform serial port access library — bus servos, lidar, GPS",
+   "homepage": "https://sigrok.org/wiki/Libserialport",
+   "deps": [],
+   "formula": "Formula/l/libserialport.rb",
    "bottled": true
   },
   {
@@ -182,6 +227,17 @@
    "homepage": "https://www.mindspore.cn/lite",
    "deps": [],
    "formula": "Formula/m/mindspore-lite.rb",
+   "bottled": true
+  },
+  {
+   "name": "mosquitto",
+   "version": "2.0.20",
+   "desc": "MQTT broker and clients — robot telemetry and control channel",
+   "homepage": "https://mosquitto.org/",
+   "deps": [
+    "hbrew/riscv/cjson"
+   ],
+   "formula": "Formula/m/mosquitto.rb",
    "bottled": true
   },
   {
@@ -448,14 +504,20 @@
   },
   {
    "name": "python",
-   "version": "3.11.4",
+   "version": "3.12.14",
    "desc": "Interpreted, interactive, object-oriented programming language",
    "homepage": "https://www.python.org/",
-   "deps": [
-    "hbrew/riscv/openssl",
-    "hbrew/riscv/zlib"
-   ],
+   "deps": [],
    "formula": "Formula/p/python.rb",
+   "bottled": true
+  },
+  {
+   "name": "pythonat311",
+   "version": "3.11.4",
+   "desc": "Interpreted, interactive, object-oriented programming language (3.11 line)",
+   "homepage": "https://www.python.org/",
+   "deps": [],
+   "formula": "Formula/p/python@3.11.rb",
    "bottled": true
   },
   {
