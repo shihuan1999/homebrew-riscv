@@ -9,13 +9,13 @@ class OhosKb < Formula
   license "MIT"
 
   bottle do
-    root_url "https://github.com/shihuan1999/ohos-kb/releases/download/v1.1.0"
+    root_url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles"
     sha256 cellar: :any_skip_relocation, riscv64_ohos: "06436f08af607b076771d0db1db9d7e9fe8fefb03dfca2e18af46634f6feb40c"
   end
 
   # Intranet mirror (snode7 bottle server) for offline/source installs
   resource "mirror" do
-    url "http://10.0.50.17:8090/dist/ohos-kb-1.1.0.tar.gz"
+    url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles/ohos-kb-1.1.0.tar.gz"
     sha256 "e823497a2f4f51e6b9863f2fdcdf277482fe01343f7c9b417662d926ad3e4ab2"
   end
 

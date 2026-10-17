@@ -10,12 +10,12 @@ class Openssh < Formula
   depends_on "zlib"
 
   bottle do
-    root_url "https://github.com/shihuan1999/riscv-bin/releases/download/bottles-v1.0"
+    root_url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles"
     sha256 cellar: :any_skip_relocation, riscv64_ohos: "89b567b63326e57d9e919d3e1a331ee6bd26b0b883e3c186e8a3ec7a62cd390f"
   end
 
   resource "ohos_riscv64_dist" do
-    url "http://10.0.50.17:8090/dist/openssh-10.4p1-ohos-riscv64.tar.gz"
+    url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles/openssh-10.4p1-ohos-riscv64.tar.gz"
     sha256 "96085056a733791bad2e8b9cd7c5e4f8e24a7a3bda862970e98b022659e25b51"
   end
 

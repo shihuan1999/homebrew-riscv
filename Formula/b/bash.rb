@@ -9,12 +9,12 @@ class Bash < Formula
   depends_on "ncurses"
 
   bottle do
-    root_url "https://github.com/shihuan1999/riscv-bin/releases/download/bottles-v1.0"
+    root_url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles"
     sha256 cellar: :any_skip_relocation, riscv64_ohos: "7a7b9469700d161008d8aa3ecae4a745a9f958d2e384c92d5f80801a9de8e98e"
   end
 
   resource "ohos_riscv64_dist" do
-    url "http://10.0.50.17:8090/dist/bash-5.3-ohos-riscv64.tar.gz"
+    url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles/bash-5.3-ohos-riscv64.tar.gz"
     sha256 "14dae47d850e48cc30372a301a1ec733ca41820e10fce0f016c575993f94b7d0"
   end
 

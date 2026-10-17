@@ -9,12 +9,12 @@ class Vim < Formula
   depends_on "ncurses"
 
   bottle do
-    root_url "https://github.com/shihuan1999/riscv-bin/releases/download/bottles-v1.0"
+    root_url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles"
     sha256 cellar: :any_skip_relocation, riscv64_ohos: "d9ff6fd27ea4e2ff5fd03b315e40afbd327848fe533f86df11cd055e50a6dd80"
   end
 
   resource "ohos_riscv64_dist" do
-    url "http://10.0.50.17:8090/dist/vim-9.2.0150-ohos-riscv64.tar.gz"
+    url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles/vim-9.2.0150-ohos-riscv64.tar.gz"
     sha256 "faec62ed2be10cc75c65572bc39b82a33e88cd4b6bd81ed8a0c15724407ab5cd"
   end
 

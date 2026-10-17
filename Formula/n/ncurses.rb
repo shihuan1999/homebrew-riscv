@@ -8,12 +8,12 @@ class Ncurses < Formula
 
 
   bottle do
-    root_url "https://github.com/shihuan1999/riscv-bin/releases/download/bottles-v1.0"
+    root_url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles"
     sha256 cellar: :any_skip_relocation, riscv64_ohos: "049224247c4a00001c6e66567a15da4a19c3f4340bbaec1aa95165adbf0d2722"
   end
 
   resource "ohos_riscv64_dist" do
-    url "http://10.0.50.17:8090/dist/ncurses-6.5-ohos-riscv64.tar.gz"
+    url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles/ncurses-6.5-ohos-riscv64.tar.gz"
     sha256 "8989978eaabf6c10c81c28488f24dd3e6626c0bc6b17ebb269ac0cfd3e4bc71f"
   end
 

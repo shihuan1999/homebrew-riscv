@@ -8,12 +8,12 @@ class Nano < Formula
 
 
   bottle do
-    root_url "https://github.com/shihuan1999/riscv-bin/releases/download/bottles-v1.0"
+    root_url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles"
     sha256 cellar: :any_skip_relocation, riscv64_ohos: "3d49105e2ad4706a71e2c21cd4c5b0792ce92146b3322f72d6d4c492de6473ee"
   end
 
   resource "ohos_riscv64_dist" do
-    url "http://10.0.50.17:8090/dist/nano-8.5-ohos-riscv64.tar.gz"
+    url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles/nano-8.5-ohos-riscv64.tar.gz"
     sha256 "108b6887373b892dfc7eb32c856557459d122e457f2bb7e13df7c107e7f89244"
   end
 

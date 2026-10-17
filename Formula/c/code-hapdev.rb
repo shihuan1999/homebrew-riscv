@@ -12,7 +12,7 @@ class CodeHapdev < Formula
   license "MIT"
 
   bottle do
-    root_url "https://github.com/shihuan1999/riscv-bin/releases/download/vscode-v1.109.5-ohos"
+    root_url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles"
     sha256 cellar: :any_skip_relocation, riscv64_ohos: "e6bea6dd7db99bd4b8f63ee03a833f6dbd03ad310769577b5a66192356d8efee"
   end
 

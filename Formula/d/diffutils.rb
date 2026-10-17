@@ -8,12 +8,12 @@ class Diffutils < Formula
 
 
   bottle do
-    root_url "https://github.com/shihuan1999/riscv-bin/releases/download/bottles-v1.0"
+    root_url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles"
     sha256 cellar: :any_skip_relocation, riscv64_ohos: "108f3f3ea67b624f1916fb962222abc15dfee9dc730780234cb7307a32e505cf"
   end
 
   resource "ohos_riscv64_dist" do
-    url "http://10.0.50.17:8090/dist/diffutils-3.12-ohos-riscv64.tar.gz"
+    url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles/diffutils-3.12-ohos-riscv64.tar.gz"
     sha256 "3ca0754427907b480b86e7f3a5608bc3ff679fe1311fee4132016a5247de402c"
   end
 

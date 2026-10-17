@@ -10,12 +10,12 @@ class Curl < Formula
   depends_on "zlib"
 
   bottle do
-    root_url "https://github.com/shihuan1999/riscv-bin/releases/download/bottles-v1.0"
+    root_url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles"
     sha256 cellar: :any_skip_relocation, riscv64_ohos: "af3f87aab74ce8049bf3fcdad12b86d15594883622ed8ee362d1e3c165cc9814"
   end
 
   resource "ohos_riscv64_dist" do
-    url "http://10.0.50.17:8090/dist/curl-8.19.0-ohos-riscv64.tar.gz"
+    url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles/curl-8.19.0-ohos-riscv64.tar.gz"
     sha256 "98f1a6e363ee9720e4e95bc4bd521f5fc387f7550fb2667f1a1b6e38f688250f"
   end
 

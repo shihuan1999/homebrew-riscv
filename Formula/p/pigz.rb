@@ -6,7 +6,7 @@ class Pigz < Formula
   version "2.8"
 
   bottle do
-    root_url "https://github.com/shihuan1999/riscv-bin/releases/download/bottles-v1.0"
+    root_url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles"
     sha256 cellar: :any_skip_relocation, riscv64_ohos: "c260c302766c67bef145246d0e63eba7d1e7e774066dfce0752fcd1106e00fe3"
   end
 

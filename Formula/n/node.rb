@@ -13,7 +13,7 @@ class Node < Formula
   license "MIT"
 
   bottle do
-    root_url "https://github.com/shihuan1999/riscv-bin/releases/download/node-v22.16.0-ohos"
+    root_url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles"
     sha256 cellar: :any_skip_relocation, riscv64_ohos: "dec6f0fe07aa855124ab47098df39318334852d63c2af8e3476af21dd6a73429"
   end
 

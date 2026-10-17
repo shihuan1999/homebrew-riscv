@@ -8,12 +8,12 @@ class Hello < Formula
 
 
   bottle do
-    root_url "https://github.com/shihuan1999/riscv-bin/releases/download/bottles-v1.0"
+    root_url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles"
     sha256 cellar: :any_skip_relocation, riscv64_ohos: "37a8c95ad8f8368d27703c88fcc83162bec7f6e1fa140067d5cd6dc55977e525"
   end
 
   resource "ohos_riscv64_dist" do
-    url "http://10.0.50.17:8090/dist/hello-2.12.3-ohos-riscv64.tar.gz"
+    url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles/hello-2.12.3-ohos-riscv64.tar.gz"
     sha256 "cb2408aa0d950d4b4e71eab01414c9666a2e78427451cc45e589aba19f49c06a"
   end
 

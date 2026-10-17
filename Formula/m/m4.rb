@@ -8,12 +8,12 @@ class M4 < Formula
 
 
   bottle do
-    root_url "https://github.com/shihuan1999/riscv-bin/releases/download/bottles-v1.0"
+    root_url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles"
     sha256 cellar: :any_skip_relocation, riscv64_ohos: "2bf7c0c0941c1c63582abdcaf9db032e20a27037b020340e86235dc6242a9289"
   end
 
   resource "ohos_riscv64_dist" do
-    url "http://10.0.50.17:8090/dist/m4-1.4.20-ohos-riscv64.tar.gz"
+    url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles/m4-1.4.20-ohos-riscv64.tar.gz"
     sha256 "874b4a1c439afe62a319cfd510f5346c3ed3a01725e7bd644cc1dd8897576c91"
   end
 

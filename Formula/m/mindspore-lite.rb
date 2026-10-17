@@ -16,7 +16,7 @@ class MindsporeLite < Formula
   license "Apache-2.0"
 
   bottle do
-    root_url "https://github.com/shihuan1999/riscv-bin/releases/download/bottles-v1.0"
+    root_url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles"
     sha256 cellar: :any_skip_relocation, riscv64_ohos: "2c8513981d06eb9fa6aeb757bcf859e2c4c93eaf8cb41d53f7c395f20b959b15"
     sha256 cellar: :any_skip_relocation, riscv64_linux: "2c8513981d06eb9fa6aeb757bcf859e2c4c93eaf8cb41d53f7c395f20b959b15"
   end

@@ -7,7 +7,7 @@ class PortableRuby < Formula
   version "4.0.3"
 
   bottle do
-    root_url "https://github.com/shihuan1999/riscv-bin/releases/download/bottles-v1.0"
+    root_url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles"
     sha256 cellar: :any_skip_relocation, riscv64_ohos: "939f8986bd99670ae69dff300071be9473ff23112974c02ae8e3797af91caced"
   end
 

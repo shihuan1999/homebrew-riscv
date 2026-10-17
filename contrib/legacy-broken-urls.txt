@@ -1,10 +1,5 @@
 # 已知失效的历史 bottle URL（push-main URL 健康检查降级为 WARN，不算 FAIL）。
 # 每行一个 URL；# 开头为注释。新增行需要在 PR 里说明原因与修复计划。
-# ---- riscv-bin 资产更名/下架（待迁移到中央 bottles release）----
-https://github.com/shihuan1999/riscv-bin/releases/download/bottles-v1.0/portableruby-4.0.3.riscv64_ohos.bottle.tar.gz
-https://github.com/shihuan1999/riscv-bin/releases/download/bottles-v1.0/mindsporelite-2.4.0-k3.1.riscv64_ohos.bottle.tar.gz
-https://github.com/shihuan1999/riscv-bin/releases/download/vscode-v1.109.5-ohos/vscodeserver-1.109.5.riscv64_ohos.bottle.tar.gz
-https://github.com/shihuan1999/riscv-bin/releases/download/vscode-v1.109.5-ohos/codehapdev-0.1.0.riscv64_ohos.bottle.tar.gz
-https://github.com/shihuan1999/riscv-bin/releases/download/vscode-v1.109.5-ohos/codedeveco-1.17.9.riscv64_ohos.bottle.tar.gz
-# ---- 内网编译机直链（存量 53 内网 formula 计划的一部分，禁止新增）----
-# （ros2-humble / ros2-humble-full 已于 2026-10-16 迁移到中央 bottles release，白名单移除）
+# 2026-10-17: 全量迁移完成 —— 所有 bottle/dist 已归一到中央 bottles release
+# （github.com/shihuan1999/homebrew-riscv/releases/download/bottles），
+# 历史失效项（riscv-bin 资产更名/下架、内网 10.0.50.17 直链）已全部迁出，本清单当前为空。

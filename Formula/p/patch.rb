@@ -8,12 +8,12 @@ class Patch < Formula
 
 
   bottle do
-    root_url "https://github.com/shihuan1999/riscv-bin/releases/download/bottles-v1.0"
+    root_url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles"
     sha256 cellar: :any_skip_relocation, riscv64_ohos: "5d23fa9460ef68d9cfad1c8f6e0682c8be73e4348ba2688c372e2c6de3f78086"
   end
 
   resource "ohos_riscv64_dist" do
-    url "http://10.0.50.17:8090/dist/patch-2.8-ohos-riscv64.tar.gz"
+    url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles/patch-2.8-ohos-riscv64.tar.gz"
     sha256 "3ba2731afd88ab4c7358030811be02aad2e8efbec4c6a4993fe83482be26e9f0"
   end
 

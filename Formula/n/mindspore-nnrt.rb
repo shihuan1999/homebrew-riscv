@@ -15,8 +15,8 @@ class MindsporeNnrt < Formula
   license "Apache-2.0"
 
   bottle do
-    root_url "https://github.com/shihuan1999/riscv-bin/releases/download/bottles-v1.0"
-    sha256 cellar: :any_skip_relocation, riscv64_ohos: "58491fc698da9d47e766b9f4c223defa26ca310e16d5bca1478d735c999dd4ce"
+    root_url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles"
+    sha256 cellar: :any_skip_relocation, riscv64_ohos: "3fe200b48f799c1a02abf8cbcf66fdd0bf39726adfa451a87948a398e1c9c937"
     sha256 cellar: :any_skip_relocation, riscv64_linux: "58491fc698da9d47e766b9f4c223defa26ca310e16d5bca1478d735c999dd4ce"
   end
 

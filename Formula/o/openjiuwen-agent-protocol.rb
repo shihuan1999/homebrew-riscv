@@ -12,7 +12,7 @@ class OpenjiuwenAgentProtocol < Formula
   license "Apache-2.0"
 
   bottle do
-    root_url "https://github.com/shihuan1999/riscv-bin/releases/download/openjiuwen-v2.0"
+    root_url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles"
     sha256 cellar: :any_skip_relocation, riscv64_ohos: "3ec14e66bced79db13581c80e88c569121333e52ee22a892965dec0cd572a691"
   end
 

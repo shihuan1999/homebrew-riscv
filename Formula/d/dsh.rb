@@ -14,7 +14,7 @@ class Dsh < Formula
   license "Apache-2.0"
 
   bottle do
-    root_url "https://github.com/shihuan1999/riscv-bin/releases/download/dsh-v0.1.0-rc.7-ohos"
+    root_url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles"
     sha256 cellar: :any_skip_relocation, riscv64_ohos: "ade0d21760057170a64db06d1a008fd07632e30dbcd6083ecc7f72197ff8437a"
   end
 

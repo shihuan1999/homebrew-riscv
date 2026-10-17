@@ -12,7 +12,7 @@ class OpenjiuwenSymbiosis < Formula
   license "Apache-2.0"
 
   bottle do
-    root_url "https://github.com/shihuan1999/riscv-bin/releases/download/openjiuwen-v1.0"
+    root_url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles"
     sha256 cellar: :any_skip_relocation, riscv64_ohos: "a5a5f6e3f5b6938bdd684242874b0ca81755f3974749820ca78cd732e7bd4c09"
   end
 

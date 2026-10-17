@@ -8,12 +8,12 @@ class Jq < Formula
 
 
   bottle do
-    root_url "https://github.com/shihuan1999/riscv-bin/releases/download/bottles-v1.0"
+    root_url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles"
     sha256 cellar: :any_skip_relocation, riscv64_ohos: "529d1658699071093b8b3f86d59e1712a7a00ab208ae0d9869b8f0237b9c3866"
   end
 
   resource "ohos_riscv64_dist" do
-    url "http://10.0.50.17:8090/dist/jq-1.8.1-ohos-riscv64.tar.gz"
+    url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles/jq-1.8.1-ohos-riscv64.tar.gz"
     sha256 "911a39055c7dfedb0cdd272a60828a37003fd64f2832253023fe6d4b1f7020b4"
   end
 

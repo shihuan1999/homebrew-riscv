@@ -9,12 +9,12 @@ class Zsh < Formula
   depends_on "ncurses"
 
   bottle do
-    root_url "https://github.com/shihuan1999/riscv-bin/releases/download/bottles-v1.0"
+    root_url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles"
     sha256 cellar: :any_skip_relocation, riscv64_ohos: "19ae3d80e38ca593900179bd504cf739015f6a1c1299722835816033c67d1683"
   end
 
   resource "ohos_riscv64_dist" do
-    url "http://10.0.50.17:8090/dist/zsh-5.9-ohos-riscv64.tar.gz"
+    url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles/zsh-5.9-ohos-riscv64.tar.gz"
     sha256 "5bd81516aab5884cfebb9cbd67b8726c030379154d7e7a69091c3f875ee876c5"
   end
 

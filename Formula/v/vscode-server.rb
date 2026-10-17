@@ -14,7 +14,7 @@ class VscodeServer < Formula
   license "MIT"
 
   bottle do
-    root_url "https://github.com/shihuan1999/riscv-bin/releases/download/vscode-v1.109.5-ohos"
+    root_url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles"
     sha256 cellar: :any_skip_relocation, riscv64_ohos: "f748fbe45b59b96a6f4f9f4caf3dacd345a729efe10d2610dc8bcf14cc2db2ad"
   end
 

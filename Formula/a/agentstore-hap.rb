@@ -12,7 +12,7 @@ class AgentstoreHap < Formula
   license "Apache-2.0"
 
   bottle do
-    root_url "https://github.com/shihuan1999/riscv-bin/raw/agentstore-v1.0/agentstore-v1.0"
+    root_url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles"
     sha256 cellar: :any_skip_relocation, riscv64_ohos: "82d740fdf0eeba3381ed573f8e19091b3987f1ddfa194ec40aac8b96f9e9fb97"
   end
 

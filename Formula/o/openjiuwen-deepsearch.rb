@@ -12,7 +12,7 @@ class OpenjiuwenDeepsearch < Formula
   license "Apache-2.0"
 
   bottle do
-    root_url "https://github.com/shihuan1999/riscv-bin/releases/download/openjiuwen-v2.0"
+    root_url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles"
     sha256 cellar: :any_skip_relocation, riscv64_ohos: "5ffd97272d3d01b77460aacee7cf7628f4e747688d621bfa0b65f8d6537c725e"
   end
 

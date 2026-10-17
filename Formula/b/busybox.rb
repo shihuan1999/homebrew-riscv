@@ -8,13 +8,13 @@ class Busybox < Formula
 
 
   bottle do
-    root_url "https://github.com/shihuan1999/riscv-bin/releases/download/bottles-v1.0"
-    sha256 cellar: :any_skip_relocation, riscv64_ohos: "f2dc7be248825f91d849330a975fcaca4b1c82f69673411cb1b94606448a7940"
+    root_url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles"
+    sha256 cellar: :any_skip_relocation, riscv64_ohos: "265ab728e4aaf65cade7b8de294fc1fce83355463d9384c21f47bae49fe1f266"
   end
 
   resource "ohos_riscv64_dist" do
-    url "http://10.0.50.17:8090/dist/busybox-1.37.0-ohos-riscv64.tar.gz"
-    sha256 "86a8bb6c500191636e9dfed996ab8a4e4a23493c263d4afcc651e7aa6ee63753"
+    url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles/busybox-1.37.0-ohos-riscv64.tar.gz"
+    sha256 "d789e9a51d0bfb70022999e4e0a90b93b14fd6adec21f0cfde8270c67665c45a"
   end
 
   def install

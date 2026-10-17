@@ -7,7 +7,7 @@ class PortableGit < Formula
   version "2.54.0"
 
   bottle do
-    root_url "https://github.com/shihuan1999/riscv-bin/releases/download/bottles-v1.0"
+    root_url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles"
     sha256 cellar: :any_skip_relocation, riscv64_ohos: "33a1990d37bde7bbe07bec255a304400d6df64ff87f6d378007d5aaa60860d93"
   end
 

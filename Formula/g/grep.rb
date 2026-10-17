@@ -8,12 +8,12 @@ class Grep < Formula
 
 
   bottle do
-    root_url "https://github.com/shihuan1999/riscv-bin/releases/download/bottles-v1.0"
+    root_url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles"
     sha256 cellar: :any_skip_relocation, riscv64_ohos: "d50b6e6dfba9582d0af658001ba7ec76ae664f065bad3f40e4d18476981379cd"
   end
 
   resource "ohos_riscv64_dist" do
-    url "http://10.0.50.17:8090/dist/grep-3.12-ohos-riscv64.tar.gz"
+    url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles/grep-3.12-ohos-riscv64.tar.gz"
     sha256 "303d62f117c921799457d1caf8ed5b76fe7924ddce710330e92f04ad7552a08d"
   end
 
