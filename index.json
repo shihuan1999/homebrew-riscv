@@ -1,6 +1,6 @@
 {
- "count": 65,
- "updated": "2026-10-17T09:30:33Z",
+ "count": 69,
+ "updated": "2026-10-20T15:20:59Z",
  "packages": [
   {
    "name": "agentstorebuild",
@@ -556,7 +556,9 @@
    "version": "16.0.21-riscv1",
    "desc": "ROS 2 Humble full robot stack (rclpy/ros2cli/tf2/ros2_control/rosbridge) for OpenHarmony riscv64",
    "homepage": "https://docs.ros.org/en/humble/",
-   "deps": [],
+   "deps": [
+    "python"
+   ],
    "formula": "Formula/r/ros2-humble-full.rb",
    "bottled": true
   },
@@ -568,6 +570,53 @@
    "deps": [],
    "formula": "Formula/r/ros2-humble.rb",
    "bottled": true
+  },
+  {
+   "name": "ros2nav2",
+   "version": "1.1.20-riscv1",
+   "desc": "Nav2 navigation stack (AMCL, NavFn, DWB, BT navigator) for ROS 2 Humble on OHOS riscv64",
+   "homepage": "https://navigation.ros.org/",
+   "deps": [
+    "ros2-humble-full",
+    "ros2-slam"
+   ],
+   "formula": "Formula/r/ros2-nav2.rb",
+   "bottled": false
+  },
+  {
+   "name": "ros2sim",
+   "version": "0.1.0",
+   "desc": "Headless 2D robot simulator + SLAM/Nav2 demos for ROS 2 Humble on OHOS riscv64",
+   "homepage": "https://github.com/shihuan1999/homebrew-riscv",
+   "deps": [
+    "ros2-humble-full"
+   ],
+   "formula": "Formula/r/ros2-sim.rb",
+   "bottled": false
+  },
+  {
+   "name": "ros2slam",
+   "version": "0.2.0",
+   "desc": "slam_toolbox + robot_localization SLAM overlay for ROS 2 Humble (OpenHarmony riscv64)",
+   "homepage": "https://github.com/SteveMacenski/slam_toolbox",
+   "deps": [
+    "ros2-humble-full"
+   ],
+   "formula": "Formula/r/ros2-slam.rb",
+   "bottled": false
+  },
+  {
+   "name": "ros2spacemitexamples",
+   "version": "2026.10.15",
+   "desc": "SpacemiT robot SDK ROS 2 wrappers (slam_toolbox_run, nav2, humanoid_mujoco configs)",
+   "homepage": "https://github.com/spacemit-robotics",
+   "deps": [
+    "ros2-humble-full",
+    "ros2-slam",
+    "ros2-nav2"
+   ],
+   "formula": "Formula/r/ros2-spacemit-examples.rb",
+   "bottled": false
   },
   {
    "name": "sed",
