@@ -1,4 +1,4 @@
-# riscv64_ohos — headless 2D differential-drive robot simulator for ROS 2 Humble.
+# riscv64_ohos prebuilt bottle — headless 2D differential-drive robot simulator.
 # Publishes /scan, /odom, /joint_states and odom->base_footprint TF and consumes
 # /cmd_vel, so SLAM and Nav2 can be exercised on a K3 board without hardware or Gazebo.
 class Ros2Sim < Formula
@@ -11,9 +11,21 @@ class Ros2Sim < Formula
 
   depends_on "ros2-humble-full"
 
+  bottle do
+    root_url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles"
+    sha256 cellar: :any_skip_relocation, riscv64_ohos: "f91eb323bc9e449b525113e4d270cf929d2a6efc567b6298d89e241dbea283c0"
+  end
+
   def install
     prefix.install Dir["*"]
+    write_env
+  end
 
+  def post_install
+    write_env
+  end
+
+  def write_env
     (bin/"ros2-sim-env").write <<~EOS
       #!/bin/sh
       P=#{opt_prefix}

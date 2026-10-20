@@ -1,6 +1,6 @@
 {
  "count": 69,
- "updated": "2026-10-20T15:20:59Z",
+ "updated": "2026-10-20T15:25:14Z",
  "packages": [
   {
    "name": "agentstorebuild",
@@ -573,7 +573,7 @@
   },
   {
    "name": "ros2nav2",
-   "version": "1.1.20-riscv1",
+   "version": "1.1.20",
    "desc": "Nav2 navigation stack (AMCL, NavFn, DWB, BT navigator) for ROS 2 Humble on OHOS riscv64",
    "homepage": "https://navigation.ros.org/",
    "deps": [
@@ -581,7 +581,7 @@
     "ros2-slam"
    ],
    "formula": "Formula/r/ros2-nav2.rb",
-   "bottled": false
+   "bottled": true
   },
   {
    "name": "ros2sim",
@@ -592,7 +592,7 @@
     "ros2-humble-full"
    ],
    "formula": "Formula/r/ros2-sim.rb",
-   "bottled": false
+   "bottled": true
   },
   {
    "name": "ros2slam",
@@ -603,7 +603,7 @@
     "ros2-humble-full"
    ],
    "formula": "Formula/r/ros2-slam.rb",
-   "bottled": false
+   "bottled": true
   },
   {
    "name": "ros2spacemitexamples",
@@ -616,7 +616,7 @@
     "ros2-nav2"
    ],
    "formula": "Formula/r/ros2-spacemit-examples.rb",
-   "bottled": false
+   "bottled": true
   },
   {
    "name": "sed",

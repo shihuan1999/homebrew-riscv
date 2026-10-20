@@ -1,4 +1,4 @@
-# riscv64_ohos — SpacemiT Robot SDK ROS 2 wrapper packages, vendored for OHOS.
+# riscv64_ohos prebuilt bottle — SpacemiT Robot SDK ROS 2 wrapper packages, vendored.
 # Upstream: github.com/spacemit-robotics (ros2_slam_toolbox_run, ros2_nav2,
 # ros2_simulation).  Launch/config files and the nav2 python helpers are installed
 # as ament packages; the humanoid MuJoCo node itself is not portable to OHOS, so
@@ -15,9 +15,21 @@ class Ros2SpacemitExamples < Formula
   depends_on "ros2-slam"
   depends_on "ros2-nav2"
 
+  bottle do
+    root_url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles"
+    sha256 cellar: :any_skip_relocation, riscv64_ohos: "577b769fcf05defc7470dde4168121689ea39eebd8c068c1866ff40bacbe90c2"
+  end
+
   def install
     prefix.install Dir["*"]
+    write_env
+  end
 
+  def post_install
+    write_env
+  end
+
+  def write_env
     (bin/"ros2-spacemit-env").write <<~EOS
       #!/bin/sh
       P=#{opt_prefix}

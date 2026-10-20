@@ -1,4 +1,4 @@
-# riscv64_ohos prebuilt dist — SLAM overlay for ROS 2 Humble on OpenHarmony
+# riscv64_ohos prebuilt bottle — SLAM overlay for ROS 2 Humble on OpenHarmony
 # slam_toolbox (async/sync/localization/lifelong/map_and_localization) +
 # robot_localization (EKF/UKF/navsat) + interactive_markers + tf2 extras.
 class Ros2Slam < Formula
@@ -11,9 +11,21 @@ class Ros2Slam < Formula
 
   depends_on "ros2-humble-full"
 
+  bottle do
+    root_url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles"
+    sha256 cellar: :any_skip_relocation, riscv64_ohos: "f5fd499937092f0ad99797d288c9a6db30ba3cfad2db3fedcf2e02a4d6c2a268"
+  end
+
   def install
     prefix.install Dir["*"]
+    write_env
+  end
 
+  def post_install
+    write_env
+  end
+
+  def write_env
     (bin/"ros2-slam-env").write <<~EOS
       #!/bin/sh
       P=#{opt_prefix}

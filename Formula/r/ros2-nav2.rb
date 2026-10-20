@@ -1,4 +1,4 @@
-# riscv64_ohos prebuilt dist — Nav2 navigation stack for ROS 2 Humble on OpenHarmony.
+# riscv64_ohos prebuilt bottle — Nav2 navigation stack for ROS 2 Humble on OpenHarmony.
 # AMCL, map_server/map_saver, NavFn/Theta*/RPP/DWB, behavior server, BT navigator,
 # lifecycle manager, velocity smoother and nav2_simple_commander.
 # GraphicsMagick was replaced by a minimal PGM/PPM reader/writer (OHOS has no GM).
@@ -7,14 +7,35 @@ class Ros2Nav2 < Formula
   homepage "https://navigation.ros.org/"
   url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles/ros2-nav2-1.1.20-riscv1-ohos-riscv64.tar.gz"
   sha256 "445d91775b1dc73b7e9109e971b59487efbe1af0d5901081bbed76d105ecbb9c"
-  version "1.1.20-riscv1"
+  version "1.1.20"
   license "Apache-2.0"
 
   depends_on "ros2-humble-full"
   depends_on "ros2-slam"
 
+  bottle do
+    root_url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles"
+    sha256 cellar: :any_skip_relocation, riscv64_ohos: "09641dfe5b117d9f1fb4bf832b9bd5f7e81d4703d9b2296b3cf189261552cfd2"
+  end
+
   def install
     prefix.install Dir["*"]
+    write_env
+  end
+
+  def post_install
+    write_env
+  end
+
+  def write_env
+    python = Formula["python"].opt_bin/"python3"
+
+    (Dir["#{bin}/*"] + Dir["#{lib}/**/*"]).each do |file|
+      next unless File.file?(file)
+      head = File.open(file, "rb") { |io| io.read(64) } || ""
+      next unless head.start_with?("#!/usr/bin/python3")
+      inreplace file, "#!/usr/bin/python3", "#!#{python}"
+    end
 
     (bin/"ros2-nav2-env").write <<~EOS
       #!/bin/sh
