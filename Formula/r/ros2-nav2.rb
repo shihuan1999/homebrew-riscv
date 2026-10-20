@@ -24,7 +24,15 @@ class Ros2Nav2 < Formula
   end
 
   def post_install
+    fix_exec_bits
     write_env
+  end
+
+  # Bottles built from a Windows checkout lose the exec bit; restore it.
+  def fix_exec_bits
+    (Dir["#{bin}/*"] + Dir["#{lib}/*/*"]).each do |file|
+      File.chmod(0755, file) if File.file?(file)
+    end
   end
 
   def write_env
