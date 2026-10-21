@@ -17,7 +17,7 @@ class Ros2Nav2 < Formula
 
   bottle do
     root_url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles"
-    sha256 cellar: :any_skip_relocation, riscv64_ohos: "f2fdb12f546e6c0940a39af9c85112e7e0539b4d09b61d3c8952ca20a588217a"
+    sha256 cellar: :any_skip_relocation, riscv64_ohos: "1f0f74c4aeaab97fda3745ca2222f868d0007a4e3b8124b7e16810167a815088"
   end
 
   def install
