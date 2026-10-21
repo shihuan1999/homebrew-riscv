@@ -1,6 +1,6 @@
 {
  "count": 70,
- "updated": "2026-10-21T03:13:11Z",
+ "updated": "2026-10-21T03:26:00Z",
  "packages": [
   {
    "name": "agentstorebuild",
@@ -553,7 +553,7 @@
   },
   {
    "name": "ros2controllers",
-   "version": "4.15.0-riscv1",
+   "version": "4.15.0-riscv3",
    "desc": "ros2_control controllers (steering/mecanum/pid/gpio) + IMU filters for OHOS riscv64",
    "homepage": "https://github.com/ros-controls/ros2_controllers",
    "deps": [
