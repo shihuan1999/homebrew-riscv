@@ -1,6 +1,6 @@
 {
- "count": 69,
- "updated": "2026-10-21T02:56:15Z",
+ "count": 70,
+ "updated": "2026-10-21T03:11:48Z",
  "packages": [
   {
    "name": "agentstorebuild",
@@ -549,6 +549,17 @@
    "homepage": "https://www.python.org/",
    "deps": [],
    "formula": "Formula/p/python@3.11.rb",
+   "bottled": true
+  },
+  {
+   "name": "ros2controllers",
+   "version": "4.15.0-riscv1",
+   "desc": "ros2_control controllers (steering/mecanum/pid/gpio) + IMU filters for OHOS riscv64",
+   "homepage": "https://github.com/ros-controls/ros2_controllers",
+   "deps": [
+    "ros2-humble-full"
+   ],
+   "formula": "Formula/r/ros2-controllers.rb",
    "bottled": true
   },
   {
