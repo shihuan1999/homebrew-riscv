@@ -2,12 +2,14 @@
 # AMCL, map_server/map_saver, NavFn/Theta*/RPP/DWB, behavior server, BT navigator,
 # lifecycle manager, velocity smoother and nav2_simple_commander.
 # GraphicsMagick was replaced by a minimal PGM/PPM reader/writer (OHOS has no GM).
+# riscv2 adds SmacPlanner (bundled OMPL), MPPI controller, route server,
+# graceful controller and collision monitor.
 class Ros2Nav2 < Formula
   desc "Nav2 navigation stack (AMCL, NavFn, DWB, BT navigator) for ROS 2 Humble on OHOS riscv64"
   homepage "https://navigation.ros.org/"
-  url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles/ros2-nav2-1.1.20-riscv1-ohos-riscv64.tar.gz"
-  sha256 "445d91775b1dc73b7e9109e971b59487efbe1af0d5901081bbed76d105ecbb9c"
-  version "1.1.20"
+  url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles/ros2-nav2-1.1.20-riscv2-ohos-riscv64.tar.gz"
+  sha256 "e3fe05f7ee3f9b3c51292d401736c05ae0764a9510d84dffd712e26f949eb165"
+  version "1.1.20-riscv2"
   license "Apache-2.0"
 
   depends_on "ros2-humble-full"
@@ -15,7 +17,7 @@ class Ros2Nav2 < Formula
 
   bottle do
     root_url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles"
-    sha256 cellar: :any_skip_relocation, riscv64_ohos: "09641dfe5b117d9f1fb4bf832b9bd5f7e81d4703d9b2296b3cf189261552cfd2"
+    sha256 cellar: :any_skip_relocation, riscv64_ohos: "f2fdb12f546e6c0940a39af9c85112e7e0539b4d09b61d3c8952ca20a588217a"
   end
 
   def install
@@ -63,7 +65,10 @@ class Ros2Nav2 < Formula
         . "$(brew --prefix)/opt/ros2-slam/bin/ros2-slam-env"
         . "$(brew --prefix)/opt/ros2-nav2/bin/ros2-nav2-env"
 
-      nav2_waypoint_follower is intentionally not included (needs cv_bridge/OpenCV).
+      Extra planners/controllers in this build: SmacPlanner2D/Hybrid/Lattice
+      (OMPL bundled), MPPI controller, graceful controller, collision monitor,
+      route server.  nav2_waypoint_follower is intentionally not included
+      (needs cv_bridge/OpenCV).
       Maps are read/written as PGM/PPM only (no GraphicsMagick on OHOS).
     EOS
   end
