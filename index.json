@@ -1,6 +1,6 @@
 {
  "count": 69,
- "updated": "2026-10-21T02:29:14Z",
+ "updated": "2026-10-21T02:56:15Z",
  "packages": [
   {
    "name": "agentstorebuild",
@@ -573,7 +573,7 @@
   },
   {
    "name": "ros2nav2",
-   "version": "1.1.20-riscv2",
+   "version": "1.1.20-riscv3",
    "desc": "Nav2 navigation stack (AMCL, NavFn, DWB, BT navigator) for ROS 2 Humble on OHOS riscv64",
    "homepage": "https://navigation.ros.org/",
    "deps": [

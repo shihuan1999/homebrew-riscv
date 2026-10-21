@@ -2,14 +2,15 @@
 # AMCL, map_server/map_saver, NavFn/Theta*/RPP/DWB, behavior server, BT navigator,
 # lifecycle manager, velocity smoother and nav2_simple_commander.
 # GraphicsMagick was replaced by a minimal PGM/PPM reader/writer (OHOS has no GM).
-# riscv2 adds SmacPlanner (bundled OMPL), MPPI controller, route server,
-# graceful controller and collision monitor.
+# riscv3 adds SmacPlanner (bundled OMPL), MPPI controller, route server,
+# graceful controller, collision monitor, waypoint follower, laser_filters
+# and pointcloud_to_laserscan.
 class Ros2Nav2 < Formula
   desc "Nav2 navigation stack (AMCL, NavFn, DWB, BT navigator) for ROS 2 Humble on OHOS riscv64"
   homepage "https://navigation.ros.org/"
-  url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles/ros2-nav2-1.1.20-riscv2-ohos-riscv64.tar.gz"
-  sha256 "e3fe05f7ee3f9b3c51292d401736c05ae0764a9510d84dffd712e26f949eb165"
-  version "1.1.20-riscv2"
+  url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles/ros2-nav2-1.1.20-riscv3-ohos-riscv64.tar.gz"
+  sha256 "618a4aec4ce85ebb14af0cc453b145496a3ed0b3efe4106b08a403f17f772eeb"
+  version "1.1.20-riscv3"
   license "Apache-2.0"
 
   depends_on "ros2-humble-full"
@@ -17,7 +18,7 @@ class Ros2Nav2 < Formula
 
   bottle do
     root_url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles"
-    sha256 cellar: :any_skip_relocation, riscv64_ohos: "1f0f74c4aeaab97fda3745ca2222f868d0007a4e3b8124b7e16810167a815088"
+    sha256 cellar: :any_skip_relocation, riscv64_ohos: "1a0bfc7894d92323c9102530d07fa707203c732867097c1764485f6a431907e7"
   end
 
   def install
@@ -67,8 +68,8 @@ class Ros2Nav2 < Formula
 
       Extra planners/controllers in this build: SmacPlanner2D/Hybrid/Lattice
       (OMPL bundled), MPPI controller, graceful controller, collision monitor,
-      route server.  nav2_waypoint_follower is intentionally not included
-      (needs cv_bridge/OpenCV).
+      route server, waypoint_follower (photo_at_waypoint plugin removed since
+      it needs cv_bridge/OpenCV), laser_filters and pointcloud_to_laserscan.
       Maps are read/written as PGM/PPM only (no GraphicsMagick on OHOS).
     EOS
   end
