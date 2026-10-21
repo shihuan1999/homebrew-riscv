@@ -8,7 +8,7 @@ class Ros2Controllers < Formula
   desc "ros2_control controllers (steering/mecanum/pid/gpio) + IMU filters for OHOS riscv64"
   homepage "https://github.com/ros-controls/ros2_controllers"
   url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles/ros2-controllers-4.15.0-riscv1-ohos-riscv64.tar.gz"
-  sha256 "fa3eccdac324f77bec4a2e9a054c50a9df1b61eb57941ee0e09e22c516e62921"
+  sha256 "2b7b0679425faa4222e1f39a5bad27dbc6c2283cdd2a55c4f441142b2aed6503"
   version "4.15.0-riscv1"
   license "Apache-2.0"
 
@@ -16,7 +16,7 @@ class Ros2Controllers < Formula
 
   bottle do
     root_url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles"
-    sha256 cellar: :any_skip_relocation, riscv64_ohos: "ceadd2b8098aed0bd5d61a1a1dd239b38ea21b5d35ef13ecb2243081770d0492"
+    sha256 cellar: :any_skip_relocation, riscv64_ohos: "d519324d9db2b990f58be7e88701036cd519c25f75a749a216cc467d0f1588e8"
   end
 
   def install
