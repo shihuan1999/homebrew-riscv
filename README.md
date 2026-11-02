@@ -63,6 +63,37 @@ ops sized like Qwen2.5-0.5B): release asset `bench-models-k3.tar.gz` on
 Measured numbers and the comparison methodology live in the bottle's
 `share/mindspore-lite/README.md`.
 
+## ai-gateway — one-command on-device AI stack
+
+```sh
+brew install hbrew/riscv/ai-gateway
+ai-gateway fetch-models      # one-time: LLM + ASR + TTS + VAD/KWS (~1.5 GB)
+ai-gateway start             # or: ai-gateway run  (foreground)
+ai-gateway demo              # end-to-end smoke test
+```
+
+A complete edge AI gateway in one package: an OpenAI/Ollama/Anthropic-compatible
+HTTP API in front of a local LLM, a vision worker, and a full speech chain
+(VAD → keyword spotting → SenseVoice ASR → agent tool call → matcha TTS),
+plus an agent layer that drives virtual smart-home devices through tool calls.
+
+| Piece | Detail |
+|---|---|
+| `spine-gateway` | Model scheduler, 3 protocol front-ends, spine kernels, pipelines, agent tool loop |
+| `vision-worker` | ONNX detection/embedding on the SpaceMiT EP (separate process) |
+| `audio-worker` | sherpa-onnx VAD / KWS / SenseVoice ASR / matcha TTS, always-on voice loop |
+| `ai-gateway` | Launcher: start/stop/status/logs, model download, smoke test |
+
+Measured on K3 pico (OH 6.1, riscv64 musl): Qwen3-0.6B Q4_0 at **41 tok/s**,
+SenseVoice ASR **RTF 0.38**, matcha TTS **RTF 0.20** (CPU kernels beat the
+SpaceMiT EP on these two models — the EP stays selectable per model via
+`audio.asr.provider` / `audio.tts.provider`).
+
+The bottle ships the programs only (~8 MB); model weights are fetched on first
+use, so upgrades never re-download 1.5 GB. Sources and the cross-build recipes
+are installed under `share/ai-gateway/`, and the sherpa-onnx EP patches ship in
+`patches/` for anyone rebuilding the speech front-end.
+
 ## openJiuwen agent suite — one command
 
 Everything from the openJiuwen → OHOS riscv64 port, in one install:

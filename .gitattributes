@@ -1,0 +1,10 @@
+# Shell/Python/Ruby sources must stay LF: they are executed on the device by
+# toybox sh / python, which choke on CRLF shebangs and line endings.
+*.sh    text eol=lf
+*.py    text eol=lf
+*.rb    text eol=lf
+*.md    text eol=lf
+*.json  text eol=lf
+# Device-side launcher scripts are shipped inside bottles; keep them LF too.
+builds/**  text eol=lf
+Formula/** text eol=lf
