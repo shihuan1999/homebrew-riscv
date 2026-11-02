@@ -3,13 +3,13 @@ class AiGateway < Formula
 
   bottle do
     root_url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles"
-    sha256 cellar: :any_skip_relocation, riscv64_ohos: "154ba8a671bb01b583a518af0e160345de490a17ec18e096646301c9a695b1d0"
+    sha256 cellar: :any_skip_relocation, riscv64_ohos: "72bcb93cb013a720b9d9570ba960f074e73554783e59a076c4371772be6be83b"
   end
   desc "On-device AI gateway: LLM + vision + speech + agent tool calls (K3)"
   homepage "https://github.com/shihuan1999/homebrew-riscv"
-  url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles/ai-gateway-3.0.0.tar.gz"
-  version "3.0.0"
-  sha256 "ab0383f574eba768989e80f80e44f4d4cea8d347644a7f92380a9c068bf9337a"
+  url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles/ai-gateway-3.0.1.tar.gz"
+  version "3.0.1"
+  sha256 "87db21436403fcc7c137fdb8c8e647f64419f8dc4141a1b99982904d1591df6d"
   license "MIT"
 
   def install
