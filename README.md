@@ -1,5 +1,9 @@
 # homebrew-riscv (riscv64-ohos tap)
 
+[![ci](https://github.com/shihuan1999/homebrew-riscv/actions/workflows/ci.yml/badge.svg)](https://github.com/shihuan1999/homebrew-riscv/actions/workflows/ci.yml) [![verify-commit](https://github.com/shihuan1999/homebrew-riscv/actions/workflows/verify-commit.yml/badge.svg)](https://github.com/shihuan1999/homebrew-riscv/actions/workflows/verify-commit.yml) [![verify-all](https://github.com/shihuan1999/homebrew-riscv/actions/workflows/verify-all.yml/badge.svg)](https://github.com/shihuan1999/homebrew-riscv/actions/workflows/verify-all.yml)
+
+**Status**: 全部 formula 均在 K3 pico 真机完成 install + 可执行冒烟（[verify-all 周度回归](https://github.com/shihuan1999/homebrew-riscv/actions/workflows/verify-all.yml)）；每次 main 分支新提交由 [verify-commit](.github/workflows/verify-commit.yml) 自动完成 拉代码 → 真机安装验证 → 缺瓶交叉编译 → 发布 的闭环。
+
 Bottles & formulas for **OpenHarmony 6.1 / musl riscv64** (SpacemiT K3 pico).
 Binaries are cross-built (self-hosted runner on the compile server) and
 verified on real hardware. New bottles are hosted on this repo's rolling
@@ -24,17 +28,19 @@ hdc 缓存预置安装（CONTRIBUTING.md「离线设备安装」）。
 
 ## Quick start (on device)
 
-联网设备一键引导（brew 树 + portable-ruby + tap 全部来自本仓 `bootstrap-v1` release）：
+联网设备一键引导 v2（brew 树 + portable-ruby + portable-git + CA + tap 全部来自本仓 `bootstrap-v1` / `bottles` release，全新 K3 pico 实测通过）：
 
 ```sh
-. <(curl -fsSL https://raw.githubusercontent.com/shihuan1999/homebrew-riscv/main/contrib/install.sh)
-brew install hbrew/riscv/<name>
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/shihuan1999/homebrew-riscv/main/contrib/install.sh)"
+. /data/harmonybrew/hbrew-env.sh
+brew install hbrew/riscv/<name>          # 例: brew install hbrew/riscv/figlet
 ```
 
-```sh
-# 2) install anything from this tap
-brew install hbrew/riscv/<name>
-```
+> 支持的前缀为默认的 `/data/harmonybrew`（瓶内二进制按该前缀构建）；
+> 集成了 harmonybrew 的系统镜像开箱即用（hbrew-init 开机自动释放），
+> 无需手动引导。不能出网的设备见 CONTRIBUTING.md「离线设备安装」。
+
+
 
 ## On-device AI inference — MindSpore Lite 2.4 (RVV-accelerated)
 
