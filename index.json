@@ -1,20 +1,20 @@
 {
  "count": 73,
- "updated": "2026-11-02T02:37:30Z",
+ "updated": "2026-11-05T12:56:18Z",
  "packages": [
   {
-   "name": "agentstorebuild",
+   "name": "agentstore-build",
    "version": "1.0.0",
    "desc": "hvigor 6.24.2 build chain + agentstore-build launcher for HAP projects (pure-JS, riscv64-clean)",
    "homepage": "https://github.com/spacemit-com",
    "deps": [
-    "hbrew/riscv/node"
+    "node"
    ],
    "formula": "Formula/a/agentstore-build.rb",
    "bottled": true
   },
   {
-   "name": "agentstorehap",
+   "name": "agentstore-hap",
    "version": "1.0.0",
    "desc": "Bianbu AgentStore replica (pure-ArkTS HAP) + on-device install/start/selftest wrappers",
    "homepage": "https://github.com/spacemit-com",
@@ -23,18 +23,18 @@
    "bottled": true
   },
   {
-   "name": "agentstorerelay",
+   "name": "agentstore-relay",
    "version": "1.0.0",
    "desc": "OpenAI-compatible LLM relay for AgentStore HAP (key stays on host, hdc rport tunnel)",
    "homepage": "https://github.com/spacemit-com",
    "deps": [
-    "hbrew/riscv/python"
+    "python"
    ],
    "formula": "Formula/a/agentstore-relay.rb",
    "bottled": true
   },
   {
-   "name": "aigateway",
+   "name": "ai-gateway",
    "version": "3.0.1",
    "desc": "On-device AI gateway: LLM + vision + speech + agent tool calls (K3)",
    "homepage": "https://github.com/shihuan1999/homebrew-riscv",
@@ -72,23 +72,23 @@
    "bottled": true
   },
   {
-   "name": "codedeveco",
+   "name": "code-deveco",
    "version": "1.17.9",
    "desc": "deveco-code (opencode) VS Code extension + installer (OHOS riscv64)",
    "homepage": "https://github.com/shihuan1999/deveco-ohos-port",
    "deps": [
-    "hbrew/riscv/vscode-server"
+    "vscode-server"
    ],
    "formula": "Formula/c/code-deveco.rb",
    "bottled": true
   },
   {
-   "name": "codehapdev",
+   "name": "code-hapdev",
    "version": "0.1.0",
    "desc": "ohos-dev VS Code extension (hap-dev) + installer (OHOS riscv64)",
    "homepage": "https://github.com/shihuan1999/vscode-ohos-port",
    "deps": [
-    "hbrew/riscv/vscode-server"
+    "vscode-server"
    ],
    "formula": "Formula/c/code-hapdev.rb",
    "bottled": true
@@ -120,7 +120,7 @@
    "desc": "DevEco Code CLI: agentic coding harness for OHOS riscv64 (on-device)",
    "homepage": "https://github.com/shihuan1999/deveco-ohos-port",
    "deps": [
-    "hbrew/riscv/node"
+    "node"
    ],
    "formula": "Formula/d/deveco.rb",
    "bottled": true
@@ -149,7 +149,7 @@
    "desc": "DeepSeek Harness (dsh): agentic coding harness (OHOS riscv64 port)",
    "homepage": "https://github.com/shihuan1999/dsh-ohos-port",
    "deps": [
-    "hbrew/riscv/node"
+    "node"
    ],
    "formula": "Formula/d/dsh.rb",
    "bottled": true
@@ -191,12 +191,12 @@
    "bottled": true
   },
   {
-   "name": "hapdev",
+   "name": "hap-dev",
    "version": "1.1.1",
    "desc": "On-device OpenHarmony HAP build chain (hvigor/es2abc/sign) for riscv64",
    "homepage": "https://github.com/shihuan1999/homebrew-riscv",
    "deps": [
-    "hbrew/riscv/node"
+    "node"
    ],
    "formula": "Formula/h/hap-dev.rb",
    "bottled": true
@@ -211,7 +211,7 @@
    "bottled": true
   },
   {
-   "name": "i2ctools",
+   "name": "i2c-tools",
    "version": "4.4",
    "desc": "I2C bus probing/transfer tools — sensors, servo controller boards",
    "homepage": "https://git.kernel.org/pub/scm/utils/i2c-tools/i2c-tools.git/",
@@ -283,7 +283,7 @@
    "bottled": true
   },
   {
-   "name": "mindsporelite",
+   "name": "mindspore-lite",
    "version": "2.4.0-k3.1",
    "desc": "MindSpore Lite 2.4 inference runtime + benchmark/verify tools (RVV-accelerated)",
    "homepage": "https://www.mindspore.cn/lite",
@@ -297,13 +297,13 @@
    "desc": "MQTT broker and clients — robot telemetry and control channel",
    "homepage": "https://mosquitto.org/",
    "deps": [
-    "hbrew/riscv/cjson"
+    "cjson"
    ],
    "formula": "Formula/m/mosquitto.rb",
    "bottled": true
   },
   {
-   "name": "mindsporennrt",
+   "name": "mindspore-nnrt",
    "version": "6.1.0-k3.1",
    "desc": "OpenHarmony 6.1 Neural Network Runtime client libs + proxy backends (riscv64)",
    "homepage": "https://gitee.com/openharmony/neural_network_runtime",
@@ -339,150 +339,150 @@
    "bottled": true
   },
   {
-   "name": "ohoskb",
+   "name": "ohos-kb",
    "version": "1.1.0",
    "desc": "Zero-dep local knowledge base: file ingest, hybrid search, RAG QA, standard eval",
    "homepage": "https://github.com/shihuan1999/ohos-kb",
    "deps": [
-    "hbrew/riscv/python"
+    "python"
    ],
    "formula": "Formula/o/ohos-kb.rb",
    "bottled": true
   },
   {
-   "name": "openjiuwenagentdx",
+   "name": "openjiuwen-agent-dx",
    "version": "1.0.0",
    "desc": "openJiuwen agent-dx: Agent Distributed eXecutor, source vendor pkg (OHOS riscv64)",
    "homepage": "https://github.com/openJiuwen-ai",
    "deps": [
-    "hbrew/riscv/openjiuwen"
+    "openjiuwen"
    ],
    "formula": "Formula/o/openjiuwen-agent-dx.rb",
    "bottled": true
   },
   {
-   "name": "openjiuwenagentmemory",
+   "name": "openjiuwen-agent-memory",
    "version": "1.0.0",
    "desc": "openJiuwen agent-memory: long-term memory server (hash embedding + SQLite vector store) for OHOS riscv64",
    "homepage": "https://github.com/openJiuwen-ai",
    "deps": [
-    "hbrew/riscv/openjiuwen"
+    "openjiuwen"
    ],
    "formula": "Formula/o/openjiuwen-agent-memory.rb",
    "bottled": true
   },
   {
-   "name": "openjiuwenagentprotocol",
+   "name": "openjiuwen-agent-protocol",
    "version": "1.0.0",
    "desc": "openJiuwen Agent Protocol: A2A/MCP/AgentRegistry implementations, source vendor pkg (OHOS riscv64)",
    "homepage": "https://github.com/openJiuwen-ai",
    "deps": [
-    "hbrew/riscv/openjiuwen"
+    "openjiuwen"
    ],
    "formula": "Formula/o/openjiuwen-agent-protocol.rb",
    "bottled": true
   },
   {
-   "name": "openjiuwenagentruntime",
+   "name": "openjiuwen-agent-runtime",
    "version": "1.0.0",
    "desc": "openJiuwen Agent Runtime: agent run/deploy framework, source vendor pkg (OHOS riscv64)",
    "homepage": "https://github.com/openJiuwen-ai",
    "deps": [
-    "hbrew/riscv/openjiuwen"
+    "openjiuwen"
    ],
    "formula": "Formula/o/openjiuwen-agent-runtime.rb",
    "bottled": true
   },
   {
-   "name": "openjiuwenagenttools",
+   "name": "openjiuwen-agent-tools",
    "version": "1.0.0",
    "desc": "openJiuwen agent-tools collection, source vendor pkg (OHOS riscv64)",
    "homepage": "https://github.com/openJiuwen-ai",
    "deps": [
-    "hbrew/riscv/openjiuwen"
+    "openjiuwen"
    ],
    "formula": "Formula/o/openjiuwen-agent-tools.rb",
    "bottled": true
   },
   {
-   "name": "openjiuwenapps",
+   "name": "openjiuwen-apps",
    "version": "1.0.0",
    "desc": "openJiuwen on-device agents: deepsearch/career/diag/perf/kb sidecar + KB",
    "homepage": "https://github.com/openJiuwen-ai/deepsearch",
    "deps": [
-    "hbrew/riscv/python",
-    "hbrew/riscv/openjiuwen"
+    "python",
+    "openjiuwen"
    ],
    "formula": "Formula/o/openjiuwen-apps.rb",
    "bottled": true
   },
   {
-   "name": "openjiuwencareersim",
+   "name": "openjiuwen-careersim",
    "version": "1.0.0",
    "desc": "openJiuwen CareerSim (CCF BDCI 2026) headless career simulation runner (OHOS riscv64)",
    "homepage": "https://github.com/openJiuwen-ai",
    "deps": [
-    "hbrew/riscv/openjiuwen"
+    "openjiuwen"
    ],
    "formula": "Formula/o/openjiuwen-careersim.rb",
    "bottled": true
   },
   {
-   "name": "openjiuwendeepsearch",
+   "name": "openjiuwen-deepsearch",
    "version": "1.0.0",
    "desc": "openJiuwen DeepSearch knowledge-enhanced deep research agent (OHOS riscv64)",
    "homepage": "https://github.com/openJiuwen-ai",
    "deps": [
-    "hbrew/riscv/openjiuwen"
+    "openjiuwen"
    ],
    "formula": "Formula/o/openjiuwen-deepsearch.rb",
    "bottled": true
   },
   {
-   "name": "openjiuwenskillhub",
+   "name": "openjiuwen-skillhub",
    "version": "1.0.0",
    "desc": "openJiuwen skillhub: skills marketplace + CLI, source vendor pkg (OHOS riscv64)",
    "homepage": "https://github.com/openJiuwen-ai",
    "deps": [
-    "hbrew/riscv/openjiuwen"
+    "openjiuwen"
    ],
    "formula": "Formula/o/openjiuwen-skillhub.rb",
    "bottled": true
   },
   {
-   "name": "openjiuwensuite",
+   "name": "openjiuwen-suite",
    "version": "1.0.0",
    "desc": "Meta package: openJiuwen framework + agents + symbiosis + swarm (OHOS riscv64)",
    "homepage": "https://github.com/shihuan1999/riscv-bin",
    "deps": [
-    "hbrew/riscv/openjiuwen",
-    "hbrew/riscv/openjiuwen-apps",
-    "hbrew/riscv/openjiuwen-symbiosis",
-    "hbrew/riscv/openjiuwen-swarm"
+    "openjiuwen",
+    "openjiuwen-apps",
+    "openjiuwen-symbiosis",
+    "openjiuwen-swarm"
    ],
    "formula": "Formula/o/openjiuwen-suite.rb",
    "bottled": true
   },
   {
-   "name": "openjiuwenswarm",
+   "name": "openjiuwen-swarm",
    "version": "1.0.0",
    "desc": "jiuwenswarm multi-agent app: AgentServer + E2A gateway (OHOS riscv64)",
    "homepage": "https://github.com/openJiuwen-ai/jiuwenswarm",
    "deps": [
-    "hbrew/riscv/python",
-    "hbrew/riscv/openjiuwen"
+    "python",
+    "openjiuwen"
    ],
    "formula": "Formula/o/openjiuwen-swarm.rb",
    "bottled": true
   },
   {
-   "name": "openjiuwensymbiosis",
+   "name": "openjiuwen-symbiosis",
    "version": "0.1.0",
    "desc": "jiuwensymbiosis robotics agent framework + scipy shim (OHOS riscv64)",
    "homepage": "https://github.com/openJiuwen-ai/jiuwensymbiosis",
    "deps": [
-    "hbrew/riscv/python",
-    "hbrew/riscv/openjiuwen"
+    "python",
+    "openjiuwen"
    ],
    "formula": "Formula/o/openjiuwen-symbiosis.rb",
    "bottled": true
@@ -493,7 +493,7 @@
    "desc": "openJiuwen agent framework (core 0.1.17) with riscv64-ohos dep closure",
    "homepage": "https://github.com/openJiuwen-ai/agent-core",
    "deps": [
-    "hbrew/riscv/python"
+    "python"
    ],
    "formula": "Formula/o/openjiuwen.rb",
    "bottled": true
@@ -534,32 +534,32 @@
    "desc": "Parallel gzip compression utility",
    "homepage": "https://zlib.net/pigz/",
    "deps": [
-    "hbrew/riscv/zlib"
+    "zlib"
    ],
    "formula": "Formula/p/pigz.rb",
    "bottled": true
   },
   {
-   "name": "portablegit",
+   "name": "portable-git",
    "version": "2.54.0",
    "desc": "Distributed version control system",
    "homepage": "https://git-scm.com",
    "deps": [
-    "hbrew/riscv/curl",
-    "hbrew/riscv/openssl",
-    "hbrew/riscv/zlib"
+    "curl",
+    "openssl",
+    "zlib"
    ],
    "formula": "Formula/p/portable-git.rb",
    "bottled": true
   },
   {
-   "name": "portableruby",
+   "name": "portable-ruby",
    "version": "4.0.3",
    "desc": "Ruby interpreter (Homebrew portable version)",
    "homepage": "https://www.ruby-lang.org/",
    "deps": [
-    "hbrew/riscv/openssl",
-    "hbrew/riscv/zlib"
+    "openssl",
+    "zlib"
    ],
    "formula": "Formula/p/portable-ruby.rb",
    "bottled": true
@@ -574,7 +574,7 @@
    "bottled": true
   },
   {
-   "name": "pythonat311",
+   "name": "python@3.11",
    "version": "3.11.4",
    "desc": "Interpreted, interactive, object-oriented programming language (3.11 line)",
    "homepage": "https://www.python.org/",
@@ -583,7 +583,7 @@
    "bottled": true
   },
   {
-   "name": "ros2controllers",
+   "name": "ros2-controllers",
    "version": "4.15.0-riscv3",
    "desc": "ros2_control controllers (steering/mecanum/pid/gpio) + IMU filters for OHOS riscv64",
    "homepage": "https://github.com/ros-controls/ros2_controllers",
@@ -594,7 +594,7 @@
    "bottled": true
   },
   {
-   "name": "ros2humblefull",
+   "name": "ros2-humble-full",
    "version": "16.0.21-riscv1",
    "desc": "ROS 2 Humble full robot stack (rclpy/ros2cli/tf2/ros2_control/rosbridge) for OpenHarmony riscv64",
    "homepage": "https://docs.ros.org/en/humble/",
@@ -605,7 +605,7 @@
    "bottled": true
   },
   {
-   "name": "ros2humble",
+   "name": "ros2-humble",
    "version": "16.0.20-riscv1",
    "desc": "ROS 2 Humble (rcl/rclcpp + CycloneDDS, demo_nodes_cpp) for OpenHarmony riscv64",
    "homepage": "https://docs.ros.org/en/humble/",
@@ -614,7 +614,7 @@
    "bottled": true
   },
   {
-   "name": "ros2nav2",
+   "name": "ros2-nav2",
    "version": "1.1.20-riscv3",
    "desc": "Nav2 navigation stack (AMCL, NavFn, DWB, BT navigator) for ROS 2 Humble on OHOS riscv64",
    "homepage": "https://navigation.ros.org/",
@@ -626,7 +626,7 @@
    "bottled": true
   },
   {
-   "name": "ros2sim",
+   "name": "ros2-sim",
    "version": "0.1.0",
    "desc": "Headless 2D robot simulator + SLAM/Nav2 demos for ROS 2 Humble on OHOS riscv64",
    "homepage": "https://github.com/shihuan1999/homebrew-riscv",
@@ -637,7 +637,7 @@
    "bottled": true
   },
   {
-   "name": "ros2slam",
+   "name": "ros2-slam",
    "version": "0.2.0",
    "desc": "slam_toolbox + robot_localization SLAM overlay for ROS 2 Humble (OpenHarmony riscv64)",
    "homepage": "https://github.com/SteveMacenski/slam_toolbox",
@@ -648,7 +648,7 @@
    "bottled": true
   },
   {
-   "name": "ros2spacemitexamples",
+   "name": "ros2-spacemit-examples",
    "version": "2026.10.15",
    "desc": "SpacemiT robot SDK ROS 2 wrappers (slam_toolbox_run, nav2, humanoid_mujoco configs)",
    "homepage": "https://github.com/spacemit-robotics",
@@ -675,7 +675,7 @@
    "desc": "Demo shell tool depending on hbrew/riscv/pigz",
    "homepage": "https://github.com/shihuan1999/homebrew-riscv",
    "deps": [
-    "hbrew/riscv/pigz"
+    "pigz"
    ],
    "formula": "Formula/s/shgz.rb",
    "bottled": true
@@ -710,7 +710,7 @@
    "bottled": true
   },
   {
-   "name": "vscodeserver",
+   "name": "vscode-server",
    "version": "1.109.5",
    "desc": "openvscode-server: browser VS Code server (OHOS riscv64 port)",
    "homepage": "https://github.com/gitpod-io/openvscode-server",
