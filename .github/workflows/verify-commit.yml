@@ -88,7 +88,8 @@ jobs:
                       opener.open(req, timeout=20)
                       ok=True   # 200 直达
                   except urllib.error.HTTPError as e:
-                      ok=(e.code==200)
+                      # GitHub release 下载 302 跳 CDN：重定向即资产存在
+                      ok=(e.code in (200, 301, 302, 303, 307, 308))
                   except Exception:
                       ok=False
                   (ready if ok else missing).append(n)
