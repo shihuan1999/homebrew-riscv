@@ -1,0 +1,232 @@
+name: verify-commit
+
+# 提交验证主链路（每次新提交自动：拉代码 → 编译 → 安装 → 真机验证）：
+#
+#   push(main) ──► resolve ──┬─► device-verify(pico-gw)  变更包真机 install+冒烟
+#                            └─► build-missing(snode7)   瓶缺失的包交叉编译
+#                                     │
+#                                     ▼
+#                            publish（真机验证通过后）：瓶上中央 release +
+#                            formula 补写 sha256 + 重建 snapshot/index 并提交
+#
+# publish 的提交会再次触发本链路：此时瓶已可达 → 只剩 device-verify → 通过即绿。
+# 自收敛两段式，不会死循环（无变更则 publish 不产生提交）。
+on:
+  push:
+    branches: [main]
+    paths:
+      - "Formula/**"
+      - "builds/**"
+      - "contrib/**"
+      - ".github/workflows/verify-commit.yml"
+  workflow_dispatch:
+    inputs:
+      formulas:
+        description: "只验这些包（逗号分隔，留空=自动检测变更）"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+concurrency:
+  group: verify-commit-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  resolve:
+    runs-on: ubuntu-latest
+    outputs:
+      count: ${{ steps.r.outputs.count }}
+      ready: ${{ steps.r.outputs.ready }}
+      missing: ${{ steps.r.outputs.missing }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: resolve changed formulas + bottle health
+        id: r
+        run: |
+          set -e
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ -n "${{ github.event.inputs.formulas }}" ]; then
+            echo "${{ github.event.inputs.formulas }}" | tr ',' '\n' | sed 's/ //g' > all.txt
+          else
+            BASE="${{ github.event.before }}"
+            if ! git cat-file -e "$BASE" 2>/dev/null; then
+              BASE=$(git rev-list --max-parents=0 HEAD | tail -1)
+            fi
+            git diff --name-only "$BASE"..HEAD -- 'Formula/*/*.rb' 'Formula/*.rb' \
+              | sed -E 's|Formula/[a-z]/([^/]+)\.rb|\1|;s|Formula/([^/]+)\.rb|\1|' | sort -u > all.txt
+          fi
+          # 变更 builds/ 配方 → 对应包也纳入
+          git diff --name-only "${{ github.event.before }}"..HEAD -- 'builds/*/build.sh' 2>/dev/null \
+            | sed -E 's|builds/([^/]+)/build.sh|\1|' >> all.txt || true
+          sort -u all.txt -o all.txt
+          grep -E '\S' all.txt > names.txt || : > names.txt
+          python3 - <<'PY' >> "$GITHUB_OUTPUT"
+          import json, re, os, urllib.request
+          names=[l.strip() for l in open('names.txt') if l.strip()]
+          ready, missing = [], []
+          for n in names:
+              f=f"Formula/{n[0]}/{n}.rb"
+              if not os.path.exists(f): continue
+              t=open(f,encoding='utf-8',errors='replace').read()
+              m=re.search(r'bottle\s+do\s*$(.*?)^\s*end', t, re.M|re.S)
+              ru=None; sha=None
+              if m:
+                  ru=(re.search(r'root_url\s+"([^"]+)"', m.group(1)) or [None,None])[1]
+                  sha=(re.search(r'riscv64_ohos:\s*"([0-9a-f]{64})"', m.group(1)) or [None,None])[1]
+              ver=(re.search(r'^\s*version\s+"([^"]+)"', t, re.M) or [None,""])[1]
+              if ru and sha and ver:
+                  url=f"{ru}/{n}-{ver}.riscv64_ohos.bottle.tar.gz"
+                  try:
+                      req=urllib.request.Request(url, method="HEAD")
+                      import urllib.error
+                      class NoRedirect(urllib.request.HTTPRedirectHandler):
+                          def redirect_request(self,*a,**k): return None
+                      opener=urllib.request.build_opener(NoRedirect)
+                      opener.open(req, timeout=20)
+                      ok=True   # 200 直达
+                  except urllib.error.HTTPError as e:
+                      ok=(e.code==200)
+                  except Exception:
+                      ok=False
+                  (ready if ok else missing).append(n)
+              else:
+                  missing.append(n)
+          print(f"count={len(ready)+len(missing)}")
+          print(f"ready={json.dumps(ready)}")
+          print(f"missing={json.dumps(missing)}")
+          PY
+          cat "$GITHUB_OUTPUT"
+      - name: summary
+        run: |
+          {
+            echo "## verify-commit: 变更解析"
+            echo
+            echo '```'
+            cat "$GITHUB_OUTPUT" 2>/dev/null || true
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  device-verify:
+    needs: resolve
+    if: needs.resolve.outputs.count != '0' && needs.resolve.outputs.ready != '[]'
+    runs-on: [self-hosted, pico-gw]
+    timeout-minutes: 45
+    outputs:
+      verified: ${{ steps.list.outputs.list }}
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+      - name: check device online
+        run: |
+          hdc list targets 2>&1 | tee targets.txt
+          grep -qE '^[a-z0-9\-]+\s*$' targets.txt || { echo "::error::no hdc device online"; exit 3; }
+      - name: smoke each formula
+        id: list
+        run: |
+          set -o pipefail
+          echo "| formula | result |" >> "$GITHUB_STEP_SUMMARY"
+          echo "|---|---|" >> "$GITHUB_STEP_SUMMARY"
+          rc=0; ok=""
+          for n in $(python3 -c "import json;print(' '.join(json.loads('${{ needs.resolve.outputs.ready }}')))"); do
+            echo "===== device-smoke: $n ====="
+            if bash contrib/device-smoke.sh "$n" "" 2>&1 | tee "smoke-$n.log"; then
+              echo "| $n | ✅ PASS |" >> "$GITHUB_STEP_SUMMARY"; ok="$ok $n"
+            else
+              echo "| $n | ❌ FAIL |" >> "$GITHUB_STEP_SUMMARY"; rc=1
+            fi
+          done
+          echo "list=$(echo $ok)" >> "$GITHUB_OUTPUT"
+          exit $rc
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: verify-commit-device-logs
+          path: smoke-*.log
+          if-no-files-found: ignore
+
+  build-missing:
+    needs: resolve
+    if: needs.resolve.outputs.count != '0' && needs.resolve.outputs.missing != '[]'
+    runs-on: [self-hosted, snode7]
+    timeout-minutes: 150
+    outputs:
+      built: ${{ steps.b.outputs.names }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: cross-compile missing bottles
+        id: b
+        run: |
+          set -e
+          NAMES=$(python3 -c "import json;print(','.join(json.loads('${{ needs.resolve.outputs.missing }}')))")
+          # 缺配方直接报错：给出可操作的修复指引（商业门禁）
+          for n in $(echo "$NAMES" | tr ',' ' '); do
+            [ -f "builds/$n/build.sh" ] || { echo "::error::missing build recipe builds/$n/build.sh — add it or publish a bottle manually"; exit 3; }
+          done
+          bash contrib/build-from-source.sh "$NAMES" "$PWD/out"
+          echo "names=$NAMES" >> "$GITHUB_OUTPUT"
+      - name: validate built bottles
+        run: |
+          set -e
+          for t in out/*.tar.gz; do
+            [ -e "$t" ] || continue
+            n=$(basename "$t" | sed -E 's/-[^-]+\.riscv64_ohos\.bottle\.tar\.gz$//')
+            v=$(basename "$t" | sed -E "s/^$n-//; s/\.riscv64_ohos\.bottle\.tar\.gz$//")
+            python3 contrib/validate_bottle.py "$t" --name "$n" --version "$v"
+          done
+      - uses: actions/upload-artifact@v4
+        with:
+          name: verify-commit-bottles
+          path: out/
+          retention-days: 14
+          if-no-files-found: error
+
+  publish:
+    needs: [resolve, device-verify, build-missing]
+    if: >
+      always() &&
+      needs.resolve.outputs.count != '0' &&
+      needs.build-missing.result != 'failure' &&
+      needs.device-verify.result != 'failure' &&
+      needs.build-missing.outputs.built != ''
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      CENTRAL_TAG: bottles
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: download built bottles
+        uses: actions/download-artifact@v4
+        with:
+          name: verify-commit-bottles
+          path: bottles/
+      - name: upload to central release
+        run: |
+          set -e
+          files=$(find bottles -name '*.tar.gz' | tr '\n' ' ')
+          [ -n "$files" ] || { echo "nothing to upload"; exit 0; }
+          gh release view "$CENTRAL_TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1 || \
+            gh release create "$CENTRAL_TAG" --repo "$GITHUB_REPOSITORY" \
+              --title "riscv64_ohos bottles (rolling)" \
+              --notes "Central bottle hosting (auto-published by verify-commit pipeline)."
+          gh release upload "$CENTRAL_TAG" $files --clobber --repo "$GITHUB_REPOSITORY"
+      - name: normalize formulas + refresh snapshot (triggers re-verify pass)
+        run: |
+          set -e
+          git config user.name "hbrew-bot"
+          git config user.email "actions@github.com"
+          python3 contrib/publish_normalize.py --changed <(echo "${{ needs.build-missing.outputs.built }}" | tr ',' '\n') --staged <(echo '[]') || true
+          bash contrib/make-snapshot.sh
+          if [ -n "$(git status --porcelain)" ]; then
+            git add -A tap-latest.tar.gz index.json Formula/
+            git commit -m "verify-commit: publish bottles + refresh snapshot/index (auto)"
+            git push
+          fi

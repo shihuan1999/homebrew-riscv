@@ -1,8 +1,12 @@
 name: device-verify
 
-# 真机验证：在有 hdc 的网关 runner（label: pico-gw）上，把 bottle 通过
-# hdc 预置进设备 brew 缓存，设备端真实 `brew install` + `brew test`。
-# 触发：PR 打 device-verify 标签，或手动 dispatch。
+# 真机验证 v2：把 bottle 通过 hdc 预置进设备 brew 缓存，设备端真实
+# `brew install` + 可执行冒烟（v2：不再依赖无 test 块的 brew test）。
+# 触发：
+#   · PR 打 device-verify 标签
+#   · 手动 dispatch（单 formula）
+# push 到 main 的自动真机验证由 verify-commit.yml 主链路负责（避免双跑抢设备 brew 锁）。
+# 运行环境：网关 runner（label: pico-gw，Windows/git-bash 或 Linux 均可，需 hdc + python）。
 on:
   pull_request:
     types: [labeled]
@@ -20,29 +24,78 @@ permissions:
   contents: read
   pull-requests: write
 
+defaults:
+  run:
+    shell: bash
+
 jobs:
   smoke:
     if: >
       github.event_name == 'workflow_dispatch' ||
       contains(join(github.event.pull_request.labels.*.name, ','), 'device-verify')
     runs-on: [self-hosted, pico-gw]
-    timeout-minutes: 30
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 0
 
-      - name: run device smoke test
-        id: smoke
+      - name: resolve target formulas
+        id: tgt
         run: |
-          bash contrib/device-smoke.sh \
-            "${{ github.event.inputs.formula }}" \
-            "${{ github.event.inputs.hdc_target }}" \
-            | tee smoke.log
-          echo "exitcode=$?" >> "$GITHUB_OUTPUT"
+          set -e
+          case "${{ github.event_name }}" in
+            workflow_dispatch)
+              echo "${{ github.event.inputs.formula }}" | tr ',' '\n' | sed 's/ //g' > formulas.txt ;;
+            *)
+              # PR labeled：验 PR 全部 Formula 变更
+              BASE="${{ github.event.pull_request.base.sha }}"
+              git diff --name-only "$BASE"..${{ github.event.pull_request.head.sha }} -- 'Formula/*/*.rb' 'Formula/*.rb' \
+                | sed -E 's|Formula/[a-z]/([^/]+)\.rb|\1|;s|Formula/([^/]+)\.rb|\1|' | sort -u > formulas.txt ;;
+          esac
+          # formula 文件必须存在（防误报）
+          grep -vE '^\s*$' formulas.txt | while read -r n; do
+            [ -f "Formula/${n:0:1}/$n.rb" ] || [ -f "Formula/$n.rb" ] || echo "WARN: skip $n (no formula file)"
+          done || true
+          cat formulas.txt
+          echo "count=$(grep -cE '\S' formulas.txt || echo 0)" >> "$GITHUB_OUTPUT"
+
+      - name: check device online
+        if: steps.tgt.outputs.count != '0'
+        run: |
+          hdc list targets 2>&1 | tee targets.txt
+          # hdc list targets 有设备输出行（非 Not support/空）即在线
+          if ! grep -qE '^[a-z0-9\-]+\s*$' targets.txt; then
+            echo "::error::no hdc device online — check pico connection on gateway"
+            exit 3
+          fi
+
+      - name: run device smoke per formula
+        id: smoke
+        if: steps.tgt.outputs.count != '0'
+        env:
+          HDC_TARGET: ${{ github.event.inputs.hdc_target }}
+        run: |
+          set -o pipefail
+          : > smoke-summary.md
+          echo "| formula | result |" >> "$GITHUB_STEP_SUMMARY"
+          echo "|---|---|" >> "$GITHUB_STEP_SUMMARY"
+          rc=0
+          while read -r n; do
+            [ -z "$n" ] && continue
+            echo "===== device-smoke: $n ====="
+            if bash contrib/device-smoke.sh "$n" "$HDC_TARGET" 2>&1 | tee "smoke-$n.log"; then
+              echo "| $n | ✅ PASS |" >> "$GITHUB_STEP_SUMMARY"
+            else
+              echo "| $n | ❌ FAIL |" >> "$GITHUB_STEP_SUMMARY"
+              rc=1
+            fi
+          done < formulas.txt
+          exit $rc
 
       - name: comment PR
-        if: github.event_name == 'pull_request'
+        if: github.event_name == 'pull_request' && steps.tgt.outputs.count != '0'
         uses: actions/github-script@v7
         with:
           script: |
@@ -55,3 +108,13 @@ jobs:
               owner: context.repo.owner, repo: context.repo.repo,
               issue_number: context.issue.number, body
             });
+
+      - name: upload logs
+        if: always() && steps.tgt.outputs.count != '0'
+        uses: actions/upload-artifact@v4
+        with:
+          name: device-verify-logs
+          path: |
+            smoke-*.log
+            formulas.txt
+          if-no-files-found: ignore

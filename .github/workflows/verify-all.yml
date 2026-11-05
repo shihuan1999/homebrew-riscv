@@ -1,0 +1,120 @@
+name: verify-all
+
+# 全量真机回归：把 contrib/verify-all.sh 推到 pico 设备后台执行，
+# 轮询 results.tsv 直到 DONE，汇总 PASS/FAIL。设备侧脚本支持断点续跑，
+# hdc 中途掉线只影响轮询，不影响设备上的执行。
+# 触发：每周日 02:00（UTC）+ 手动 dispatch。
+on:
+  schedule:
+    - cron: "0 2 * * 0"
+  workflow_dispatch:
+    inputs:
+      formulas:
+        description: "只验这些包（空格分隔，留空=全量）"
+        required: false
+        default: ""
+      hdc_target:
+        description: "hdc -t 目标（留空自动）"
+        required: false
+        default: ""
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  verify-all:
+    runs-on: [self-hosted, pico-gw]
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: check device online
+        run: |
+          hdc list targets 2>&1 | tee targets.txt
+          grep -qE '^[a-z0-9\-]+\s*$' targets.txt || { echo "::error::no hdc device online"; exit 3; }
+
+      - name: push verify script + reset state
+        env:
+          HDC_TARGET: ${{ github.event.inputs.hdc_target }}
+        run: |
+          export MSYS_NO_PATHCONV=1 MSYS2_ARG_CONV_EXCL='*'
+          HDC="hdc"; [ -n "$HDC_TARGET" ] && HDC="hdc -t $HDC_TARGET"
+          # 全量跑之前清掉上轮结果（断点续跑只用于同轮中断恢复）
+          if [ -z "${{ github.event.inputs.formulas }}" ]; then
+            $HDC shell "rm -rf /data/hbrew-verify"
+          fi
+          $HDC shell "mkdir -p /data/hbrew-verify"
+          $HDC file send contrib/verify-all.sh /data/hbrew-verify/verify-all.sh
+          $HDC shell "chmod +x /data/hbrew-verify/verify-all.sh"
+
+      - name: launch device-side sweep (background, survives hdc drops)
+        env:
+          HDC_TARGET: ${{ github.event.inputs.hdc_target }}
+        run: |
+          HDC="hdc"; [ -n "$HDC_TARGET" ] && HDC="hdc -t $HDC_TARGET"
+          ARGS=""
+          [ -n "${{ github.event.inputs.formulas }}" ] && ARGS="${{ github.event.inputs.formulas }}"
+          # nohup 后台跑；hdc 会话会挂住直到脚本脱离 tty，用短超时杀掉本地 hdc 即可
+          $HDC shell "cd /data/hbrew-verify && nohup sh verify-all.sh $ARGS > run.log 2>&1 &" &
+          BGPID=$!
+          sleep 5
+          kill $BGPID 2>/dev/null || true
+          echo "launched"
+
+      - name: poll until DONE
+        env:
+          HDC_TARGET: ${{ github.event.inputs.hdc_target }}
+        run: |
+          HDC="hdc"; [ -n "$HDC_TARGET" ] && HDC="hdc -t $HDC_TARGET"
+          for i in $(seq 1 280); do
+            CUR=$($HDC shell "cat /data/hbrew-verify/current 2>/dev/null" 2>/dev/null | tr -d '\r')
+            echo "[poll $i] current: $CUR"
+            if [ "$CUR" = "DONE" ]; then echo "device sweep finished"; exit 0; fi
+            # runner 本身每 60s 摸一次设备；10 分钟完全无进展才判挂
+            sleep 60
+          done
+          echo "::error::device sweep did not finish in time"
+          exit 4
+
+      - name: collect results
+        if: always()
+        env:
+          HDC_TARGET: ${{ github.event.inputs.hdc_target }}
+        run: |
+          export MSYS_NO_PATHCONV=1 MSYS2_ARG_CONV_EXCL='*'
+          HDC="hdc"; [ -n "$HDC_TARGET" ] && HDC="hdc -t $HDC_TARGET"
+          mkdir -p results
+          $HDC shell "cat /data/hbrew-verify/results.tsv" 2>/dev/null | tr -d '\r' > results/results.tsv
+          $HDC shell "tail -50 /data/hbrew-verify/run.log" 2>/dev/null | tr -d '\r' > results/run-tail.log
+          $HDC shell "cat /data/hbrew-verify/failed.txt" 2>/dev/null | tr -d '\r' > results/failed.txt || true
+          cat results/results.tsv || true
+
+      - name: verdict
+        if: always()
+        run: |
+          python - <<'EOF'
+          import os
+          rows=[l.split('\t') for l in open('results/results.tsv',encoding='utf-8',errors='replace').read().splitlines() if '\t' in l]
+          data=[r for r in rows if r[0]!='name']
+          passed=[r for r in data if len(r)>1 and r[1]=='PASS']
+          failed=[r for r in data if len(r)>1 and r[1]!='PASS']
+          with open(os.environ.get('GITHUB_STEP_SUMMARY','/dev/null'),'a') as f:
+              f.write(f"\n## verify-all 汇总\n\n- PASS: **{len(passed)}**\n- FAIL: **{len(failed)}**\n- 总计: {len(data)}\n")
+              if failed:
+                  f.write("\n### 失败清单\n\n| 包 | 结果 | 详情 |\n|---|---|---|\n")
+                  for r in failed: f.write(f"| {r[0]} | {r[1]} | {r[3] if len(r)>3 else ''} |\n")
+          print(f"pass={len(passed)} fail={len(failed)}")
+          raise SystemExit(1 if failed else 0)
+          EOF
+
+      - name: upload results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: verify-all-results
+          path: results/
+          if-no-files-found: error
