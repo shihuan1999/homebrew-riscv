@@ -2,8 +2,8 @@
 class Busybox < Formula
   desc "Swiss-army knife of embedded Linux"
   homepage "https://busybox.net/"
-  url "http://deb.debian.org/debian/pool/main/b/busybox/busybox_1.37.0.orig.tar.bz2"
-  sha256 "3311dff32e746499f4df0d5df04d7eb396382d7e108bb9250e7b519b837043a4"
+  url "https://busybox.net/downloads/busybox-1.37.0.tar.gz"
+  sha256 "65643147a622ddf4689ade5f66a21f7cafb378ec595b4da3cd78c21412bf2230"
   version "1.37.0"
 
 

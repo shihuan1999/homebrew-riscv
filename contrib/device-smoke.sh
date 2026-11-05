@@ -63,7 +63,12 @@ $HDC shell "mkdir -p '$DEV_CACHE/downloads'" >/dev/null
 $HDC file send "$TMP/$ASSET" "/data/bsmk.tar" >/dev/null
 $HDC shell "mv /data/bsmk.tar '$DEV_CACHE/downloads/$CACHE_NAME'"
 
-# 4) 设备端：干净状态 → 安装 → 可执行冒烟
+# 4) 同步 formula 到设备 tap（设备装的就是本仓库刚提交的这份，而非设备旧缓存）
+TAPDIR=/data/harmonybrew/Library/Taps/hbrew/homebrew-riscv
+$HDC shell "mkdir -p '$TAPDIR/$(dirname "${f#*$REPO_ROOT/}")'" >/dev/null 2>&1 || true
+$HDC file send "$f" "$TAPDIR/${f#*$REPO_ROOT/}" >/dev/null 2>&1 || echo "WARN: formula sync to device tap failed" >&2
+
+# 5) 设备端：干净状态 → 安装 → 可执行冒烟
 ENVSRC=". /data/harmonybrew/hbrew-env.sh"
 echo "=== device: uninstall (clean state) ==="
 $HDC shell "$ENVSRC; brew uninstall --formula --ignore-dependencies hbrew/riscv/$NAME 2>/dev/null || true"
@@ -81,7 +86,7 @@ echo "$SMOKE_OUT"
 echo "$SMOKE_OUT" | grep -q 'NO-KEG' && { echo "SMOKE FAILED: keg not created" >&2; exit 5; }
 echo "$SMOKE_OUT" | grep -q '^keg:' || { echo "SMOKE FAILED: no keg report" >&2; exit 5; }
 
-# 5) 收尾：默认卸载保持设备干净（--keep 保留）
+# 6) 收尾：默认卸载保持设备干净（--keep 保留）
 if [ "$KEEP" != "--keep" ]; then
   $HDC shell "$ENVSRC; brew uninstall --formula --ignore-dependencies hbrew/riscv/$NAME >/dev/null 2>&1 || true"
 fi

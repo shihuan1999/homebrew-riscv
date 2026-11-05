@@ -10,7 +10,7 @@ class Zsh < Formula
 
   bottle do
     root_url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles"
-    sha256 cellar: :any_skip_relocation, riscv64_ohos: "19ae3d80e38ca593900179bd504cf739015f6a1c1299722835816033c67d1683"
+    sha256 cellar: :any_skip_relocation, riscv64_ohos: "167d2a5a5433d77106f56dbf0b25f1cce65e4d6fd40d8b83e33775ef09b373e6"
   end
 
   resource "ohos_riscv64_dist" do
