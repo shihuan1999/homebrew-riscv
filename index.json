@@ -1,6 +1,6 @@
 {
  "count": 79,
- "updated": "2026-11-16T12:48:49Z",
+ "updated": "2026-11-16T13:14:05Z",
  "packages": [
   {
    "name": "agentstore-build",
@@ -790,7 +790,7 @@
     "libsodium"
    ],
    "formula": "Formula/z/zeromq.rb",
-   "bottled": false
+   "bottled": true
   },
   {
    "name": "zlib",
