@@ -1,6 +1,6 @@
 {
- "count": 73,
- "updated": "2026-11-05T12:56:18Z",
+ "count": 79,
+ "updated": "2026-11-16T12:48:49Z",
  "packages": [
   {
    "name": "agentstore-build",
@@ -265,6 +265,15 @@
    "bottled": true
   },
   {
+   "name": "libsodium",
+   "version": "1.0.20",
+   "desc": "Portable crypto library (musl riscv64) for zeromq CURVE",
+   "homepage": "https://github.com/jedisct1/libsodium",
+   "deps": [],
+   "formula": "Formula/l/libsodium.rb",
+   "bottled": true
+  },
+  {
    "name": "m4",
    "version": "1.4.20",
    "desc": "GNU macro processor",
@@ -327,6 +336,15 @@
    "homepage": "https://www.gnu.org/software/ncurses/",
    "deps": [],
    "formula": "Formula/n/ncurses.rb",
+   "bottled": true
+  },
+  {
+   "name": "nlohmann-json",
+   "version": "3.11.3",
+   "desc": "JSON for Modern C++ (header-only, riscv64_ohos keg)",
+   "homepage": "https://github.com/nlohmann/json",
+   "deps": [],
+   "formula": "Formula/n/nlohmann-json.rb",
    "bottled": true
   },
   {
@@ -649,7 +667,7 @@
   },
   {
    "name": "ros2-spacemit-examples",
-   "version": "2026.10.15",
+   "version": "2026.11.16",
    "desc": "SpacemiT robot SDK ROS 2 wrappers (slam_toolbox_run, nav2, humanoid_mujoco configs)",
    "homepage": "https://github.com/spacemit-robotics",
    "deps": [
@@ -658,6 +676,31 @@
     "ros2-nav2"
    ],
    "formula": "Formula/r/ros2-spacemit-examples.rb",
+   "bottled": true
+  },
+  {
+   "name": "ros2-spacemit-humanoid",
+   "version": "2026.11.12",
+   "desc": "SpacemiT humanoid ROS 2 wrappers: cmd_vel bridge, dynamic TF, nav launches",
+   "homepage": "https://github.com/spacemit-robotics/ros2_humanoid",
+   "deps": [
+    "ros2-humble-full",
+    "spacemit-humanoid-common",
+    "zeromq",
+    "nlohmann-json"
+   ],
+   "formula": "Formula/r/ros2-spacemit-humanoid.rb",
+   "bottled": true
+  },
+  {
+   "name": "ros2-spacemit-linksee",
+   "version": "2026.09.21",
+   "desc": "SpacemiT linksee wheeled-robot ROS 2 launch/config + rclpy helper nodes",
+   "homepage": "https://github.com/spacemit-robotics/linksee",
+   "deps": [
+    "ros2-humble-full"
+   ],
+   "formula": "Formula/r/ros2-spacemit-linksee.rb",
    "bottled": true
   },
   {
@@ -678,6 +721,17 @@
     "pigz"
    ],
    "formula": "Formula/s/shgz.rb",
+   "bottled": true
+  },
+  {
+   "name": "spacemit-humanoid-common",
+   "version": "2026.11.13",
+   "desc": "SpacemiT humanoid_common core libs: robot_base, transport_executor, operator_client",
+   "homepage": "https://github.com/spacemit-robotics/humanoid_common",
+   "deps": [
+    "ros2-humble-full"
+   ],
+   "formula": "Formula/s/spacemit-humanoid-common.rb",
    "bottled": true
   },
   {
@@ -726,6 +780,17 @@
    "deps": [],
    "formula": "Formula/x/xz.rb",
    "bottled": true
+  },
+  {
+   "name": "zeromq",
+   "version": "4.3.5",
+   "desc": "ZeroMQ core messaging library (musl riscv64) for spacemit humanoid",
+   "homepage": "https://github.com/zeromq/libzmq",
+   "deps": [
+    "libsodium"
+   ],
+   "formula": "Formula/z/zeromq.rb",
+   "bottled": false
   },
   {
    "name": "zlib",
