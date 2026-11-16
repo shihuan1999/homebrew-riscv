@@ -10,6 +10,11 @@ class Zeromq < Formula
 
   depends_on "libsodium"
 
+  bottle do
+    root_url "https://github.com/shihuan1999/homebrew-riscv/releases/download/bottles"
+    sha256 cellar: :any_skip_relocation, riscv64_ohos: "63e21a8068a1cb3285b93a90de6b84c95e0c0b368a25763a863fc3f7c928107f"
+  end
+
   def install
     prefix.install Dir["*"]
   end
