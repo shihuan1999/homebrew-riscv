@@ -1,6 +1,6 @@
 {
- "count": 79,
- "updated": "2026-11-16T13:14:05Z",
+ "count": 82,
+ "updated": "2026-11-17T12:16:46Z",
  "packages": [
   {
    "name": "agentstore-build",
@@ -301,6 +301,15 @@
    "bottled": true
   },
   {
+   "name": "mindspore-nnrt",
+   "version": "6.1.0-k3.1",
+   "desc": "OpenHarmony 6.1 Neural Network Runtime client libs + proxy backends (riscv64)",
+   "homepage": "https://gitee.com/openharmony/neural_network_runtime",
+   "deps": [],
+   "formula": "Formula/n/mindspore-nnrt.rb",
+   "bottled": true
+  },
+  {
    "name": "mosquitto",
    "version": "2.0.20",
    "desc": "MQTT broker and clients — robot telemetry and control channel",
@@ -312,12 +321,12 @@
    "bottled": true
   },
   {
-   "name": "mindspore-nnrt",
-   "version": "6.1.0-k3.1",
-   "desc": "OpenHarmony 6.1 Neural Network Runtime client libs + proxy backends (riscv64)",
-   "homepage": "https://gitee.com/openharmony/neural_network_runtime",
+   "name": "mujoco",
+   "version": "3.4.0",
+   "desc": "MuJoCo 3.4 physics engine core library (OpenHarmony riscv64, musl, headless)",
+   "homepage": "https://mujoco.org/",
    "deps": [],
-   "formula": "Formula/n/mindspore-nnrt.rb",
+   "formula": "Formula/m/mujoco.rb",
    "bottled": true
   },
   {
@@ -365,6 +374,26 @@
     "python"
    ],
    "formula": "Formula/o/ohos-kb.rb",
+   "bottled": true
+  },
+  {
+   "name": "opencv",
+   "version": "4.10.0",
+   "desc": "OpenCV 4.10 computer vision libraries (OpenHarmony riscv64, musl)",
+   "homepage": "https://opencv.org/",
+   "deps": [],
+   "formula": "Formula/o/opencv.rb",
+   "bottled": true
+  },
+  {
+   "name": "openjiuwen",
+   "version": "0.1.17",
+   "desc": "openJiuwen agent framework (core 0.1.17) with riscv64-ohos dep closure",
+   "homepage": "https://github.com/openJiuwen-ai/agent-core",
+   "deps": [
+    "python"
+   ],
+   "formula": "Formula/o/openjiuwen.rb",
    "bottled": true
   },
   {
@@ -506,17 +535,6 @@
    "bottled": true
   },
   {
-   "name": "openjiuwen",
-   "version": "0.1.17",
-   "desc": "openJiuwen agent framework (core 0.1.17) with riscv64-ohos dep closure",
-   "homepage": "https://github.com/openJiuwen-ai/agent-core",
-   "deps": [
-    "python"
-   ],
-   "formula": "Formula/o/openjiuwen.rb",
-   "bottled": true
-  },
-  {
    "name": "openssh",
    "version": "10.4p1",
    "desc": "OpenBSD's SSH remote login client/server",
@@ -612,6 +630,15 @@
    "bottled": true
   },
   {
+   "name": "ros2-humble",
+   "version": "16.0.20-riscv1",
+   "desc": "ROS 2 Humble (rcl/rclcpp + CycloneDDS, demo_nodes_cpp) for OpenHarmony riscv64",
+   "homepage": "https://docs.ros.org/en/humble/",
+   "deps": [],
+   "formula": "Formula/r/ros2-humble.rb",
+   "bottled": true
+  },
+  {
    "name": "ros2-humble-full",
    "version": "16.0.21-riscv1",
    "desc": "ROS 2 Humble full robot stack (rclpy/ros2cli/tf2/ros2_control/rosbridge) for OpenHarmony riscv64",
@@ -620,15 +647,6 @@
     "python"
    ],
    "formula": "Formula/r/ros2-humble-full.rb",
-   "bottled": true
-  },
-  {
-   "name": "ros2-humble",
-   "version": "16.0.20-riscv1",
-   "desc": "ROS 2 Humble (rcl/rclcpp + CycloneDDS, demo_nodes_cpp) for OpenHarmony riscv64",
-   "homepage": "https://docs.ros.org/en/humble/",
-   "deps": [],
-   "formula": "Formula/r/ros2-humble.rb",
    "bottled": true
   },
   {
@@ -701,6 +719,18 @@
     "ros2-humble-full"
    ],
    "formula": "Formula/r/ros2-spacemit-linksee.rb",
+   "bottled": true
+  },
+  {
+   "name": "ros2-vision",
+   "version": "2026.11.17",
+   "desc": "cv_bridge + image_transport/pipeline vision overlay for ROS 2 (OpenHarmony riscv64)",
+   "homepage": "https://github.com/ros-perception/vision_opencv",
+   "deps": [
+    "ros2-humble-full",
+    "opencv"
+   ],
+   "formula": "Formula/r/ros2-vision.rb",
    "bottled": true
   },
   {

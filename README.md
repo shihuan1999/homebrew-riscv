@@ -157,6 +157,24 @@ Python side: `pip install pyserial periphery` (pure-python, from the PyPI
 mirrors configured below) covers GPIO/I2C/SPI/UART/PWM and serial-servo
 protocols on top of the same device nodes.
 
+## ROS 2 robot development stack (2026-11, device-verified)
+
+Full ROS 2 Humble distribution + SLAM/Nav2/control/spacemit robot wrappers +
+vision (OpenCV 4.10/cv_bridge) + MuJoCo physics, all cross-built for musl
+riscv64 and smoke-tested on a real K3 pico (18/18 cases green, 2026-11-17):
+
+```sh
+brew install hbrew/riscv/ros2-humble-full hbrew/riscv/ros2-slam hbrew/riscv/ros2-nav2 \
+             hbrew/riscv/ros2-sim hbrew/riscv/ros2-controllers
+brew install hbrew/riscv/spacemit-humanoid-common hbrew/riscv/ros2-spacemit-humanoid \
+             hbrew/riscv/ros2-spacemit-linksee hbrew/riscv/ros2-spacemit-examples
+brew install hbrew/riscv/opencv hbrew/riscv/ros2-vision hbrew/riscv/mujoco   # vision + physics
+```
+
+Demos (DDS/SLAM/Nav2/ros2_control/linksee/humanoid) and the customer
+onboarding guide for building your own robot on this stack:
+**[ROS2-ROBOT-DEMO.md](ROS2-ROBOT-DEMO.md)**.
+
 ## Python multi-source pip policy (riscv64 musl)
 
 The `python` keg ships `etc/pip.conf` with three sources (loaded via
